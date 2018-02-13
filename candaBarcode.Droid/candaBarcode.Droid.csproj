@@ -69,6 +69,7 @@
     <Compile Include="Action\Readerbase.cs" />
     <Compile Include="Action\SerialPort.cs" />
     <Compile Include="Action\SerialPortFinder.cs" />
+    <Compile Include="handler.cs" />
     <Compile Include="ListAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="model\info.cs" />

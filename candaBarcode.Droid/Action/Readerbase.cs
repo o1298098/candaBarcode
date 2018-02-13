@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Android.App;
 using Android.OS;
@@ -20,13 +21,16 @@ namespace candaBarcode.Droid
         private OutputStream mOutStream = null;
         private System.Byte[] m_btAryBuffer=new byte[4096];
         private int m_nLength = 0;
+        private int index = 0;
         private bool mShouldRunning = true;
         ObservableCollection<model.info> item=new ObservableCollection<model.info>();
+        ObservableCollection<model.info> item2 = new ObservableCollection<model.info>();
 
 
-        public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.info> items)
+        public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.info> items, out ObservableCollection<model.info> items2)
         {
             items = item;
+            items2 = item2;
             this.mInStream = instream;
             this.mOutStream = outstream;
             StartWait();
@@ -88,7 +92,7 @@ namespace candaBarcode.Droid
                 e.PrintStackTrace();
             }
         }
-        private void RunNew2DCodeCallBack(byte[] btAryReceiveData)
+        private  void RunNew2DCodeCallBack(byte[] btAryReceiveData)
         {
             try
             {
@@ -110,7 +114,7 @@ namespace candaBarcode.Droid
                             if (btAryBuffer[i] == (byte)'$')
                             {
                                 end = i;
-                                recive2DCodeData(Encoding.Default.GetString(Com.Util.StringTool.SubBytes(btAryBuffer, start, end)));
+                                recive2DCodeData(Encoding.Default.GetString(Com.Util.StringTool.SubBytes(btAryBuffer, start, end)));                                
                                 //calculate the scan speed;
                                 //CalculateSpeed.mTotalTime += System.currentTimeMillis() - CalculateSpeed.mStartTime;
                                 nIndex = i + 1;
@@ -176,12 +180,19 @@ namespace candaBarcode.Droid
        
         public void recive2DCodeData(string str)
         {
-            List<object> Parameters = new List<object>();
-            Parameters.Add(str);
+           
             try
             {
                 //string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
-                item.Add(new model.info { EMSNUM = str });
+                 var selectResult = from s in item 
+                                    where s.EMSNUM==str
+                                    select s.EMSNUM;
+                if (selectResult.Count()<=0)
+                {                    
+                    item.Add(new model.info { EMSNUM = str, state = "未同步", index = index });
+                    item2.Add(new model.info { EMSNUM = str, state = "未同步", index = index });
+                    index++;
+                }               
                 Log.Debug("OK", str);
             }
             catch (Java.Lang.Exception ex)

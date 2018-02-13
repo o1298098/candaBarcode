@@ -12,14 +12,23 @@
         android:layout_height="30dp"
         android:id="@+id/linearLayout1"
         android:gravity="center"
-        android:theme="@android:style/Widget.DeviceDefault.ActionBar.TabView">
+        android:theme="@android:style/Widget.DeviceDefault.ActionBar.TabView"
+        android:minWidth="25px"
+        android:minHeight="25px">
         <TextView
-            android:text="Text"
-            android:layout_width="wrap_content"
+            android:text="单号"
+            android:layout_width="187.5dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textSize="20dip"
-            android:id="@+id/EMSNUM" 
-           />
+            android:id="@+id/EMSNUM"
+            android:layout_marginRight="17.0dp" />
+        <TextView
+            android:text="状态"
+            android:layout_width="116.5dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="20dip"
+            android:id="@+id/state" />
     </LinearLayout>
 </LinearLayout>

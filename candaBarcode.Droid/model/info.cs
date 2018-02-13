@@ -33,6 +33,16 @@ namespace candaBarcode.Droid.model
 
             }
         }
+        public string state
+        {
+            get;
+            set;
+        }
+        public int index
+        {
+            get;
+            set;
+        }
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

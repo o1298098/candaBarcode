@@ -6,6 +6,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Database;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -16,11 +17,11 @@ namespace candaBarcode.Droid
 {
     public class ListAdapter : BaseAdapter<info>
     {
-        ObservableCollection<model.info> Items;
+        ObservableCollection<info> Items;
         Activity context;
        
 
-        public ListAdapter(Activity context, ObservableCollection<model.info> items): base()
+        public ListAdapter(Activity context, ObservableCollection<info> items) : base()
         {
             this.context = context;
             this.Items = items;
@@ -39,7 +40,16 @@ namespace candaBarcode.Droid
         {
             get { return Items.Count; }
         }
-
+        //public override void NotifyDataSetChanged()
+        //{
+        //    base.NotifyDataSetChanged();
+        //}
+        public void refresh(ObservableCollection<info> list)
+        {
+            Items = list;
+            NotifyDataSetChanged();
+        }
+      
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             View view = convertView;
@@ -47,8 +57,7 @@ namespace candaBarcode.Droid
             if (view == null)
                 view = context.LayoutInflater.Inflate(Resource.Layout.ListAdapter, null);
             view.FindViewById<TextView>(Resource.Id.EMSNUM).Text=Items[position].EMSNUM;
-           
-
+            view.FindViewById<TextView>(Resource.Id.state).Text = Items[position].state;
             //if (holder == null)
             //{
             //    holder = new ListAdapterViewHolder();
