@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using Android.Database;
 using candaBarcode.apiHelper;
+using Android.Content;
 
 namespace candaBarcode.Droid
 {
@@ -38,7 +39,8 @@ namespace candaBarcode.Droid
                 switch (e.Item.ItemId)
                 {
                     case Resource.Id.menu_history:
-                        Toast.MakeText(this, "历史记录", ToastLength.Short).Show();
+                        Intent intent = new Intent(this, typeof(SearchActivity));
+                        StartActivity(intent);
                         break;
                     case Resource.Id.menu_about:
                         Toast.MakeText(this, "关于都看，好人才", ToastLength.Short).Show();
@@ -58,11 +60,8 @@ namespace candaBarcode.Droid
                 listAdapter = new ListAdapter(this, items);
                 list.Adapter = listAdapter;
                 thread = new Thread(update);
-                RunOnUiThread(() =>
-                {
-                    thread.Start();
-                });
-            Button refreshbtn = FindViewById<Button>(Resource.Id.refresh);               
+                thread.Start();
+            Button refreshbtn = FindViewById<Button>(Resource.Id.refresh);
             refreshbtn.Click += delegate
              {
                  listAdapter.NotifyDataSetChanged();
@@ -123,6 +122,7 @@ namespace candaBarcode.Droid
                     Thread.Sleep(150);
                     listAdapter.refresh(items);
                 });
+                return true;
             }
             return base.OnKeyDown(keyCode, e);
         }
@@ -141,8 +141,14 @@ namespace candaBarcode.Droid
                           bool answer=  updateToSystem(items2[i].EMSNUM);
                             if (answer)
                             {
+
                                 items[j].state = "已同步";
                                 items2.RemoveAt(i);
+                            }
+                            else
+                            {
+                                Thread.Sleep(3000);
+                                break;
                             }
                         }
                         catch {
@@ -159,17 +165,21 @@ namespace candaBarcode.Droid
 
         private bool updateToSystem(string str)
         {
-            List<object> Parameters = new List<object>();
-            Parameters.Add(str);
-            string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
-            if (result == "err")
+            try
             {
-                return false;
+                List<object> Parameters = new List<object>();
+                Parameters.Add(str);
+                string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
+                if (result == "err")
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return true;
-            }
+            catch { return false; }
         }
     }
 }

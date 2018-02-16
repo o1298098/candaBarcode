@@ -43,13 +43,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
-    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <EnableProguard>false</EnableProguard>
+    <AndroidSupportedAbis>armeabi;armeabi-v7a</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ModuleControl">
@@ -87,13 +88,16 @@
     <Compile Include="Action\Readerbase.cs" />
     <Compile Include="Action\SerialPort.cs" />
     <Compile Include="Action\SerialPortFinder.cs" />
+    <Compile Include="Action\SQliteHelper.cs" />
     <Compile Include="handler.cs" />
+    <Compile Include="SearchAdapter.cs" />
     <Compile Include="ListAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="model\EmsNum.cs" />
     <Compile Include="model\InfoTable.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
@@ -114,6 +118,12 @@
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\ListAdapter.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SearchAdapter.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SeachListView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -13,18 +13,9 @@
         android:background="#0d8ce8"
         android:title="来扫描吧"
         android:titleTextColor="@android:color/white" />
-    <ListView
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="447.0dp"
-        android:id="@+id/listView"
-        android:background="@android:color/background_light"
-        android:scrollbars="vertical"
-        android:scrollbarStyle="outsideOverlay" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="55dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:minWidth="25px"
@@ -41,11 +32,12 @@
             android:textColorHint="@android:color/background_dark" />
         <Button
             android:text="提交单号"
-            android:layout_width="86.5dp"
+            android:layout_width="87.5dp"
             android:layout_height="wrap_content"
             android:id="@+id/submit"
             android:background="#0d8ce8"
-            android:layout_marginLeft="176.0dp" />
+            android:layout_marginLeft="176.0dp"
+            android:layout_marginTop="3.0dp" />
         <Button
             android:text="刷新列表"
             android:layout_width="87.5dp"
@@ -53,6 +45,16 @@
             android:id="@+id/refresh"
             android:background="#0d8ce8"
             android:layout_marginLeft="273.5dp"
-            android:layout_marginRight="5.5dp" />
+            android:layout_marginRight="5.5dp"
+            android:layout_marginTop="3dp" />
     </RelativeLayout>
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listView"
+        android:background="@android:color/background_light"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay" />
 </LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="5dp"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/linearLayout1"
+        android:gravity="center"
+        android:theme="@android:style/Widget.DeviceDefault.ActionBar.TabView"
+        android:minWidth="25px"
+        android:minHeight="25px">
+        <TextView
+            android:text="单号"
+            android:layout_width="157.5dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="10dip"
+            android:id="@+id/EMSNUM"
+            android:layout_marginRight="1.0dp" />
+        <TextView
+            android:text="状态"
+            android:layout_width="116.5dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="10dip"
+            android:id="@+id/state" />
+        <TextView
+            android:text="扫描日期"
+            android:layout_width="116.5dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="10dip"
+            android:id="@+id/ScanDate" />
+    </LinearLayout>
+</LinearLayout>
