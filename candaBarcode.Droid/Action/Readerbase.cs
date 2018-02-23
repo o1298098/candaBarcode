@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Android.App;
@@ -10,7 +11,6 @@ using Android.Widget;
 using candaBarcode.apiHelper;
 using candaBarcode.Droid.Action;
 using Com.Scanner2d.Config;
-using Java.IO;
 using Java.Lang;
 
 namespace candaBarcode.Droid
@@ -18,8 +18,8 @@ namespace candaBarcode.Droid
     public  class Readerbase
     {
         private Thread mWaitThread = null;
-        private InputStream mInStream = null;
-        private OutputStream mOutStream = null;
+        private Stream mInStream = null;
+        private Stream mOutStream = null;
         private System.Byte[] m_btAryBuffer=new byte[4096];
         private int m_nLength = 0;
         private int index = 0;
@@ -31,7 +31,7 @@ namespace candaBarcode.Droid
         private Activity activity;
         Notification.Builder notify;
 
-        public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.EmsNum> items, out ObservableCollection<model.EmsNum> items2, NotificationManager nMgr,Activity activity)
+        public  Readerbase(Stream instream, Stream outstream , out ObservableCollection<model.EmsNum> items, out ObservableCollection<model.EmsNum> items2, NotificationManager nMgr,Activity activity)
         {
             items = item;
             items2 = item2;
@@ -66,7 +66,7 @@ namespace candaBarcode.Droid
             {
                 try
                 {
-                    int nLenRead = mInStream.Read(btAryBuffer);
+                    int nLenRead = mInStream.Read(btAryBuffer,0,btAryBuffer.Length);
                     if (nLenRead > 0)
                     {
                         byte[] btAryReceiveData = new byte[nLenRead];
@@ -101,7 +101,7 @@ namespace candaBarcode.Droid
             catch (IOException e)
             {
                 // TODO Auto-generated catch block
-                e.PrintStackTrace();
+                //e.PrintStackTrace();
             }
         }
         private  void RunNew2DCodeCallBack(byte[] btAryReceiveData)
