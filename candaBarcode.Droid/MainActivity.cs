@@ -135,7 +135,7 @@ namespace candaBarcode.Droid
                
                 RunOnUiThread(() =>
                 {
-                    Thread.Sleep(150);
+                    Thread.Sleep(200);
                     listAdapter.refresh(items);
                 });
                 return true;

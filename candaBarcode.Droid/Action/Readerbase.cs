@@ -218,7 +218,7 @@ namespace candaBarcode.Droid
                 else if (result == "0")
                     messagemod("系统无此记录", "", Android.Media.RingtoneType.Alarm);
                 else if (result == "2")
-                { messagemod("重复扫描", "", Android.Media.RingtoneType.Alarm);}
+                { messagemod("重复扫描", "", Android.Media.RingtoneType.Alarm); item.Add(new model.EmsNum { EMSNUM = str, state = "重复", index = index });index++; }
                 else
                     messagemod("网络有误，请稍后再试", "", Android.Media.RingtoneType.Alarm);
                     //sql = new SQliteHelper();
