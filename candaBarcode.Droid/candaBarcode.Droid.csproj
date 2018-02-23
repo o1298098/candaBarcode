@@ -49,11 +49,12 @@
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
-    <EnableProguard>false</EnableProguard>
+    <EnableProguard>true</EnableProguard>
     <AndroidSupportedAbis>armeabi;armeabi-v7a</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ModuleControl">
+    <Reference Include="ModuleControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\admin\Documents\Visual Studio 2017\Projects\ModuleControl\ModuleControl\bin\Debug\ModuleControl.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -107,7 +108,7 @@
     <AndroidNativeLibrary Include="lib\armeabi\libserial_port.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="lib\armeabi-v7a\libModuleManager.so">
+    <AndroidNativeLibrary Include="lib\armeabi-v7a\libmodule_manager.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AndroidNativeLibrary>
     <AndroidNativeLibrary Include="lib\armeabi-v7a\libserial_port.so">

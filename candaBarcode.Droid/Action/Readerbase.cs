@@ -10,16 +10,16 @@ using Android.Widget;
 using candaBarcode.apiHelper;
 using candaBarcode.Droid.Action;
 using Com.Scanner2d.Config;
-using Java.IO;
 using Java.Lang;
+using System.IO;
 
 namespace candaBarcode.Droid
 {
     public  class Readerbase
     {
         private Thread mWaitThread = null;
-        private InputStream mInStream = null;
-        private OutputStream mOutStream = null;
+        private Stream mInStream = null;
+        private Stream mOutStream = null;
         private System.Byte[] m_btAryBuffer=new byte[4096];
         private int m_nLength = 0;
         private int index = 1;
@@ -30,7 +30,7 @@ namespace candaBarcode.Droid
         private Activity activity;
         Notification.Builder notify;
 
-        public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.EmsNum> items, NotificationManager nMgr,Activity activity)
+        public  Readerbase(Stream instream, Stream outstream , out ObservableCollection<model.EmsNum> items, NotificationManager nMgr,Activity activity)
         {
             items = item;
             this.nMgr = nMgr;
@@ -71,7 +71,7 @@ namespace candaBarcode.Droid
             {
                 try
                 {
-                    int nLenRead = mInStream.Read(btAryBuffer);
+                    int nLenRead = mInStream.Read(btAryBuffer,0,btAryBuffer.Length);
                     if (nLenRead > 0)
                     {
                         byte[] btAryReceiveData = new byte[nLenRead];
@@ -106,7 +106,7 @@ namespace candaBarcode.Droid
             catch (IOException e)
             {
                 // TODO Auto-generated catch block
-                e.PrintStackTrace();
+                //e.PrintStackTrace();
             }
         }
         private  void RunNew2DCodeCallBack(byte[] btAryReceiveData)
@@ -182,7 +182,7 @@ namespace candaBarcode.Droid
             }
             catch (Java.Lang.Exception e)
             {
-
+                Log.Debug("++++++++++++++++++++++++++++",e.Message);
             }
         }
 
@@ -209,18 +209,18 @@ namespace candaBarcode.Droid
                     List<object> Parameters = new List<object>();
                     Parameters.Add(str);
                     string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService2", Parameters);
-                    if (result == "1")
-                    {
-                        item.Add(new model.EmsNum { EMSNUM = str, state = "已同步", index = index });
-                        index++;
-                        messagemod(str+"扫描成功", "", Android.Media.RingtoneType.Notification);
-                    }
-                    else if (result == "0")
-                        messagemod("系统无此记录", "", Android.Media.RingtoneType.Alarm);
-                    else if (result == "2")
-                        messagemod("重复扫描", "", Android.Media.RingtoneType.Alarm);
-                    else
-                        messagemod("网络有误，请稍后再试", "", Android.Media.RingtoneType.Alarm);
+                if (result == "1")
+                {
+                    item.Add(new model.EmsNum { EMSNUM = str, state = "已同步", index = index });
+                    index++;
+                    messagemod(str + "扫描成功", "", Android.Media.RingtoneType.Notification);
+                }
+                else if (result == "0")
+                    messagemod("系统无此记录", "", Android.Media.RingtoneType.Alarm);
+                else if (result == "2")
+                { messagemod("重复扫描", "", Android.Media.RingtoneType.Alarm);}
+                else
+                    messagemod("网络有误，请稍后再试", "", Android.Media.RingtoneType.Alarm);
                     //sql = new SQliteHelper();
                     //sql.insertAsync(str,"未同步");
                 //}

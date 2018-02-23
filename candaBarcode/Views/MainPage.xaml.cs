@@ -4,8 +4,12 @@ using candaBarcode.Model;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
@@ -14,7 +18,7 @@ namespace candaBarcode
 {
 	public partial class MainPage : ContentPage
 	{
-       
+      
         public MainPage()
 		{
             InitializeComponent();
@@ -45,9 +49,7 @@ namespace candaBarcode
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 AutomationId = "list"
             };
-            List<Listdata> list = new List<Listdata> {
-               new Listdata{Index=1,Num="56564646456456",State="已同步" }
-            };
+            List<Listdata> list = new List<Listdata>();
             List<Listdata> list2 = new List<Listdata>();
             var customCell = new DataTemplate(typeof(CustomCell));
             customCell.SetBinding(CustomCell.IndexProperty, "Index");
@@ -60,14 +62,40 @@ namespace candaBarcode
                 var customScanPage = new CustomScanPage(list,out list2);
                 await Navigation.PushAsync(customScanPage);
             };
-            buttonrefresh.Clicked += delegate { listView.ItemsSource = list2; };
+            buttonrefresh.Clicked += delegate {list= listAdd(list,list2); listView.ItemsSource = list; };
             var stack = new StackLayout();
             stack.Children.Add(listView);
             stack.Children.Add(buttonScanCustomPage);
             stack.Children.Add(buttonrefresh);
             Content = stack;
         }
-       
+        public List<Listdata> listAdd(List<Listdata> list, List<Listdata> list2)
+        {
+            while (true)
+            {
+                List<Listdata> listdata = Clone<Listdata>(list2);
 
+                if (list2.Count > 0)
+                {
+                    for (int i = listdata.Count; i <= 0; i--)
+                    {
+                        list.Add(listdata[i]);
+                        list2.RemoveAt(i);
+                    }
+                }
+            return listdata;
+            }
+        }
+
+        public static List<T> Clone<T>(object List)
+        {
+            using (Stream objectStream = new MemoryStream())
+            {
+                IFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(objectStream, List);
+                objectStream.Seek(0, SeekOrigin.Begin);
+                return formatter.Deserialize(objectStream) as List<T>;
+            }
+        }
     }
 }

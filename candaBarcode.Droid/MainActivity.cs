@@ -1,8 +1,6 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
-using SerialPort;
-using Com.Rodinbell.Module;
 using Android.Views;
 using Java.IO;
 using System.Collections.Generic;
@@ -13,6 +11,7 @@ using candaBarcode.apiHelper;
 using Android.Content;
 using candaBarcode.Droid.Action;
 using System.Threading.Tasks;
+using Com.Nativec.Tools;
 
 namespace candaBarcode.Droid
 {
@@ -55,9 +54,9 @@ namespace candaBarcode.Droid
             try
             {
                 SerialPortFinder serialPortFinder = new SerialPortFinder();
-                string[] entryValues = serialPortFinder.getAllDevicesPath();
-                string[] entries = serialPortFinder.getAllDevices();
-                SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
+                string[] entryValues = serialPortFinder.GetAllDevicesPath();
+                string[] entries = serialPortFinder.GetAllDevices();
+                Com.Nativec.Tools.SerialPort serialPort = new Com.Nativec.Tools.SerialPort(new File(entryValues[7]), 115200, 0);
                 ModuleManager.NewInstance().SetUHFStatus(false);
                 ModuleManager.NewInstance().SetScanStatus(true);
                 mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, nMgr, this);

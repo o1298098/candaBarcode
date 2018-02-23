@@ -63,7 +63,8 @@ namespace SerialPort
                     throw new SecurityException();
                 }
             }
-            IntPtr IntPtrClass= JNIEnv.FindClass(this.GetType());
+            IntPtr temp = JNIEnv.FindClass(this.GetType());
+            IntPtr IntPtrClass = JNIEnv.NewGlobalRef(temp);
 #if MyAlter
             mFd = GetFileDescriptor(device.AbsolutePath, baudrate, flags, out serialPortHandle);
 #else
@@ -98,16 +99,17 @@ namespace SerialPort
         }
 
         [DllImport("serial_port", EntryPoint = "openSerialPort")]
-        private static extern int open(System.Text.StringBuilder path, int baudrate, int flags);
+        private static extern int open(string path, int baudrate, int flags);
 
         [DllImport("serial_port", EntryPoint = "closeSerialPort")]
         private static extern void close(int handle);
 
         private FileDescriptor GetFileDescriptor(string path, int baudrate, int flags, out int Handle)
         {
-            int sHandle = open(new System.Text.StringBuilder(path), baudrate, flags);
+            int sHandle = open(path, baudrate, flags);
             Handle = sHandle;
-            IntPtr fp = JNIEnv.FindClass(typeof(FileDescriptor));
+            IntPtr temp = JNIEnv.FindClass(typeof(FileDescriptor));
+            IntPtr fp = JNIEnv.NewGlobalRef(temp);
             IntPtr fpm = JNIEnv.GetMethodID(fp, "<init>", "()V");
             IntPtr fpObject = JNIEnv.NewObject(fp, fpm);
             IntPtr filed = JNIEnv.GetFieldID(fp, "descriptor", "I");

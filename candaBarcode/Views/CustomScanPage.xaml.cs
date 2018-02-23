@@ -35,7 +35,7 @@ namespace candaBarcode
         public CustomScanPage(List<Listdata> listdata,out List<Listdata> listdata2):base()
 		{
             this.list = listdata;
-            listdata2 = this.list;
+            listdata2 =list;
             listview = new ListView
             {
                 HorizontalOptions = LayoutOptions.Center,
@@ -60,15 +60,15 @@ namespace candaBarcode
                 Options= scanningOptions
              };
             zxing.OnScanResult += (result) =>
-                Device.BeginInvokeOnMainThread(() => {
+                Device.BeginInvokeOnMainThread(async () => {
 
                     // Stop analysis until we navigate away so we don't keep reading barcodes
                     //zxing.IsAnalyzing = false;
                     // Show an alert
                     //await DisplayAlert("扫描条码", result.Text, "OK");
-                  HandleScanResult(result,list);
+                    HandleScanResult(result);
                     // Navigate away
-                    //await Navigation.PopAsync();
+                    await Navigation.PopAsync();
                 });
             
             overlay = new ZXingOverlay
@@ -129,7 +129,7 @@ namespace candaBarcode
 
             base.OnDisappearing();
         }
-       void HandleScanResult(ZXing.Result result, List<Listdata> list)
+       void HandleScanResult(ZXing.Result result)
         {
             var v = CrossVibrate.Current;
             v.Vibration(TimeSpan.FromSeconds(0.2));
@@ -145,10 +145,10 @@ namespace candaBarcode
                 if (result2 == "1")
                 {
                     list.Add(new Listdata { Index = list.Count + 1, Num = result.Text, State = "已同步" });
-                    label.Text = "扫描成功";
+                    label.Text = result.Text+"扫描成功";
                 }
                 else if (result2 == "2")
-                { label.Text = "已扫描"; }
+                { label.Text = "已扫描";}
                 else
                 {
                     label.Text = "无此记录";
