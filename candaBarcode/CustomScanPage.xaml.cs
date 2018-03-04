@@ -58,7 +58,7 @@ namespace candaBarcode
                     //zxing.IsAnalyzing = false;
                     // Show an alert
                     //await DisplayAlert("扫描条码", result.Text, "OK");
-                  await HandleScanResult(result);
+                  await new Task(()=> HandleScanResult(result));
                     // Navigate away
                     //await Navigation.PopAsync();
                 });
@@ -121,29 +121,28 @@ namespace candaBarcode
 
             base.OnDisappearing();
         }
-       async Task<bool> HandleScanResult(ZXing.Result result)
+       void HandleScanResult(ZXing.Result result)
         {
-
+           
             if (result != null && !string.IsNullOrEmpty(result.Text))
                 s.Add(result.Text);
             //listview.ItemsSource = s.ToArray();
             var v = CrossVibrate.Current;
             v.Vibration(TimeSpan.FromSeconds(0.2));
-            var result2 = InvokeHelper.Login();
-            var iResult = JObject.Parse(result2)["LoginResultType"].Value<int>();
-            if (iResult == 1 || iResult == -5)
+            //var result2 = InvokeHelper.Login();
+            //var iResult = JObject.Parse(result2)["LoginResultType"].Value<int>();
+            //if (iResult == 1 || iResult == -5)
+            //{
+            try
             {
-                result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", null);
+                var result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", null); 
+                label.Text = result2;
+            }
+            catch (Exception ex)
+            {
+                label.Text = ex.Message;
+            }
 
-                {
-                    label.Text = result2;
-                }
-            }
-            else
-            {
-                label.Text = "login failed";
-            }
-            return true;
         }
     }
 }
