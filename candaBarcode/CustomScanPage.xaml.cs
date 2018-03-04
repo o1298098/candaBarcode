@@ -25,7 +25,12 @@ namespace candaBarcode
         List<string> s = new List<string>();
         ListView listview;
         Label label;
-        
+        public class Info
+        {
+            public string FLOGISTICNUM { get; set; }
+           
+        }
+
         public CustomScanPage ():base()
 		{
             listview = new ListView
@@ -133,9 +138,11 @@ namespace candaBarcode
             //var iResult = JObject.Parse(result2)["LoginResultType"].Value<int>();
             //if (iResult == 1 || iResult == -5)
             //{
+            Info info = new Info();
+            info.FLOGISTICNUM = result.Text;
             try
             {
-                var result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", null); 
+                var result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", info); 
                 label.Text = result2;
             }
             catch (Exception ex)

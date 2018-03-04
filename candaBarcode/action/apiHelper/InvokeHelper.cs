@@ -93,7 +93,7 @@ namespace candaBarcode.apiHelper
         /// <param name="key">自定义方法标识</param>
         /// <param name="args">参数</param>
         /// <returns></returns>
-        public static string AbstractWebApiBusinessService(string key, List<object> args)
+        public static string AbstractWebApiBusinessService(string key, object args)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Url = string.Concat(CloudUrl, key, ".common.kdsvc");
