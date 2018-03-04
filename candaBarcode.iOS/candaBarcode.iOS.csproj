@@ -113,11 +113,24 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>I:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v7.1\Mono.Android.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.Vibrate">
+      <Version>4.0.0.1-beta</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>2.5.1.317207-pre1</Version>
     </PackageReference>

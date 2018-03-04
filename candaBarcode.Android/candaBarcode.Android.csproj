@@ -54,17 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms">
-      <Version>2.5.1.317207-pre1</Version>
-    </PackageReference>
-    <PackageReference Include="ZXing.Net.Mobile">
-      <Version>2.3.2</Version>
-    </PackageReference>
-    <PackageReference Include="ZXing.Net.Mobile.Forms">
-      <Version>2.3.2</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +77,23 @@
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.Vibrate">
+      <Version>4.0.0.1-beta</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms">
+      <Version>2.5.1.317207-pre1</Version>
+    </PackageReference>
+    <PackageReference Include="ZXing.Net.Mobile">
+      <Version>2.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="ZXing.Net.Mobile.Forms">
+      <Version>2.3.2</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="..\candaBarcode\candaBarcode.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

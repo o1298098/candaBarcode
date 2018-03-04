@@ -13,6 +13,8 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)apiHelper\HttpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)apiHelper\InvokeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>

@@ -1,4 +1,6 @@
 ﻿using candaBarcode.Forms;
+using candaBarcode.apiHelper;
+using Plugin.Vibrate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,10 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;
 
+//using BAH.BOS.WebAPI.Client;
+using System.Globalization;
+using Newtonsoft.Json.Linq;
+
 namespace candaBarcode
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
@@ -18,14 +24,25 @@ namespace candaBarcode
         ZXingOverlay overlay;
         List<string> s = new List<string>();
         ListView listview;
+        Label label;
+        
         public CustomScanPage ():base()
 		{
             listview = new ListView
             {
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                AutomationId = "listview",  
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                AutomationId = "listview",                  
                 
+            };       
+            label = new Label
+            {
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                AutomationId = "label",
+                TextColor = Color.White,
+                FontSize=40
+
             };
             ZXing.Mobile.MobileBarcodeScanningOptions scanningOptions = new ZXing.Mobile.MobileBarcodeScanningOptions { DelayBetweenContinuousScans=1000 };
              zxing = new ZXingScannerView
@@ -35,16 +52,16 @@ namespace candaBarcode
                 Options= scanningOptions
              };
             zxing.OnScanResult += (result) =>
-                Device.BeginInvokeOnMainThread(() => 
+                Device.BeginInvokeOnMainThread(async() => {
 
-                // Stop analysis until we navigate away so we don't keep reading barcodes
-                //zxing.IsAnalyzing = false;
-                // Show an alert
-                //await DisplayAlert("扫描条码", result.Text, "OK");
-                 HandleScanResult(result)
+                    // Stop analysis until we navigate away so we don't keep reading barcodes
+                    //zxing.IsAnalyzing = false;
+                    // Show an alert
+                    //await DisplayAlert("扫描条码", result.Text, "OK");
+                  await HandleScanResult(result);
                     // Navigate away
                     //await Navigation.PopAsync();
-                );
+                });
             
             overlay = new ZXingOverlay
             {
@@ -82,10 +99,9 @@ namespace candaBarcode
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
-            grid.Children.Add(zxing,0,0);
-            //overlay.Children.Add(listview, 0, 2);
+            grid.Children.Add(zxing,0,0);           
+            overlay.Children.Add(label, 0, 2);
             grid.Children.Add(overlay);
-            grid.Children.Add(listview);
 
 
             // The root page of your application
@@ -105,15 +121,30 @@ namespace candaBarcode
 
             base.OnDisappearing();
         }
-       void HandleScanResult(ZXing.Result result)
+       async Task<bool> HandleScanResult(ZXing.Result result)
         {
-           
+
             if (result != null && !string.IsNullOrEmpty(result.Text))
                 s.Add(result.Text);
-            listview.ItemsSource = s;
+            //listview.ItemsSource = s.ToArray();
+            var v = CrossVibrate.Current;
+            v.Vibration(TimeSpan.FromSeconds(0.2));
+            var result2 = InvokeHelper.Login();
+            var iResult = JObject.Parse(result2)["LoginResultType"].Value<int>();
+            if (iResult == 1 || iResult == -5)
+            {
+                result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", null);
+
+                {
+                    label.Text = result2;
+                }
+            }
+            else
+            {
+                label.Text = "login failed";
+            }
+            return true;
         }
-
-
     }
 }
 	

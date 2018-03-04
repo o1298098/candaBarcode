@@ -22,7 +22,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Padding="0,0,0,10" VerticalOptions="End" >
-            <Button x:Name="scanButon" Text="scan" Clicked="scanButon_Clicked" WidthRequest="185" BorderWidth="1" />
+            <Button x:Name="scanButon" Text="scan" Clicked="ScanButon_Clicked" WidthRequest="185" BorderWidth="1" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -39,7 +39,7 @@ namespace candaBarcode.Forms
             };
             var boxview2 = new BoxView
             {
-                VerticalOptions = LayoutOptions.Fill,
+                VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 BackgroundColor = Color.Black,
                 Opacity = 0.6,
@@ -48,8 +48,8 @@ namespace candaBarcode.Forms
             Children.Add(boxview, 0, 0);
             Children.Add(boxview2, 0, 2);
 
-            SetColumnSpan(boxview, 5);
-            SetColumnSpan(boxview2, 5);
+            //SetColumnSpan(boxview, 5);
+            //SetColumnSpan(boxview2, 5);
             var AbsoluteLayouts = new AbsoluteLayout();
             SetColumnSpan(AbsoluteLayouts, 1);
             //topText = new Label
@@ -81,7 +81,7 @@ namespace candaBarcode.Forms
             flash = new Button
             {
                 VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.End,
+                HorizontalOptions = LayoutOptions.Center,
                 //HeightRequest = 3,
                 Text = "按钮",
                 TextColor = Color.White,
@@ -98,7 +98,7 @@ namespace candaBarcode.Forms
             //MyStackLayout.Children.Add(botText);
             MyStackLayout.Children.Add(flash);
             Children.Add(MyStackLayout, 0, 0);
-            SetColumnSpan(MyStackLayout, 5);
+            //SetColumnSpan(MyStackLayout, 5);
             //this.ColumnSpacing = 0;
             this.RowSpacing = 0;
             //Device.StartTimer(TimeSpan.FromSeconds(0.2), () =>
