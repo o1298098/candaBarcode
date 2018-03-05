@@ -7,7 +7,7 @@ namespace candaBarcode.apiHelper
 {
     public static class InvokeHelper
     {
-        private static string CloudUrl = "http://10.0.0.7/k3cloud/";//K/3 Cloud 业务站点地址
+        private static string CloudUrl = "http://canda.f3322.net:8003/k3cloud/";//K/3 Cloud 业务站点地址
 
         /// <summary>
         /// 登陆
@@ -18,9 +18,9 @@ namespace candaBarcode.apiHelper
             httpClient.Url = string.Concat(CloudUrl, "Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc");
 
             List<object> Parameters = new List<object>();
-            Parameters.Add("5a9b4a122993d4");//帐套Id
-            Parameters.Add("Administrator");//用户名
-            Parameters.Add("888888");//密码
+            Parameters.Add("59a12c8ba824d2");//帐套Id
+            Parameters.Add("kingdee");//用户名
+            Parameters.Add("kd!123456");//密码
 
             Parameters.Add(2052);
             httpClient.Content = JsonConvert.SerializeObject(Parameters);
@@ -93,7 +93,7 @@ namespace candaBarcode.apiHelper
         /// <param name="key">自定义方法标识</param>
         /// <param name="args">参数</param>
         /// <returns></returns>
-        public static string AbstractWebApiBusinessService(string key, object args)
+        public static string AbstractWebApiBusinessService(string key, List<object> args)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Url = string.Concat(CloudUrl, key, ".common.kdsvc");

@@ -57,13 +57,13 @@ namespace candaBarcode
                 Options= scanningOptions
              };
             zxing.OnScanResult += (result) =>
-                Device.BeginInvokeOnMainThread(async() => {
+                Device.BeginInvokeOnMainThread(() => {
 
                     // Stop analysis until we navigate away so we don't keep reading barcodes
                     //zxing.IsAnalyzing = false;
                     // Show an alert
                     //await DisplayAlert("扫描条码", result.Text, "OK");
-                  await new Task(()=> HandleScanResult(result));
+                  HandleScanResult(result);
                     // Navigate away
                     //await Navigation.PopAsync();
                 });
@@ -138,11 +138,11 @@ namespace candaBarcode
             //var iResult = JObject.Parse(result2)["LoginResultType"].Value<int>();
             //if (iResult == 1 || iResult == -5)
             //{
-            Info info = new Info();
-            info.FLOGISTICNUM = result.Text;
+            List<object> Parameters = new List<object>();
+            Parameters.Add(result.Text);
             try
             {
-                var result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", info); 
+                var result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters); 
                 label.Text = result2;
             }
             catch (Exception ex)
