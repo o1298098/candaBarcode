@@ -13,7 +13,7 @@ namespace candaBarcode
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new candaBarcode.MainPage()); 
+			MainPage = new NavigationPage(new MainPage()); 
 		}
 
 		protected override void OnStart ()
