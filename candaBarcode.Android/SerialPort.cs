@@ -21,13 +21,14 @@ namespace SerialPort
     public class SerialPort:Java.Lang.Object
     {
         private  const string TAG = "SerialPort";
+        public static Thread receiveThread = null;
 
-	    /*
-	     * Do not remove or rename the field mFd: it is used by native method close();
-	     */
-	    private FileDescriptor mFd;
-        private FileInputStream mFileInputStream;
-        private FileOutputStream mFileOutputStream;
+        public static System.Boolean flag = false;
+
+        public static string serialData;       
+        private FileDescriptor mFd;
+        public static FileInputStream mFileInputStream;
+        public static FileOutputStream mFileOutputStream;
         private int serialPortHandle;
         public SerialPort():base()
         {
@@ -74,6 +75,7 @@ namespace SerialPort
             }
             mFileInputStream = new FileInputStream(mFd);
             mFileOutputStream = new FileOutputStream(mFd);
+            flag = true;
 
         }
 
@@ -94,15 +96,15 @@ namespace SerialPort
             }
         }
 
-        [DllImport("serial_port", EntryPoint = "JNICALL Java_com_scan_scan_serialport_SerialPort_open")]
-        private static extern int openSerialPort(System.Text.StringBuilder path, int baudrate, int flags);
+        [DllImport("serial_port", EntryPoint = "openSerialPort")]
+        private static extern int open(System.Text.StringBuilder path, int baudrate, int flags);
 
-        [DllImport("serial_port", EntryPoint = "Java_com_scan_scan_serialport_SerialPort_close")]
-        private static extern void closeSerialPort(int handle);
+        [DllImport("serial_port", EntryPoint = "closeSerialPort")]
+        private static extern void close(int handle);
 
         private FileDescriptor GetFileDescriptor(string path, int baudrate, int flags, out int Handle)
         {
-            int sHandle = openSerialPort(new System.Text.StringBuilder(path), baudrate, flags);
+            int sHandle = open(new System.Text.StringBuilder(path), baudrate, flags);
             Handle = sHandle;
             IntPtr fp = JNIEnv.FindClass(typeof(FileDescriptor));
             IntPtr fpm = JNIEnv.GetMethodID(fp, "<init>", "()V");
@@ -118,10 +120,75 @@ namespace SerialPort
         public void Close()
         {
 #if MyAlter
-            closeSerialPort(serialPortHandle);
+            close(serialPortHandle);
 #else
              close(IntPtr.Zero, JNIEnv.ToJniHandle(this));
 #endif
         }
+        public static void sendSerialPort(byte[] data)
+        {
+            lock (mFileOutputStream)
+            {
+                Log.Info("test", "发送串口数据");
+                try
+                {
+                    mFileOutputStream.Write(data, 0,data.Length);
+                    mFileOutputStream.Flush();
+                    Log.Info("test", "串口数据发送成功");
+                }
+                catch (IOException e)
+                {
+                    e.PrintStackTrace();
+                    Log.Info("test", "串口数据发送失败");
+                }
+            }
+           
+        }
+
+        /**
+         * 接收串口数据的方法
+         */
+        public static void receiveSerialPort()
+        {
+            Log.Info("test", "接收串口数据");
+            if (receiveThread != null)
+                return;
+
+            /*创建子线程接收串口数据
+             */
+            receiveThread = new Thread(newsd);
+        //启动接收线程
+        receiveThread.Start();
     }
+
+        public static void newsd()
+        {
+            while (flag)
+            {
+                try
+                {
+                    byte[] readData = new byte[1024];
+                    if (mFileInputStream == null)
+                    {
+                        return;
+                    }
+                    int size = mFileInputStream.Read(readData);
+                    string Data = Encoding.Default.GetString(readData);
+                    if (size > 0 && flag)
+                    {
+                        Log.Info("test", "接收到串口数据:" + Data);
+                        Thread.Sleep(1000);
+                    }
+                }
+                catch (IOException e)
+                {
+                    e.PrintStackTrace();
+                }
+                catch (InterruptedException e)
+                {
+                    e.PrintStackTrace();
+                }
+            }
+        }
+}
 }
