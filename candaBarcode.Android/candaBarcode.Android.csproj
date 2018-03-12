@@ -57,6 +57,10 @@
     <EnableProguard>true</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ModuleControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\admin\Documents\Visual Studio 2017\Projects\ModuleControl\ModuleControl\bin\Debug\ModuleControl.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,16 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlGPIO.cs" />
-    <Compile Include="action\reader\ITalker.cs" />
+    <Compile Include="ReaderHelper.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="action\reader\MessageTran.cs" />
-    <Compile Include="action\reader\ReaderMethod.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialPort.cs" />
     <Compile Include="SerialPortFinder.cs" />
-    <Compile Include="action\reader\Talker.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidNativeLibrary Include="lib\armeabi-v7a\libserial_port.so">
@@ -82,10 +82,10 @@
     <AndroidNativeLibrary Include="lib\armeabi\libserial_port.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="lib\armeabi-v7a\libControlGPIO.so">
+    <AndroidNativeLibrary Include="lib\armeabi-v7a\libModuleManager.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AndroidNativeLibrary>
-    <AndroidNativeLibrary Include="lib\armeabi\libControlGPIO.so">
+    <AndroidNativeLibrary Include="lib\armeabi\libModuleManager.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AndroidNativeLibrary>
     <None Include="Resources\AboutResources.txt" />
@@ -127,7 +127,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SerialPort.c" />
+    <AndroidExternalJavaLibrary Include="lib\ModuleControl.jar" />
   </ItemGroup>
   <Import Project="..\candaBarcode\candaBarcode.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

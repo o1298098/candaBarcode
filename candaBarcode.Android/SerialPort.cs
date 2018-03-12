@@ -14,6 +14,7 @@ using Java.IO;
 using Java.Lang;
 using Android.Util;
 using System.Runtime.InteropServices;
+using Com.Scanner2d;
 
 namespace SerialPort
 {
@@ -163,8 +164,10 @@ namespace SerialPort
 
         public static void newsd()
         {
+          
             while (flag)
             {
+               
                 try
                 {
                     byte[] readData = new byte[1024];
@@ -174,11 +177,13 @@ namespace SerialPort
                     }
                     int size = mFileInputStream.Read(readData);
                     string Data = Encoding.Default.GetString(readData);
+                    string num = Data.Split('$')[0];
                     if (size > 0 && flag)
                     {
-                        Log.Info("test", "接收到串口数据:" + Data);
+                        Log.Info("test", "接收到串口数据:" + num);
                         Thread.Sleep(1000);
                     }
+                    
                 }
                 catch (IOException e)
                 {
@@ -187,8 +192,26 @@ namespace SerialPort
                 catch (InterruptedException e)
                 {
                     e.PrintStackTrace();
-                }
+                }               
             }
         }
-}
+        public static string byteArrayToString(byte[] btAryHex, int nIndex, int nLen)
+        {
+            if (nIndex + nLen > btAryHex.Length)
+            {
+                nLen = btAryHex.Length - nIndex;
+            }
+
+            string strResult = string.Format("%02X", btAryHex[nIndex]);
+            for (int nloop = nIndex + 1; nloop < nIndex + nLen; nloop++)
+            {
+                string strTemp = string.Format(" %02X", btAryHex[nloop]);
+
+                strResult += strTemp;
+            }
+
+            return strResult;
+        }
+
+    }
 }
