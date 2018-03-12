@@ -8,6 +8,7 @@ using Android.OS;
 using Java.IO;
 using Com.Scanner2d;
 using SerialPort;
+using Java.Lang;
 
 namespace candaBarcode.Droid
 {
@@ -15,6 +16,8 @@ namespace candaBarcode.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         TDScannerHelper mScanner;
+        private Com.Module.Interaction.ReaderHelper.ReaderBase mReader;
+        private Com.Module.Interaction.ReaderHelper mReaderHelper;
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -30,22 +33,20 @@ namespace candaBarcode.Droid
                 string[] entryValues = serialPortFinder.getAllDevicesPath();
                 string[] entries = serialPortFinder.getAllDevices();
                 SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
-                //Thread.Sleep(1000);
-                //ControlGPIO.newInstance().writeGPIO(1, 1);
                 Com.Nativec.Tools.ModuleManager.NewInstance().SetUHFStatus(false);
                 Com.Nativec.Tools.ModuleManager.NewInstance().SetScanStatus(true);
                 byte[] WAKE_UP = { 0x00 };
                 byte[] HOST_MODE_SET = { 0x07, 0xC6, 0x04, 0x00, 0xFF, 0x8A, 0x08, 0xFD, 0x9E };
                 byte[] START_DECODE = { 0x04, 0xE4, 0X04, 0x00, 0xFF, 0x14 };
-                    //SerialPort.sendSerialPort(WAKE_UP);
-                    //Thread.Sleep(20);
-                    //SerialPort.SerialPort.sendSerialPort(new byte[] { 0x04, 0xE6, 0x04, 0x00, 0xFF, 0x12 });
-                    //Thread.Sleep(20);
-                    //SerialPort.SerialPort.sendSerialPort(HOST_MODE_SET);
-                    //Thread.Sleep(20);
-                    //SerialPort.SerialPort.sendSerialPort(START_DECODE);
+                //SerialPort.sendSerialPort(WAKE_UP);
+                //Thread.Sleep(20);
+                //SerialPort.SerialPort.sendSerialPort(new byte[] { 0x04, 0xE6, 0x04, 0x00, 0xFF, 0x12 });
+                //Thread.Sleep(20);
+                //SerialPort.SerialPort.sendSerialPort(HOST_MODE_SET);
+                //Thread.Sleep(20);
+                //SerialPort.SerialPort.sendSerialPort(START_DECODE);
 
-                }
+            }
             catch (Java.Lang.Exception ex)
             {
                 Toast.MakeText(this.ApplicationContext, ex.ToString(), ToastLength.Long).Show();
@@ -71,7 +72,7 @@ namespace candaBarcode.Droid
             Com.Nativec.Tools.ModuleManager.NewInstance().SetUHFStatus(false);
             Com.Nativec.Tools.ModuleManager.NewInstance().Release();
         }
-
+      
 
         }
 }
