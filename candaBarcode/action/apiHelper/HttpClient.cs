@@ -31,7 +31,7 @@ namespace candaBarcode.apiHelper
             httpRequest.Method = "POST";
             httpRequest.ContentType = "application/json";
             httpRequest.CookieContainer = Cookie;
-            httpRequest.Timeout = 5000;//10min
+            httpRequest.Timeout = 10000;
 
             using (Stream reqStream = httpRequest.GetRequestStream())
             {

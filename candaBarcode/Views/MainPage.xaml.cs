@@ -11,8 +11,8 @@ using ZXing.Net.Mobile.Forms;
 namespace candaBarcode
 {
 	public partial class MainPage : ContentPage
-	{      
-      
+	{
+       
         public MainPage()
 		{
             InitializeComponent();
@@ -28,17 +28,19 @@ namespace candaBarcode
                 HeightRequest=60
             };
            
+           
             buttonScanCustomPage.Clicked += async delegate
             {
                 var customScanPage = new CustomScanPage();
                 await Navigation.PushAsync(customScanPage);
-            };         
-
+            };
+            
+           
             var stack = new StackLayout();
             stack.Children.Add(buttonScanCustomPage);
             Content = stack;
         }
+       
 
-      
     }
 }

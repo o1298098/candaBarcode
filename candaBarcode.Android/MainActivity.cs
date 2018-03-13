@@ -9,20 +9,19 @@ using Java.IO;
 using Com.Scanner2d;
 using SerialPort;
 using Java.Lang;
+using Com.Rodinbell.Module;
 
 namespace candaBarcode.Droid
 {
     [Activity(Label = "candaBarcode", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        TDScannerHelper mScanner;
-        private Com.Module.Interaction.ReaderHelper.ReaderBase mReader;
-        private Com.Module.Interaction.ReaderHelper mReaderHelper;
+        private Readerbase mReader;
+        DateTime? lastBackKeyDownTime;
         protected override void OnCreate(Bundle bundle)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            
 
             base.OnCreate(bundle);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
@@ -33,19 +32,13 @@ namespace candaBarcode.Droid
                 string[] entryValues = serialPortFinder.getAllDevicesPath();
                 string[] entries = serialPortFinder.getAllDevices();
                 SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
-                Com.Nativec.Tools.ModuleManager.NewInstance().SetUHFStatus(false);
-                Com.Nativec.Tools.ModuleManager.NewInstance().SetScanStatus(true);
-                byte[] WAKE_UP = { 0x00 };
-                byte[] HOST_MODE_SET = { 0x07, 0xC6, 0x04, 0x00, 0xFF, 0x8A, 0x08, 0xFD, 0x9E };
-                byte[] START_DECODE = { 0x04, 0xE4, 0X04, 0x00, 0xFF, 0x14 };
-                //SerialPort.sendSerialPort(WAKE_UP);
-                //Thread.Sleep(20);
-                //SerialPort.SerialPort.sendSerialPort(new byte[] { 0x04, 0xE6, 0x04, 0x00, 0xFF, 0x12 });
-                //Thread.Sleep(20);
-                //SerialPort.SerialPort.sendSerialPort(HOST_MODE_SET);
-                //Thread.Sleep(20);
-                //SerialPort.SerialPort.sendSerialPort(START_DECODE);
-
+                ModuleManager.NewInstance().SetUHFStatus(false);
+                ModuleManager.NewInstance().SetScanStatus(true);
+                //byte[] WAKE_UP = { 0x00 };
+                //byte[] HOST_MODE_SET = { 0x07, 0xC6, 0x04, 0x00, 0xFF, 0x8A, 0x08, 0xFD, 0x9E };
+                //byte[] START_DECODE = { 0x04, 0xE4, 0X04, 0x00, 0xFF, 0x14 };
+                mReader = new Readerbase(serialPort.InputStream,serialPort.OutputStream);   
+               
             }
             catch (Java.Lang.Exception ex)
             {
@@ -60,20 +53,32 @@ namespace candaBarcode.Droid
         }
         public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
         {
-            if (keyCode.ToString()=="F4")
+            if (keyCode == Keycode.Back && e.Action == KeyEventActions.Down)
             {
+                if (!lastBackKeyDownTime.HasValue || DateTime.Now - lastBackKeyDownTime.Value > new TimeSpan(0, 0, 2))
+                {
+                    Toast.MakeText(this.ApplicationContext, "再按一次退出程序", ToastLength.Short).Show();
+                    lastBackKeyDownTime = DateTime.Now;
+                }
+                else
+                {
+                    mReader.signOut();
+                    ModuleManager.NewInstance().SetScanStatus(false);
+                    ModuleManager.NewInstance().SetUHFStatus(false);
+                    Finish();
+                }
+                return true;
             }
-
             return base.OnKeyDown(keyCode, e);
         }
-        protected override void OnDestroy()
-        {
-            Com.Nativec.Tools.ModuleManager.NewInstance().SetScanStatus(false);
-            Com.Nativec.Tools.ModuleManager.NewInstance().SetUHFStatus(false);
-            Com.Nativec.Tools.ModuleManager.NewInstance().Release();
-        }
-      
+        //protected override void OnDestroy()
+        //{
+        //    mReader.signOut();
+        //    ModuleManager.NewInstance().SetScanStatus(false);
+        //    ModuleManager.NewInstance().SetUHFStatus(false);
+        //}
 
-        }
+
+    }
 }
 
