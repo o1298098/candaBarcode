@@ -182,6 +182,7 @@ namespace candaBarcode.Droid
             try
             {
                 //string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
+               
                 Log.Debug("OK", str);
             }
             catch (Java.Lang.Exception ex)

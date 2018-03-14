@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "candaBarcode.Android", "can
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "candaBarcode.iOS", "candaBarcode.iOS\candaBarcode.iOS.csproj", "{5EE5FAC0-4832-40DA-B939-B7181333D934}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "candaBarcode.Droid", "candaBarcode.Droid\candaBarcode.Droid.csproj", "{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		candaBarcode\candaBarcode.projitems*{48faef2b-66b7-4541-b29a-e3bfee34ac80}*SharedItemsImports = 13
@@ -86,6 +88,42 @@ Global
 		{5EE5FAC0-4832-40DA-B939-B7181333D934}.Release|iPhone.Build.0 = Release|iPhone
 		{5EE5FAC0-4832-40DA-B939-B7181333D934}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{5EE5FAC0-4832-40DA-B939-B7181333D934}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Ad-Hoc|Any CPU.Deploy.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Ad-Hoc|iPhone.Deploy.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Ad-Hoc|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.AppStore|Any CPU.Deploy.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.AppStore|iPhone.Deploy.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.AppStore|iPhoneSimulator.Build.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.AppStore|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Debug|iPhone.Deploy.0 = Debug|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Release|iPhone.Build.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Release|iPhone.Deploy.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{7A7096F8-B66C-4F4B-ABC3-C3D20A23E60E}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
