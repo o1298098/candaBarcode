@@ -23,11 +23,11 @@ namespace candaBarcode.Droid
         private int m_nLength = 0;
         private int index = 0;
         private bool mShouldRunning = true;
-        ObservableCollection<model.info> item=new ObservableCollection<model.info>();
-        ObservableCollection<model.info> item2 = new ObservableCollection<model.info>();
+        ObservableCollection<model.EmsNum> item=new ObservableCollection<model.EmsNum>();
+        ObservableCollection<model.EmsNum> item2 = new ObservableCollection<model.EmsNum>();
 
 
-        public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.info> items, out ObservableCollection<model.info> items2)
+        public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.EmsNum> items, out ObservableCollection<model.EmsNum> items2)
         {
             items = item;
             items2 = item2;
@@ -189,8 +189,8 @@ namespace candaBarcode.Droid
                                     select s.EMSNUM;
                 if (selectResult.Count()<=0)
                 {                    
-                    item.Add(new model.info { EMSNUM = str, state = "未同步", index = index });
-                    item2.Add(new model.info { EMSNUM = str, state = "未同步", index = index });
+                    item.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
+                    item2.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
                     index++;
                 }               
                 Log.Debug("OK", str);

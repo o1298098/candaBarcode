@@ -19,8 +19,8 @@ namespace candaBarcode.Droid
         
         private Readerbase mReader;
         System.DateTime? lastBackKeyDownTime;
-        ObservableCollection<model.info> items = new ObservableCollection<model.info>();
-        ObservableCollection<model.info> items2 = new ObservableCollection<model.info>();
+        ObservableCollection<model.EmsNum> items = new ObservableCollection<model.EmsNum>();
+        ObservableCollection<model.EmsNum> items2 = new ObservableCollection<model.EmsNum>();
         ListAdapter listAdapter;
         Thread thread;
         protected override void OnCreate(Bundle savedInstanceState)
@@ -30,6 +30,21 @@ namespace candaBarcode.Droid
             ListView list = FindViewById<ListView>(Resource.Id.listView);
             list.StackFromBottom = true;
             list.TranscriptMode = TranscriptMode.AlwaysScroll;
+            ActionBar.Hide();
+            Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            toolbar.InflateMenu(Resource.Menu.menu);
+            toolbar.MenuItemClick += (s, e) => //菜单项单击事件  
+            {
+                switch (e.Item.ItemId)
+                {
+                    case Resource.Id.menu_history:
+                        Toast.MakeText(this, "历史记录", ToastLength.Short).Show();
+                        break;
+                    case Resource.Id.menu_about:
+                        Toast.MakeText(this, "关于都看，好人才", ToastLength.Short).Show();
+                        break;
+                }
+            };
             //list.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items);          
             try
             {
@@ -39,7 +54,7 @@ namespace candaBarcode.Droid
                 SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
                 ModuleManager.NewInstance().SetUHFStatus(false);
                 ModuleManager.NewInstance().SetScanStatus(true);
-                mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items,out items2);              
+                mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, out items2);
                 listAdapter = new ListAdapter(this, items);
                 list.Adapter = listAdapter;
                 thread = new Thread(update);
@@ -47,7 +62,7 @@ namespace candaBarcode.Droid
                 {
                     thread.Start();
                 });
-            Button refreshbtn = FindViewById<Button>(Resource.Id.refresh);
+            Button refreshbtn = FindViewById<Button>(Resource.Id.refresh);               
             refreshbtn.Click += delegate
              {
                  listAdapter.NotifyDataSetChanged();
@@ -56,9 +71,21 @@ namespace candaBarcode.Droid
             EditText editText= FindViewById<EditText>(Resource.Id.editText);
             submitbtn.Click += delegate
             {
-                if (string.IsNullOrWhiteSpace(editText.Text))
-                    updateToSystem(editText.Text);
-
+                if (!string.IsNullOrWhiteSpace(editText.Text))
+                    RunOnUiThread(()=> {
+                        bool answer=updateToSystem(editText.Text);
+                        if (answer)
+                        {
+                            items.Add(new model.EmsNum() { EMSNUM = editText.Text, state = "已同步" });
+                            listAdapter.NotifyDataSetChanged();
+                            editText.Text = "";                            
+                            Toast.MakeText(this.ApplicationContext, "提交成功", ToastLength.Long).Show();
+                        }
+                        else
+                        {
+                            Toast.MakeText(this.ApplicationContext, "网络异常，请稍后重试", ToastLength.Long).Show();
+                        }
+                    });
             };
             }
             catch (Java.Lang.Exception ex)
@@ -111,12 +138,16 @@ namespace candaBarcode.Droid
                         int j = items2[i].index;
                         try
                         {
-                            updateToSystem(items2[i].EMSNUM);                            
-                            items[j].state = "已同步";
-                            items2.RemoveAt(i);
+                          bool answer=  updateToSystem(items2[i].EMSNUM);
+                            if (answer)
+                            {
+                                items[j].state = "已同步";
+                                items2.RemoveAt(i);
+                            }
                         }
                         catch {
-                            continue;
+                            Thread.Sleep(3000);
+                            break;                            
                         }
                         
                     }
@@ -126,11 +157,19 @@ namespace candaBarcode.Droid
             }
         }
 
-        private void updateToSystem(string str)
+        private bool updateToSystem(string str)
         {
             List<object> Parameters = new List<object>();
             Parameters.Add(str);
             string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
+            if (result == "err")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

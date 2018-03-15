@@ -41,29 +41,63 @@ namespace candaBarcode.Droid
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int my_blue = 2131034112;
+			
+			// aapt resource value: 0x7f050003
+			public const int my_gray = 2131034115;
+			
+			// aapt resource value: 0x7f050001
+			public const int my_green = 2131034113;
+			
+			// aapt resource value: 0x7f050002
+			public const int my_purple = 2131034114;
+			
+			static Color()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int EMSNUM = 2131034113;
+			// aapt resource value: 0x7f080001
+			public const int EMSNUM = 2131230721;
 			
-			// aapt resource value: 0x7f050004
-			public const int editText = 2131034116;
+			// aapt resource value: 0x7f080005
+			public const int editText = 2131230725;
 			
-			// aapt resource value: 0x7f050000
-			public const int linearLayout1 = 2131034112;
+			// aapt resource value: 0x7f080000
+			public const int linearLayout1 = 2131230720;
 			
-			// aapt resource value: 0x7f050003
-			public const int listView = 2131034115;
+			// aapt resource value: 0x7f080004
+			public const int listView = 2131230724;
 			
-			// aapt resource value: 0x7f050006
-			public const int refresh = 2131034118;
+			// aapt resource value: 0x7f080009
+			public const int menu_about = 2131230729;
 			
-			// aapt resource value: 0x7f050002
-			public const int state = 2131034114;
+			// aapt resource value: 0x7f080008
+			public const int menu_history = 2131230728;
 			
-			// aapt resource value: 0x7f050005
-			public const int submit = 2131034117;
+			// aapt resource value: 0x7f080007
+			public const int refresh = 2131230727;
+			
+			// aapt resource value: 0x7f080002
+			public const int state = 2131230722;
+			
+			// aapt resource value: 0x7f080006
+			public const int submit = 2131230726;
+			
+			// aapt resource value: 0x7f080003
+			public const int toolbar = 2131230723;
 			
 			static Id()
 			{
@@ -90,6 +124,22 @@ namespace candaBarcode.Droid
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f070000
+			public const int menu = 2131165184;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}
@@ -125,6 +175,25 @@ namespace candaBarcode.Droid
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f060000
+			public const int MyCustomTheme = 2131099648;
+			
+			// aapt resource value: 0x7f060001
+			public const int ToolbarPopupTheme = 2131099649;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}

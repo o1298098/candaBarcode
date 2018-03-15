@@ -13,13 +13,13 @@ using Android.Widget;
 
 namespace candaBarcode.Droid.model
 {
-   public class info : INotifyPropertyChanged
+   public class EmsNum : INotifyPropertyChanged
     {
         private string NUM;
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public info() { }
-        public info(string value)
+        public EmsNum() { }
+        public EmsNum(string value)
         {
             this.NUM = value;
         }

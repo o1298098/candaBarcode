@@ -146,6 +146,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.1</Version>
     </PackageReference>
+    <PackageReference Include="sqlite-net-pcl">
+      <Version>1.4.118</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugins.Vibrate">
       <Version>4.0.0.1-beta</Version>
     </PackageReference>

@@ -32,28 +32,31 @@ namespace candaBarcode.apiHelper
             httpRequest.ContentType = "application/json";
             httpRequest.CookieContainer = Cookie;
             httpRequest.Timeout = 10000;
-
-            using (Stream reqStream = httpRequest.GetRequestStream())
+            try
             {
-                JObject jObj = new JObject();
-                jObj.Add("format", 1);
-                jObj.Add("useragent", "ApiClient");
-                jObj.Add("rid", Guid.NewGuid().ToString().GetHashCode().ToString());
-                jObj.Add("parameters", Content);
-                jObj.Add("timestamp", DateTime.Now);
-                jObj.Add("v", "1.0");
-                string sContent = jObj.ToString();
-                var bytes = UnicodeEncoding.UTF8.GetBytes(sContent);
-                reqStream.Write(bytes, 0, bytes.Length);
-                reqStream.Flush();
-            }
-            using (var repStream = httpRequest.GetResponse().GetResponseStream())
-            {
-                using (var reader = new StreamReader(repStream))
+                using (Stream reqStream = httpRequest.GetRequestStream())
                 {
-                    return ValidateResult(reader.ReadToEnd());
+                    JObject jObj = new JObject();
+                    jObj.Add("format", 1);
+                    jObj.Add("useragent", "ApiClient");
+                    jObj.Add("rid", Guid.NewGuid().ToString().GetHashCode().ToString());
+                    jObj.Add("parameters", Content);
+                    jObj.Add("timestamp", DateTime.Now);
+                    jObj.Add("v", "1.0");
+                    string sContent = jObj.ToString();
+                    var bytes = UnicodeEncoding.UTF8.GetBytes(sContent);
+                    reqStream.Write(bytes, 0, bytes.Length);
+                    reqStream.Flush();
+                }
+                using (var repStream = httpRequest.GetResponse().GetResponseStream())
+                {
+                    using (var reader = new StreamReader(repStream))
+                    {
+                        return ValidateResult(reader.ReadToEnd());
+                    }
                 }
             }
+            catch { return "err"; }
         }
 
         private static string ValidateResult(string responseText)

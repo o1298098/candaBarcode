@@ -15,13 +15,13 @@ using candaBarcode.Droid.model;
 
 namespace candaBarcode.Droid
 {
-    public class ListAdapter : BaseAdapter<info>
+    public class ListAdapter : BaseAdapter<EmsNum>
     {
-        ObservableCollection<info> Items;
+        ObservableCollection<EmsNum> Items;
         Activity context;
        
 
-        public ListAdapter(Activity context, ObservableCollection<info> items) : base()
+        public ListAdapter(Activity context, ObservableCollection<EmsNum> items) : base()
         {
             this.context = context;
             this.Items = items;
@@ -32,7 +32,7 @@ namespace candaBarcode.Droid
         {
             return position;
         }
-        public override info this[int position]
+        public override EmsNum this[int position]
         {
             get { return Items[position]; }
         }
@@ -44,7 +44,7 @@ namespace candaBarcode.Droid
         //{
         //    base.NotifyDataSetChanged();
         //}
-        public void refresh(ObservableCollection<info> list)
+        public void refresh(ObservableCollection<EmsNum> list)
         {
             Items = list;
             NotifyDataSetChanged();

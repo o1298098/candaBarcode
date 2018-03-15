@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--For all properties see: http://developer.android.com/guide/topics/resources/menu-resource.html-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      android:theme="@style/ToolbarPopupTheme">
+  <item android:id="@+id/menu_history"
+     android:title="历史记录"/>
+  <item android:id="@+id/menu_about"
+     android:title="关于"/>
+  />
+</menu>
+
+<!-- Code to implement into Activity:
+
+Android.Widget.ShareActionProvider actionProvider;
+public override bool OnCreateOptionsMenu(IMenu menu)
+{
+  this.MenuInflater.Inflate(Resource.Menu.menu, menu);
+
+  var shareItem = menu.FindItem(Resource.Id.action_share);
+  actionProvider = shareItem.ActionProvider.JavaCast<Android.Widget.ShareActionProvider>();
+
+  var intent = new Intent(Intent.ActionSend);
+  intent.SetType("text/plain");
+  intent.PutExtra(Intent.ExtraText, "Time to share some text!");
+
+  actionProvider.SetShareIntent(intent);
+
+
+  return base.OnCreateOptionsMenu(menu);
+}
+
+-->

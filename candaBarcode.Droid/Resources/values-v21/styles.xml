@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <color name="my_blue">#3498DB</color>
+  <color name="my_green">#77D065</color>
+  <color name="my_purple">#B455B6</color>
+  <color name="my_gray">#738182</color>  
+  <style name="MyCustomTheme">
+    <!-- Override the app bar color -->
+    <item name="android:colorPrimary">@color/my_blue</item>
+    <!-- Override the color of UI controls -->
+    <item name="android:colorAccent">@color/my_purple</item>
+    <item name="android:popupBackground">@color/my_blue</item>
+  </style>
+  <style name="ToolbarPopupTheme" parent="android:Theme.Material.Light">
+    <item name="android:colorBackground">#ffffff</item>
+  </style>
+</resources>
