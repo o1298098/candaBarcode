@@ -8,6 +8,7 @@ using Android.OS;
 using Android.Util;
 using Android.Widget;
 using candaBarcode.apiHelper;
+using candaBarcode.Droid.Action;
 using Com.Scanner2d.Config;
 using Java.IO;
 using Java.Lang;
@@ -25,8 +26,7 @@ namespace candaBarcode.Droid
         private bool mShouldRunning = true;
         ObservableCollection<model.EmsNum> item=new ObservableCollection<model.EmsNum>();
         ObservableCollection<model.EmsNum> item2 = new ObservableCollection<model.EmsNum>();
-
-
+        SQliteHelper sql;
         public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.EmsNum> items, out ObservableCollection<model.EmsNum> items2)
         {
             items = item;
@@ -192,6 +192,8 @@ namespace candaBarcode.Droid
                     item.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
                     item2.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
                     index++;
+                    sql = new SQliteHelper();
+                    sql.insertAsync(str,"未同步");
                 }               
                 Log.Debug("OK", str);
             }

@@ -23,7 +23,7 @@ namespace candaBarcode.Droid.Action
 
         public void insertAsync(string num, string state)
         {
-            if (File.Exists(dbPath))
+            if (!File.Exists(dbPath))
             {
                 createDatabase(dbPath);
             }
@@ -31,13 +31,14 @@ namespace candaBarcode.Droid.Action
             var Table = sqliteConn.GetTableInfo(TableName);
             if (Table.Count == 0)
             {
-                sqliteConn.CreateTable<InfoTable>();
-                InfoTable info = new InfoTable() { EmsNum = num, state = state, DateTime = System.DateTime.Now.ToShortDateString() };
+                sqliteConn.CreateTable<InfoTable>();                
             }
+            InfoTable info = new InfoTable() { EmsNum = num, state = state, DateTime = System.DateTime.Now.ToShortDateString() };
+            sqliteConn.Insert(info);
         }
         public List<InfoTable> selectAsync(string num,string date)
         {
-            if (File.Exists(dbPath))
+            if (!File.Exists(dbPath))
             {
                 createDatabase(dbPath);
             }
@@ -48,13 +49,13 @@ namespace candaBarcode.Droid.Action
                 sqliteConn.CreateTable<InfoTable>();
             }
             var Infos = sqliteConn.Table<InfoTable>();
-            var Info = Infos.Where(p => p.EmsNum.Contains(num) || p.DateTime == date);
+            var Info = Infos.Where(p => p.EmsNum.Contains(num)||p.DateTime==date);
             List<InfoTable> list = Info.ToList();
             return list;
         }
         public void updateAsync(string num)
         {
-            if (File.Exists(dbPath))
+            if (!File.Exists(dbPath))
             {
                 createDatabase(dbPath);
             }
@@ -72,6 +73,7 @@ namespace candaBarcode.Droid.Action
                     q.state = "已同步";
                 }
             }
+            sqliteConn.Update(Infos);
         }
         private string createDatabase(string path)
         {

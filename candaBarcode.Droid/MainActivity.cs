@@ -25,6 +25,7 @@ namespace candaBarcode.Droid
         ObservableCollection<model.EmsNum> items2 = new ObservableCollection<model.EmsNum>();
         ListAdapter listAdapter;
         Thread thread;
+        SQliteHelper sql;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -66,11 +67,11 @@ namespace candaBarcode.Droid
                 int index = 0;
             refreshbtn.Click += delegate
              {
-                 items.Add(new model.EmsNum { EMSNUM = "2589098989", state = "未同步", index = index });
-                 items2.Add(new model.EmsNum { EMSNUM = "2589098989", state = "未同步", index = index });
-                 index++;
+                 items.Add(new model.EmsNum { EMSNUM = "2589"+index, state = "未同步", index = index });
+                 items2.Add(new model.EmsNum { EMSNUM = "2589" + index, state = "未同步", index = index });
                  SQliteHelper sql = new SQliteHelper();
-                 sql.insertAsync("2589098989", "未同步");
+                 sql.insertAsync("2589" + index, "未同步");
+                 index++;                
                  listAdapter.NotifyDataSetChanged();
              };
             Button submitbtn = FindViewById<Button>(Resource.Id.submit);
@@ -150,6 +151,8 @@ namespace candaBarcode.Droid
                             {
 
                                 items[j].state = "已同步";
+                                //sql = new SQliteHelper();
+                                //sql.updateAsync(items[j].EMSNUM);
                                 items2.RemoveAt(i);
                             }
                             else
@@ -174,17 +177,21 @@ namespace candaBarcode.Droid
         {
             try
             {
-                List<object> Parameters = new List<object>();
-                Parameters.Add(str);
-                string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
-                if (result == "err")
+                if (!string.IsNullOrWhiteSpace(str))
                 {
-                    return false;
+                    List<object> Parameters = new List<object>();
+                    Parameters.Add(str);
+                    string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
+                    if (result == "err")
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
-                else
-                {
-                    return true;
-                }
+                return false;
             }
             catch { return false; }
         }

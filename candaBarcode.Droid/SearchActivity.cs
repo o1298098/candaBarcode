@@ -31,7 +31,9 @@ namespace candaBarcode.Droid
             EditText date = FindViewById<EditText>(Resource.Id.datetxt);
             searchbtn.Click += delegate {
                 SQliteHelper sql = new SQliteHelper();
-               items= sql.selectAsync(num.ToString(), date.ToString());
+               items= sql.selectAsync(num.Text, date.Text);
+                RunOnUiThread(() => { list.Adapter = new SearchAdapter(this, items); });
+               
             };
             // Create your application here
         }
