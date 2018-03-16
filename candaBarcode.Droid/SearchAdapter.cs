@@ -58,7 +58,7 @@ namespace candaBarcode.Droid
                 view = context.LayoutInflater.Inflate(Resource.Layout.ListAdapter, null);
             view.FindViewById<TextView>(Resource.Id.EMSNUM).Text=Items[position].EmsNum;
             view.FindViewById<TextView>(Resource.Id.state).Text = Items[position].state;
-            view.FindViewById<TextView>(Resource.Id.ScanDate).Text = Items[position].DateTime.ToShortDateString();
+            view.FindViewById<TextView>(Resource.Id.ScanDate).Text = Items[position].DateTime;
             //if (holder == null)
             //{
             //    holder = new ListAdapterViewHolder();

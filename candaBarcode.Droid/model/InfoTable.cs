@@ -16,11 +16,11 @@ namespace candaBarcode.Droid.model
     [Table("InfoTable")]
     public class InfoTable
     {
-        [PrimaryKey, AutoIncrement,/* Collation("Id")*/]
+        [PrimaryKey, AutoIncrement, Collation("Id")]
         public int Id { get; set; }
         public string EmsNum { get; set; }
         public string state { get; set; }
-        public DateTime DateTime { get; set; }
+        public string DateTime { get; set; }
 
         public static implicit operator List<object>(InfoTable v)
         {

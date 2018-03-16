@@ -11,6 +11,7 @@ using System.Threading;
 using Android.Database;
 using candaBarcode.apiHelper;
 using Android.Content;
+using candaBarcode.Droid.Action;
 
 namespace candaBarcode.Droid
 {
@@ -51,19 +52,25 @@ namespace candaBarcode.Droid
             try
             {
                 SerialPortFinder serialPortFinder = new SerialPortFinder();
-                string[] entryValues = serialPortFinder.getAllDevicesPath();
-                string[] entries = serialPortFinder.getAllDevices();
-                SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
-                ModuleManager.NewInstance().SetUHFStatus(false);
-                ModuleManager.NewInstance().SetScanStatus(true);
-                mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, out items2);
+                //string[] entryValues = serialPortFinder.getAllDevicesPath();
+                //string[] entries = serialPortFinder.getAllDevices();
+                //SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
+                //ModuleManager.NewInstance().SetUHFStatus(false);
+                //ModuleManager.NewInstance().SetScanStatus(true);
+                //mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, out items2);
                 listAdapter = new ListAdapter(this, items);
                 list.Adapter = listAdapter;
                 thread = new Thread(update);
                 thread.Start();
             Button refreshbtn = FindViewById<Button>(Resource.Id.refresh);
+                int index = 0;
             refreshbtn.Click += delegate
              {
+                 items.Add(new model.EmsNum { EMSNUM = "2589098989", state = "未同步", index = index });
+                 items2.Add(new model.EmsNum { EMSNUM = "2589098989", state = "未同步", index = index });
+                 index++;
+                 SQliteHelper sql = new SQliteHelper();
+                 sql.insertAsync("2589098989", "未同步");
                  listAdapter.NotifyDataSetChanged();
              };
             Button submitbtn = FindViewById<Button>(Resource.Id.submit);
@@ -133,7 +140,7 @@ namespace candaBarcode.Droid
             {
                 if (items2.Count > 0)
                 {
-                    for (int i = 0; i < items2.Count; i++)
+                    for (int i = items2.Count-1; i >= 0; i--)
                     {
                         int j = items2[i].index;
                         try
@@ -147,7 +154,7 @@ namespace candaBarcode.Droid
                             }
                             else
                             {
-                                Thread.Sleep(3000);
+                                Thread.Sleep(10000);
                                 break;
                             }
                         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -21,39 +21,44 @@ namespace candaBarcode.Droid.Action
         private SQLiteConnection sqliteConn;
         private const string TableName = "InfoTable";
 
-        public void insert(string num, string state)
+        public void insertAsync(string num, string state)
         {
-            if (!File.Exists(dbPath))
-                sqliteConn = new SQLiteConnection(dbPath);
+            if (File.Exists(dbPath))
+            {
+                createDatabase(dbPath);
+            }
+            sqliteConn = new SQLiteConnection(dbPath);
             var Table = sqliteConn.GetTableInfo(TableName);
             if (Table.Count == 0)
             {
                 sqliteConn.CreateTable<InfoTable>();
-                InfoTable info = new InfoTable() { EmsNum = num, state = state, DateTime = System.DateTime.Now.Date };
+                InfoTable info = new InfoTable() { EmsNum = num, state = state, DateTime = System.DateTime.Now.ToShortDateString() };
             }
         }
-        public List<InfoTable> select(string num,string date)
-        {          
-            if (!File.Exists(dbPath))
+        public List<InfoTable> selectAsync(string num,string date)
+        {
+            if (File.Exists(dbPath))
             {
-                sqliteConn = new SQLiteConnection(dbPath);
+                createDatabase(dbPath);
             }
+            sqliteConn = new SQLiteConnection(dbPath);
             var Table = sqliteConn.GetTableInfo(TableName);
             if (Table.Count == 0)
             {
                 sqliteConn.CreateTable<InfoTable>();
             }
             var Infos = sqliteConn.Table<InfoTable>();
-            var Info = Infos.Where(p => p.EmsNum.Contains(num) || p.DateTime.ToShortDateString() == date);
+            var Info = Infos.Where(p => p.EmsNum.Contains(num) || p.DateTime == date);
             List<InfoTable> list = Info.ToList();
             return list;
         }
-        public void update(string num)
+        public void updateAsync(string num)
         {
-            if (!File.Exists(dbPath))
+            if (File.Exists(dbPath))
             {
-                sqliteConn = new SQLiteConnection(dbPath);
+                createDatabase(dbPath);
             }
+            sqliteConn = new SQLiteConnection(dbPath);
             var Table = sqliteConn.GetTableInfo(TableName);
             if (Table.Count == 0)
             {
@@ -66,6 +71,21 @@ namespace candaBarcode.Droid.Action
                 {
                     q.state = "已同步";
                 }
+            }
+        }
+        private string createDatabase(string path)
+        {
+            try
+            {
+                var connection = new SQLiteAsyncConnection(path);
+                {
+                    connection.CreateTableAsync<InfoTable>();
+                    return "Database created";
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                return ex.Message;
             }
         }
     }
