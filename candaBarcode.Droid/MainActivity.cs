@@ -21,13 +21,13 @@ namespace candaBarcode.Droid
     {
         
         private Readerbase mReader;
-        System.DateTime? lastBackKeyDownTime;
-        ObservableCollection<model.EmsNum> items = new ObservableCollection<model.EmsNum>();
-        ObservableCollection<model.EmsNum> items2 = new ObservableCollection<model.EmsNum>();
-        ListAdapter listAdapter;
-        Thread thread;
-        SQliteHelper sql;
-         private NotificationManager nMgr;
+        private System.DateTime? lastBackKeyDownTime;
+        private ObservableCollection<model.EmsNum> items = new ObservableCollection<model.EmsNum>();
+        private ObservableCollection<model.EmsNum> items2 = new ObservableCollection<model.EmsNum>();
+        private ListAdapter listAdapter;
+        //Thread thread;
+        private SQliteHelper sql;
+        private NotificationManager nMgr;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -60,11 +60,11 @@ namespace candaBarcode.Droid
                 SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
                 ModuleManager.NewInstance().SetUHFStatus(false);
                 ModuleManager.NewInstance().SetScanStatus(true);
-                mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, out items2, nMgr,this);
+                mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, nMgr,this);
                 listAdapter = new ListAdapter(this, items);
                 list.Adapter = listAdapter;
-                thread = new Thread(update);
-                thread.Start();
+                //thread = new Thread(update);
+                //thread.Start();
                 Button refreshbtn = FindViewById<Button>(Resource.Id.refresh);
                 //int index = 0;
                 refreshbtn.Click += delegate
@@ -116,7 +116,7 @@ namespace candaBarcode.Droid
             {
                 if (!lastBackKeyDownTime.HasValue || System.DateTime.Now - lastBackKeyDownTime.Value > new System.TimeSpan(0, 0, 2))
                 {
-                    thread.Interrupt();
+                    //thread.Interrupt();
                     Toast.MakeText(this.ApplicationContext, "再按一次退出程序", ToastLength.Short).Show();
                     lastBackKeyDownTime = System.DateTime.Now;
                     
@@ -144,7 +144,7 @@ namespace candaBarcode.Droid
             return base.OnKeyDown(keyCode, e);
         }
 
-        public void update()
+       /*public void update()
         {
             while (true)
             {
@@ -183,7 +183,7 @@ namespace candaBarcode.Droid
                    
                 }
             }
-        }
+        }*/
 
         private bool updateToSystem(string str)
         {

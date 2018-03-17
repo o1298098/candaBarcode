@@ -22,29 +22,27 @@ namespace candaBarcode.Droid
         private OutputStream mOutStream = null;
         private System.Byte[] m_btAryBuffer=new byte[4096];
         private int m_nLength = 0;
-        private int index = 0;
+        private int index = 1;
         private bool mShouldRunning = true;
         private ObservableCollection<model.EmsNum> item=new ObservableCollection<model.EmsNum>();
-        private ObservableCollection<model.EmsNum> item2 = new ObservableCollection<model.EmsNum>();
         private SQliteHelper sql;
         private NotificationManager nMgr;
         private Activity activity;
         Notification.Builder notify;
 
-        public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.EmsNum> items, out ObservableCollection<model.EmsNum> items2, NotificationManager nMgr,Activity activity)
+        public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.EmsNum> items, NotificationManager nMgr,Activity activity)
         {
             items = item;
-            items2 = item2;
             this.nMgr = nMgr;
             this.activity = activity;
             this.mInStream = instream;
             this.mOutStream = outstream;
             notify = new Notification.Builder(activity)
-                     .SetContentTitle("无题")
+                     .SetContentTitle("扫到单号")
                      .SetContentText("无题")
                      .SetSmallIcon(Resource.Mipmap.Icon)
                    .SetPriority((int)NotificationPriority.High)
-                   .SetSound(Android.Media.RingtoneManager.GetDefaultUri(Android.Media.RingtoneType.Notification));
+                   .SetSound(Android.Media.RingtoneManager.GetDefaultUri(Android.Media.RingtoneType.Alarm));
             StartWait();
         }
         public bool IsAlive()
@@ -200,15 +198,26 @@ namespace candaBarcode.Droid
                                     where s.EMSNUM==str
                                     select s.EMSNUM;
                 if (selectResult.Count()<=0)
-                {                    
-                    item.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
-                    item2.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
-                    index++;                   
-                    nMgr.Notify(1, notify.Build());
-
+                {
+                    List<object> Parameters = new List<object>();
+                    Parameters.Add(str);
+                    string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
+                    if (result == "1")
+                    {
+                        item.Add(new model.EmsNum { EMSNUM = str, state = "已同步", index = index });
+                        index++;
+                        nMgr.Notify(1, notify.Build());
+                    }
+                    else if (result == "0")
+                        Toast.MakeText(activity, "系统无此记录", ToastLength.Long).Show();
+                    else if (result == "2")
+                        Toast.MakeText(activity, "已扫描", ToastLength.Long).Show();
+                    else
+                        Toast.MakeText(activity, "网络有误，请联网重试", ToastLength.Long).Show();
                     //sql = new SQliteHelper();
                     //sql.insertAsync(str,"未同步");
                 }
+
                 Log.Debug("OK", str);
             }
             catch (Java.Lang.Exception ex)

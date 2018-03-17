@@ -97,7 +97,6 @@ namespace candaBarcode.apiHelper
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Url = string.Concat(CloudUrl, key, ".common.kdsvc");
-
             httpClient.Content = JsonConvert.SerializeObject(args);
             return httpClient.SysncRequest();
         }
