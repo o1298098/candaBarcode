@@ -53,27 +53,28 @@ namespace candaBarcode.Droid.Action
             List<InfoTable> list = Info.ToList();
             return list;
         }
-        public void updateAsync(string num)
+        public async Task updateAsync(string num)
         {
             if (!File.Exists(dbPath))
             {
                 createDatabase(dbPath);
             }
-            sqliteConn = new SQLiteConnection(dbPath);
-            var Table = sqliteConn.GetTableInfo(TableName);
+            SQLiteAsyncConnection con = new SQLiteAsyncConnection(dbPath);
+            var Table = new SQLiteConnection(dbPath).GetTableInfo(TableName);
             if (Table.Count == 0)
             {
                 sqliteConn.CreateTable<InfoTable>();
             }
-            TableQuery<InfoTable> Infos = sqliteConn.Table<InfoTable>();
-            foreach (var q in Infos)
+            AsyncTableQuery<InfoTable> Infos = con.Table<InfoTable>();
+            List<InfoTable> list = await Infos.ToListAsync();
+            foreach (var q in list)
             {
                 if (q.EmsNum == num&&q.state=="未同步")
                 {
                     q.state = "已同步";
                 }
             }
-            sqliteConn.Update(Infos);
+           await con.UpdateAsync(list);
         }
         private string createDatabase(string path)
         {

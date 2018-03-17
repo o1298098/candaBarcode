@@ -24,15 +24,27 @@ namespace candaBarcode.Droid
         private int m_nLength = 0;
         private int index = 0;
         private bool mShouldRunning = true;
-        ObservableCollection<model.EmsNum> item=new ObservableCollection<model.EmsNum>();
-        ObservableCollection<model.EmsNum> item2 = new ObservableCollection<model.EmsNum>();
-        SQliteHelper sql;
-        public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.EmsNum> items, out ObservableCollection<model.EmsNum> items2)
+        private ObservableCollection<model.EmsNum> item=new ObservableCollection<model.EmsNum>();
+        private ObservableCollection<model.EmsNum> item2 = new ObservableCollection<model.EmsNum>();
+        private SQliteHelper sql;
+        private NotificationManager nMgr;
+        private Activity activity;
+        Notification.Builder notify;
+
+        public  Readerbase(InputStream instream, OutputStream outstream , out ObservableCollection<model.EmsNum> items, out ObservableCollection<model.EmsNum> items2, NotificationManager nMgr,Activity activity)
         {
             items = item;
             items2 = item2;
+            this.nMgr = nMgr;
+            this.activity = activity;
             this.mInStream = instream;
             this.mOutStream = outstream;
+            notify = new Notification.Builder(activity)
+                     .SetContentTitle("无题")
+                     .SetContentText("无题")
+                     .SetSmallIcon(Resource.Mipmap.Icon)
+                   .SetPriority((int)NotificationPriority.High)
+                   .SetSound(Android.Media.RingtoneManager.GetDefaultUri(Android.Media.RingtoneType.Notification));
             StartWait();
         }
         public bool IsAlive()
@@ -191,10 +203,12 @@ namespace candaBarcode.Droid
                 {                    
                     item.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
                     item2.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
-                    index++;
-                    sql = new SQliteHelper();
-                    sql.insertAsync(str,"未同步");
-                }               
+                    index++;                   
+                    nMgr.Notify(1, notify.Build());
+
+                    //sql = new SQliteHelper();
+                    //sql.insertAsync(str,"未同步");
+                }
                 Log.Debug("OK", str);
             }
             catch (Java.Lang.Exception ex)

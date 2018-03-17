@@ -12,6 +12,7 @@ using Android.Database;
 using candaBarcode.apiHelper;
 using Android.Content;
 using candaBarcode.Droid.Action;
+using System.Threading.Tasks;
 
 namespace candaBarcode.Droid
 {
@@ -26,6 +27,7 @@ namespace candaBarcode.Droid
         ListAdapter listAdapter;
         Thread thread;
         SQliteHelper sql;
+         private NotificationManager nMgr;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -49,51 +51,59 @@ namespace candaBarcode.Droid
                         break;
                 }
             };
+            nMgr = (NotificationManager)GetSystemService(NotificationService);
             //list.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items);          
             try
             {
                 SerialPortFinder serialPortFinder = new SerialPortFinder();
-                //string[] entryValues = serialPortFinder.getAllDevicesPath();
-                //string[] entries = serialPortFinder.getAllDevices();
-                //SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
-                //ModuleManager.NewInstance().SetUHFStatus(false);
-                //ModuleManager.NewInstance().SetScanStatus(true);
-                //mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, out items2);
+                string[] entryValues = serialPortFinder.getAllDevicesPath();
+                string[] entries = serialPortFinder.getAllDevices();
+                SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
+                ModuleManager.NewInstance().SetUHFStatus(false);
+                ModuleManager.NewInstance().SetScanStatus(true);
+                mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, out items2, nMgr,this);
                 listAdapter = new ListAdapter(this, items);
                 list.Adapter = listAdapter;
                 thread = new Thread(update);
                 thread.Start();
-            Button refreshbtn = FindViewById<Button>(Resource.Id.refresh);
-                int index = 0;
-            refreshbtn.Click += delegate
-             {
-                 items.Add(new model.EmsNum { EMSNUM = "2589"+index, state = "未同步", index = index });
-                 items2.Add(new model.EmsNum { EMSNUM = "2589" + index, state = "未同步", index = index });
-                 SQliteHelper sql = new SQliteHelper();
-                 sql.insertAsync("2589" + index, "未同步");
-                 index++;                
-                 listAdapter.NotifyDataSetChanged();
-             };
-            Button submitbtn = FindViewById<Button>(Resource.Id.submit);
-            EditText editText= FindViewById<EditText>(Resource.Id.editText);
-            submitbtn.Click += delegate
-            {
-                if (!string.IsNullOrWhiteSpace(editText.Text))
-                    RunOnUiThread(()=> {
-                        bool answer=updateToSystem(editText.Text);
-                        if (answer)
+                Button refreshbtn = FindViewById<Button>(Resource.Id.refresh);
+                //int index = 0;
+                refreshbtn.Click += delegate
+                 {
+                     //items.Add(new model.EmsNum { EMSNUM = "2589" + index, state = "未同步", index = index });
+                     //items2.Add(new model.EmsNum { EMSNUM = "2589" + index, state = "未同步", index = index });
+                     //SQliteHelper sql = new SQliteHelper();
+                     //sql.insertAsync("2589" + index, "未同步");
+                     //index++;Button lsvButton = FindViewById<Button>(Resource.Id.lsvButton);                          
+                     listAdapter.NotifyDataSetChanged();
+                 };
+                Button submitbtn = FindViewById<Button>(Resource.Id.submit);
+                EditText editText = FindViewById<EditText>(Resource.Id.editText);
+                submitbtn.Click += delegate
+                {
+                    if (!string.IsNullOrWhiteSpace(editText.Text))
+                    {
+                        RunOnUiThread(() =>
                         {
-                            items.Add(new model.EmsNum() { EMSNUM = editText.Text, state = "已同步" });
-                            listAdapter.NotifyDataSetChanged();
-                            editText.Text = "";                            
-                            Toast.MakeText(this.ApplicationContext, "提交成功", ToastLength.Long).Show();
-                        }
-                        else
-                        {
-                            Toast.MakeText(this.ApplicationContext, "网络异常，请稍后重试", ToastLength.Long).Show();
-                        }
-                    });
-            };
+                            bool answer = updateToSystem(editText.Text);
+                            if (answer)
+                            {
+                                items.Add(new model.EmsNum() { EMSNUM = editText.Text, state = "已同步" });
+                                listAdapter.NotifyDataSetChanged();
+                                editText.Text = "";
+                                Toast.MakeText(this.ApplicationContext, "提交成功", ToastLength.Long).Show();
+                            }
+                            else
+                            {
+                                Toast.MakeText(this.ApplicationContext, "网络异常，请稍后重试", ToastLength.Long).Show();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        Toast.MakeText(this.ApplicationContext, "请输入单号", ToastLength.Long).Show();
+                    }
+                };
             }
             catch (Java.Lang.Exception ex)
             {
@@ -152,16 +162,19 @@ namespace candaBarcode.Droid
 
                                 items[j].state = "已同步";
                                 //sql = new SQliteHelper();
-                                //sql.updateAsync(items[j].EMSNUM);
+                                //await sql.updateAsync(items[j].EMSNUM);
                                 items2.RemoveAt(i);
+                                Thread.Sleep(20);
                             }
                             else
                             {
-                                Thread.Sleep(10000);
+                                Thread.Sleep(3000);
                                 break;
                             }
                         }
-                        catch {
+                        catch
+                        {
+                            //    throw ex;
                             Thread.Sleep(3000);
                             break;                            
                         }
