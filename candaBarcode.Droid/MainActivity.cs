@@ -51,8 +51,7 @@ namespace candaBarcode.Droid
                         break;
                 }
             };
-            nMgr = (NotificationManager)GetSystemService(NotificationService);
-            //list.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items);          
+            nMgr = (NotificationManager)GetSystemService(NotificationService);               
             try
             {
                 SerialPortFinder serialPortFinder = new SerialPortFinder();
