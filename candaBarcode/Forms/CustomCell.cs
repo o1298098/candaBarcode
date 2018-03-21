@@ -7,57 +7,71 @@ namespace candaBarcode.Forms
 {
     class CustomCell : ViewCell
     {
-        Label nameLabel, ageLabel, locationLabel;
+        Label indexLabel, numLabel, stateLabel;
 
-        public static readonly BindableProperty NameProperty =
-            BindableProperty.Create("Name", typeof(string), typeof(CustomCell), "Name");
-        public static readonly BindableProperty AgeProperty =
-            BindableProperty.Create("Age", typeof(int), typeof(CustomCell), 0);
-        public static readonly BindableProperty LocationProperty =
-            BindableProperty.Create("Location", typeof(string), typeof(CustomCell), "Location");
+        public static readonly BindableProperty IndexProperty =
+            BindableProperty.Create("index", typeof(string), typeof(CustomCell), "index");
+        public static readonly BindableProperty NumProperty =
+            BindableProperty.Create("num", typeof(string), typeof(CustomCell), "num");
+        public static readonly BindableProperty StateProperty =
+            BindableProperty.Create("state", typeof(string), typeof(CustomCell), "state");
 
-        public string Name
+        public string Index
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get { return (string)GetValue(IndexProperty); }
+            set { SetValue(IndexProperty, value); }
         }
 
-        public int Age
+        public string Num
         {
-            get { return (int)GetValue(AgeProperty); }
-            set { SetValue(AgeProperty, value); }
+            get { return (string)GetValue(NumProperty); }
+            set { SetValue(NumProperty, value); }
         }
 
-        public string Location
+        public string State
         {
-            get { return (string)GetValue(LocationProperty); }
-            set { SetValue(LocationProperty, value); }
+            get { return (string)GetValue(StateProperty); }
+            set { SetValue(StateProperty, value); }
         }
         public CustomCell()
         {
             //instantiate each of our views
-            nameLabel = new Label();
+            indexLabel = new Label();
+            numLabel = new Label();
+            stateLabel = new Label();
             StackLayout cellWrapper = new StackLayout();
             StackLayout horizontalLayout = new StackLayout();
-            ageLabel = new Label();
-            locationLabel = new Label();
+            
 
             //set bindings
-            nameLabel.SetBinding(Label.TextProperty, "Name");
-            ageLabel.SetBinding(Label.TextProperty, "Age");
-            locationLabel.SetBinding(Label.TextProperty, "Location");
+            indexLabel.SetBinding(Label.TextProperty, "index");
+            numLabel.SetBinding(Label.TextProperty, "num");
+            stateLabel.SetBinding(Label.TextProperty, "state");
 
             //Set properties for desired design
-            cellWrapper.BackgroundColor = Color.FromHex("#eee");
+            //cellWrapper.BackgroundColor = Color.FromHex("#eee");
             horizontalLayout.Orientation = StackOrientation.Horizontal;
-            ageLabel.HorizontalOptions = LayoutOptions.EndAndExpand;
-            nameLabel.TextColor = Color.FromHex("#f35e20");
-            ageLabel.TextColor = Color.FromHex("503026");
+            //numLabel.HorizontalOptions = LayoutOptions.EndAndExpand;
+            //indexLabel.TextColor = Color.FromHex("#f35e20");
+            indexLabel.WidthRequest = 120;            
+            numLabel.WidthRequest = 120;
+            stateLabel.WidthRequest = 120;
+            indexLabel.HeightRequest = 50;
+            numLabel.HeightRequest = 50;
+            stateLabel.HeightRequest = 50;
+            indexLabel.HorizontalTextAlignment = TextAlignment.Center;
+            numLabel.HorizontalTextAlignment = TextAlignment.Center;
+            stateLabel.HorizontalTextAlignment = TextAlignment.Center;
+            indexLabel.VerticalTextAlignment = TextAlignment.Center;
+            numLabel.VerticalTextAlignment = TextAlignment.Center;
+            stateLabel.VerticalTextAlignment = TextAlignment.Center;
+            //numLabel.TextColor = Color.FromHex("503026");
 
             //add views to the view hierarchy
-            horizontalLayout.Children.Add(locationLabel);
-            horizontalLayout.Children.Add(nameLabel);
-            horizontalLayout.Children.Add(ageLabel);
+            
+            horizontalLayout.Children.Add(indexLabel);
+            horizontalLayout.Children.Add(numLabel);
+            horizontalLayout.Children.Add(stateLabel);
             cellWrapper.Children.Add(horizontalLayout);
             View = cellWrapper;
         }
@@ -67,9 +81,9 @@ namespace candaBarcode.Forms
 
             if (BindingContext != null)
             {
-                nameLabel.Text = Name;
-                ageLabel.Text = Age.ToString();
-                locationLabel.Text = Location;
+                indexLabel.Text =Index;
+                numLabel.Text = Num;
+                stateLabel.Text =State;
             }
         }
     }

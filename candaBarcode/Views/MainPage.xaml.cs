@@ -1,5 +1,6 @@
 ﻿using candaBarcode.apiHelper;
 using candaBarcode.Forms;
+using candaBarcode.Model;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,7 @@ namespace candaBarcode
 {
 	public partial class MainPage : ContentPage
 	{
-        public class lala {
-            public string Name { get; set; }
-            public string Age { get; set; }
-            public string Location { get; set; }
-            
-        }
+       
         public MainPage()
 		{
             InitializeComponent();
@@ -33,39 +29,42 @@ namespace candaBarcode
                 WidthRequest=150,
                 HeightRequest=60
             };
+            Button buttonrefresh = new Button
+            {
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                Text = "刷新",
+                FontSize = 20,
+                AutomationId = "refresh",
+                WidthRequest = 150,
+                HeightRequest = 60
+            };
             ListView listView = new ListView
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 AutomationId = "list"
             };
-            List<lala> zhu = new List<lala> {
-                new lala{Name="lalaallala",Age="1wKg",Location="LLLL" },
-                new lala{Name="lalaallala",Age="1wKg",Location="LLLL" },
-                new lala{Name="lalaallala",Age="1wKg",Location="LLLL" },
-                new lala{Name="lalaallala",Age="1wKg",Location="LLLL" },
-                new lala{Name="lalaallala",Age="1wKg",Location="LLLL" },
+            List<Listdata> list = new List<Listdata> {
+               new Listdata{Index=1,Num="56564646456456",State="已同步" }
             };
+            List<Listdata> list2 = new List<Listdata>();
+            var customCell = new DataTemplate(typeof(CustomCell));
+            customCell.SetBinding(CustomCell.IndexProperty, "Index");
+            customCell.SetBinding(CustomCell.NumProperty, "Num");
+            customCell.SetBinding(CustomCell.StateProperty, "State");
+            listView.ItemTemplate = customCell;
+            listView.ItemsSource = list;
             buttonScanCustomPage.Clicked += async delegate
             {
-                var customScanPage = new CustomScanPage();
+                var customScanPage = new CustomScanPage(list,out list2);
                 await Navigation.PushAsync(customScanPage);
             };
-            var datalist = new List<IDictionary<string, object>>();
-            var item = new Dictionary<string, object>();
-            item.Add("Name", "bababa");
-            item.Add("Age", "bababa");
-            item.Add("Location", "bababa");
-            datalist.Add(item);
-            var customCell = new DataTemplate(typeof(CustomCell));
-            customCell.SetBinding(CustomCell.NameProperty, "Name");
-            customCell.SetBinding(CustomCell.AgeProperty, "Age");
-            customCell.SetBinding(CustomCell.LocationProperty, "Location");
-            listView.ItemTemplate = customCell;
-            listView.ItemsSource = zhu;
+            buttonrefresh.Clicked += delegate { listView.ItemsSource = list2; };
             var stack = new StackLayout();
             stack.Children.Add(listView);
             stack.Children.Add(buttonScanCustomPage);
+            stack.Children.Add(buttonrefresh);
             Content = stack;
         }
        

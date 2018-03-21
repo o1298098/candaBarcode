@@ -14,25 +14,28 @@ using ZXing.Net.Mobile.Forms;
 //using BAH.BOS.WebAPI.Client;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
+using candaBarcode.Model;
 
 namespace candaBarcode
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CustomScanPage : ContentPage
 	{
-        ZXingScannerView zxing;
-        ZXingOverlay overlay;
-        List<string> s = new List<string>();
-        ListView listview;
-        Label label;
+       private ZXingScannerView zxing;
+       private ZXingOverlay overlay;
+       private List<Listdata> list = new List<Listdata>();
+       private ListView listview;
+       private Label label;
         public class Info
         {
             public string FLOGISTICNUM { get; set; }
            
         }
 
-        public CustomScanPage ():base()
+        public CustomScanPage(List<Listdata> listdata,out List<Listdata> listdata2):base()
 		{
+            this.list = listdata;
+            listdata2 = this.list;
             listview = new ListView
             {
                 HorizontalOptions = LayoutOptions.Center,
@@ -63,7 +66,7 @@ namespace candaBarcode
                     //zxing.IsAnalyzing = false;
                     // Show an alert
                     //await DisplayAlert("扫描条码", result.Text, "OK");
-                  HandleScanResult(result);
+                  HandleScanResult(result,list);
                     // Navigate away
                     //await Navigation.PopAsync();
                 });
@@ -126,12 +129,8 @@ namespace candaBarcode
 
             base.OnDisappearing();
         }
-       void HandleScanResult(ZXing.Result result)
+       void HandleScanResult(ZXing.Result result, List<Listdata> list)
         {
-           
-            if (result != null && !string.IsNullOrEmpty(result.Text))
-                s.Add(result.Text);
-            //listview.ItemsSource = s.ToArray();
             var v = CrossVibrate.Current;
             v.Vibration(TimeSpan.FromSeconds(0.2));
             //var result2 = InvokeHelper.Login();
@@ -142,8 +141,19 @@ namespace candaBarcode
             Parameters.Add(result.Text);
             try
             {
-                var result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters); 
-                label.Text = result2;
+                string result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService2", Parameters);
+                if (result2 == "1")
+                {
+                    list.Add(new Listdata { Index = list.Count + 1, Num = result.Text, State = "已同步" });
+                    label.Text = "扫描成功";
+                }
+                else if (result2 == "2")
+                { label.Text = "已扫描"; }
+                else
+                {
+                    label.Text = "无此记录";
+                }
+
             }
             catch (Exception ex)
             {
