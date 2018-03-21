@@ -60,7 +60,7 @@ namespace candaBarcode.Droid
                 SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
                 ModuleManager.NewInstance().SetUHFStatus(false);
                 ModuleManager.NewInstance().SetScanStatus(true);
-                mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, nMgr,this);
+                mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, nMgr, this);
                 listAdapter = new ListAdapter(this, items);
                 list.Adapter = listAdapter;
                 //thread = new Thread(update);
@@ -87,7 +87,7 @@ namespace candaBarcode.Droid
                             bool answer = updateToSystem(editText.Text);
                             if (answer)
                             {
-                                items.Add(new model.EmsNum() { EMSNUM = editText.Text, state = "已同步" });
+                                items.Add(new model.EmsNum() { EMSNUM = editText.Text, state = "已同步",index=items.Count+1 });
                                 listAdapter.NotifyDataSetChanged();
                                 editText.Text = "";
                                 Toast.MakeText(this.ApplicationContext, "提交成功", ToastLength.Long).Show();

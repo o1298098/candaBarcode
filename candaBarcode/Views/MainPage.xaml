@@ -22,14 +22,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Spacing="10" x:Name="layout">
-            <Button Text="StackLayout" VerticalOptions="Start" AutomationId="button2"
-        HorizontalOptions="FillAndExpand" />
-            <BoxView Color="Yellow" VerticalOptions="FillAndExpand"
-        HorizontalOptions="FillAndExpand" />
-            <BoxView Color="Green" VerticalOptions="FillAndExpand"
-        HorizontalOptions="FillAndExpand" />
-            <BoxView HeightRequest="75" Color="Blue" VerticalOptions="End"
-        HorizontalOptions="Start" />
+           
         </StackLayout>
 
     </ContentPage.Content>

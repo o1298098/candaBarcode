@@ -15,7 +15,7 @@
         android:titleTextColor="@android:color/white" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:minWidth="25px"
@@ -50,12 +50,13 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:minWidth="25px"
         android:minHeight="25px"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:layout_marginTop="5.0dp">
         <TextView
             android:text="序号"
             android:textAppearance="?android:attr/textAppearanceMedium"

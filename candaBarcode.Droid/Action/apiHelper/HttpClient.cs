@@ -31,7 +31,7 @@ namespace candaBarcode.apiHelper
             httpRequest.Method = "POST";
             httpRequest.ContentType = "application/json";
             httpRequest.CookieContainer = Cookie;
-            httpRequest.Timeout = 10000;
+            httpRequest.Timeout = 100000;
             try
             {
                 using (Stream reqStream = httpRequest.GetRequestStream())
@@ -56,7 +56,7 @@ namespace candaBarcode.apiHelper
                     }
                 }
             }
-            catch { return "err"; }
+            catch(Exception ex) { return "err"; }
         }
 
         private static string ValidateResult(string responseText)

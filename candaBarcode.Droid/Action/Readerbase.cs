@@ -37,14 +37,21 @@ namespace candaBarcode.Droid
             this.activity = activity;
             this.mInStream = instream;
             this.mOutStream = outstream;
-            notify = new Notification.Builder(activity)
-                     .SetContentTitle("扫到单号")
-                     .SetContentText("无题")
-                     .SetSmallIcon(Resource.Mipmap.Icon)
-                   .SetPriority((int)NotificationPriority.High)
-                   .SetSound(Android.Media.RingtoneManager.GetDefaultUri(Android.Media.RingtoneType.Alarm));
             StartWait();
         }
+
+        private void messagemod(string title,string text, Android.Media.RingtoneType ringtoneType)
+        {
+            notify = new Notification.Builder(activity)
+                     .SetContentTitle(title)
+                     .SetContentText(text)
+                     .SetSmallIcon(Resource.Mipmap.Icon)
+                   .SetPriority((int)NotificationPriority.High)
+                   .SetSound(Android.Media.RingtoneManager.GetDefaultUri(ringtoneType));
+            nMgr.Notify(0,notify.Build());
+
+        }
+
         public bool IsAlive()
         {
             return mWaitThread != null && mWaitThread.IsAlive;
@@ -194,29 +201,29 @@ namespace candaBarcode.Droid
             try
             {
                 //string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
-                 var selectResult = from s in item 
-                                    where s.EMSNUM==str
-                                    select s.EMSNUM;
-                if (selectResult.Count()<=0)
-                {
+                // var selectResult = from s in item 
+                //                    where s.EMSNUM==str
+                //                    select s.EMSNUM;
+                //if (selectResult.Count()<=0)
+                //{
                     List<object> Parameters = new List<object>();
                     Parameters.Add(str);
-                    string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
+                    string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService2", Parameters);
                     if (result == "1")
                     {
                         item.Add(new model.EmsNum { EMSNUM = str, state = "已同步", index = index });
                         index++;
-                        nMgr.Notify(1, notify.Build());
+                        messagemod(str+"扫描成功", "", Android.Media.RingtoneType.Notification);
                     }
                     else if (result == "0")
-                        Toast.MakeText(activity, "系统无此记录", ToastLength.Long).Show();
+                        messagemod("系统无此记录", "", Android.Media.RingtoneType.Alarm);
                     else if (result == "2")
-                        Toast.MakeText(activity, "已扫描", ToastLength.Long).Show();
+                        messagemod("重复扫描", "", Android.Media.RingtoneType.Alarm);
                     else
-                        Toast.MakeText(activity, "网络有误，请联网重试", ToastLength.Long).Show();
+                        messagemod("网络有误，请稍后再试", "", Android.Media.RingtoneType.Alarm);
                     //sql = new SQliteHelper();
                     //sql.insertAsync(str,"未同步");
-                }
+                //}
 
                 Log.Debug("OK", str);
             }

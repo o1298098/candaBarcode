@@ -8,7 +8,7 @@ namespace candaBarcode.apiHelper
     public static class InvokeHelper
     {
         private static string CloudUrl = "http://canda.f3322.net:8003/k3cloud/";//K/3 Cloud 业务站点地址
-
+        //canda.f3322.net:8003
         /// <summary>
         /// 登陆
         /// </summary>

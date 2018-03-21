@@ -72,8 +72,8 @@ namespace candaBarcode.Droid
 			// aapt resource value: 0x7f080001
 			public const int EMSNUM = 2131230721;
 			
-			// aapt resource value: 0x7f080010
-			public const int ScanDate = 2131230736;
+			// aapt resource value: 0x7f08000f
+			public const int ScanDate = 2131230735;
 			
 			// aapt resource value: 0x7f08000d
 			public const int Searchbtn = 2131230733;
@@ -87,20 +87,17 @@ namespace candaBarcode.Droid
 			// aapt resource value: 0x7f080004
 			public const int editText = 2131230724;
 			
-			// aapt resource value: 0x7f08000f
-			public const int linearLayout1 = 2131230735;
-			
 			// aapt resource value: 0x7f080000
 			public const int listIndex = 2131230720;
 			
 			// aapt resource value: 0x7f08000a
 			public const int listView = 2131230730;
 			
-			// aapt resource value: 0x7f080012
-			public const int menu_about = 2131230738;
-			
 			// aapt resource value: 0x7f080011
-			public const int menu_history = 2131230737;
+			public const int menu_about = 2131230737;
+			
+			// aapt resource value: 0x7f080010
+			public const int menu_history = 2131230736;
 			
 			// aapt resource value: 0x7f08000b
 			public const int numtxt = 2131230731;
