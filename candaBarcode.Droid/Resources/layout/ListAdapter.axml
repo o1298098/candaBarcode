@@ -16,16 +16,24 @@
         android:minWidth="25px"
         android:minHeight="25px">
         <TextView
+            android:text="序号"
+            android:layout_width="72.5dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="20dip"
+            android:id="@+id/index"
+            android:layout_marginRight="0.0dp" />
+        <TextView
             android:text="单号"
-            android:layout_width="187.5dp"
+            android:layout_width="173.5dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textSize="20dip"
             android:id="@+id/EMSNUM"
-            android:layout_marginRight="17.0dp" />
+            android:layout_marginRight="0.0dp" />
         <TextView
             android:text="状态"
-            android:layout_width="116.5dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textSize="20dip"

@@ -69,56 +69,59 @@ namespace candaBarcode.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080001
-			public const int EMSNUM = 2131230721;
+			// aapt resource value: 0x7f080002
+			public const int EMSNUM = 2131230722;
 			
-			// aapt resource value: 0x7f08000e
-			public const int ScanDate = 2131230734;
-			
-			// aapt resource value: 0x7f08000c
-			public const int Searchbtn = 2131230732;
+			// aapt resource value: 0x7f08000f
+			public const int ScanDate = 2131230735;
 			
 			// aapt resource value: 0x7f08000d
-			public const int SearchlistView = 2131230733;
+			public const int Searchbtn = 2131230733;
 			
-			// aapt resource value: 0x7f08000b
-			public const int datetxt = 2131230731;
+			// aapt resource value: 0x7f08000e
+			public const int SearchlistView = 2131230734;
 			
-			// aapt resource value: 0x7f080004
-			public const int editText = 2131230724;
+			// aapt resource value: 0x7f08000c
+			public const int datetxt = 2131230732;
+			
+			// aapt resource value: 0x7f080005
+			public const int editText = 2131230725;
+			
+			// aapt resource value: 0x7f080001
+			public const int index = 2131230721;
 			
 			// aapt resource value: 0x7f080000
 			public const int linearLayout1 = 2131230720;
 			
-			// aapt resource value: 0x7f080007
-			public const int listView = 2131230727;
+			// aapt resource value: 0x7f080008
+			public const int listView = 2131230728;
+			
+			// aapt resource value: 0x7f080011
+			public const int menu_about = 2131230737;
 			
 			// aapt resource value: 0x7f080010
-			public const int menu_about = 2131230736;
-			
-			// aapt resource value: 0x7f08000f
-			public const int menu_history = 2131230735;
-			
-			// aapt resource value: 0x7f080009
-			public const int numtxt = 2131230729;
-			
-			// aapt resource value: 0x7f080006
-			public const int refresh = 2131230726;
-			
-			// aapt resource value: 0x7f080002
-			public const int state = 2131230722;
-			
-			// aapt resource value: 0x7f080005
-			public const int submit = 2131230725;
-			
-			// aapt resource value: 0x7f080008
-			public const int textView1 = 2131230728;
+			public const int menu_history = 2131230736;
 			
 			// aapt resource value: 0x7f08000a
-			public const int textView2 = 2131230730;
+			public const int numtxt = 2131230730;
+			
+			// aapt resource value: 0x7f080007
+			public const int refresh = 2131230727;
 			
 			// aapt resource value: 0x7f080003
-			public const int toolbar = 2131230723;
+			public const int state = 2131230723;
+			
+			// aapt resource value: 0x7f080006
+			public const int submit = 2131230726;
+			
+			// aapt resource value: 0x7f080009
+			public const int textView1 = 2131230729;
+			
+			// aapt resource value: 0x7f08000b
+			public const int textView2 = 2131230731;
+			
+			// aapt resource value: 0x7f080004
+			public const int toolbar = 2131230724;
 			
 			static Id()
 			{
