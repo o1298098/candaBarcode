@@ -193,7 +193,7 @@ namespace candaBarcode.Droid
                 {
                     List<object> Parameters = new List<object>();
                     Parameters.Add(str);
-                    string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
+                    string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService2", Parameters);
                     if (result == "err")
                     {
                         return false;
