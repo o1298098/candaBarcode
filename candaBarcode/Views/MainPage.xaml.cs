@@ -18,11 +18,18 @@ namespace candaBarcode
 {
 	public partial class MainPage : ContentPage
 	{
-      
+
+        private ListView listView;
+        private List<Listdata> list, list2;
         public MainPage()
 		{
             InitializeComponent();
             List<string> s = new List<string>();
+            RelativeLayout relativeLayout = new RelativeLayout {
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HeightRequest = 70,
+            };
             Button buttonScanCustomPage =new Button
             {
                 HorizontalOptions = LayoutOptions.Center,
@@ -30,7 +37,7 @@ namespace candaBarcode
                 Text = "扫描",
                 FontSize=20,
                 AutomationId = "scan",
-                WidthRequest=150,
+                WidthRequest=100,
                 HeightRequest=60
             };
             Button buttonrefresh = new Button
@@ -40,17 +47,17 @@ namespace candaBarcode
                 Text = "刷新",
                 FontSize = 20,
                 AutomationId = "refresh",
-                WidthRequest = 150,
+                WidthRequest = 100,
                 HeightRequest = 60
             };
-            ListView listView = new ListView
+            listView = new ListView
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 AutomationId = "list"
             };
-            List<Listdata> list = new List<Listdata>();
-            List<Listdata> list2 = new List<Listdata>();
+            list = new List<Listdata>();
+            list2 = new List<Listdata>();
             var customCell = new DataTemplate(typeof(CustomCell));
             customCell.SetBinding(CustomCell.IndexProperty, "Index");
             customCell.SetBinding(CustomCell.NumProperty, "Num");
@@ -63,16 +70,29 @@ namespace candaBarcode
                 await Navigation.PushAsync(customScanPage);
             };
             buttonrefresh.Clicked += delegate {list= listAdd(list,list2); listView.ItemsSource = list; };
+
             var stack = new StackLayout();
+            relativeLayout.Children.Add(buttonrefresh, Constraint.Constant(0),
+                Constraint.RelativeToParent((parent) => {
+                    return parent.X+30;
+                }),
+                Constraint.RelativeToParent((parent) => {
+                    return parent.Y-230;
+                }));
+            relativeLayout.Children.Add(buttonScanCustomPage, Constraint.Constant(0),
+                Constraint.RelativeToParent((parent) => {
+                    return parent.X+30;
+                }),
+                Constraint.RelativeToParent((parent) => {
+                    return parent.Y+120;
+                })
+               );
             stack.Children.Add(listView);
-            stack.Children.Add(buttonScanCustomPage);
-            stack.Children.Add(buttonrefresh);
+            stack.Children.Add(relativeLayout);        
             Content = stack;
         }
         public List<Listdata> listAdd(List<Listdata> list, List<Listdata> list2)
         {
-            while (true)
-            {
                 List<Listdata> listdata = Clone<Listdata>(list2);
 
                 if (list2.Count > 0)
@@ -84,7 +104,6 @@ namespace candaBarcode
                     }
                 }
             return listdata;
-            }
         }
 
         public static List<T> Clone<T>(object List)
@@ -96,6 +115,12 @@ namespace candaBarcode
                 objectStream.Seek(0, SeekOrigin.Begin);
                 return formatter.Deserialize(objectStream) as List<T>;
             }
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            list = listAdd(list, list2);
+            listView.ItemsSource = list;
+            return base.OnBackButtonPressed();
         }
     }
 }

@@ -68,7 +68,7 @@ namespace candaBarcode
                     //await DisplayAlert("扫描条码", result.Text, "OK");
                     HandleScanResult(result);
                     // Navigate away
-                    await Navigation.PopAsync();
+                    //await Navigation.PopAsync();
                 });
             
             overlay = new ZXingOverlay
@@ -148,7 +148,7 @@ namespace candaBarcode
                     label.Text = result.Text+"扫描成功";
                 }
                 else if (result2 == "2")
-                { label.Text = "已扫描";}
+                { label.Text = result.Text + "重复扫描"; list.Add(new Listdata { Index = list.Count + 1, Num = result.Text, State = "重复" }); }
                 else
                 {
                     label.Text = "无此记录";
