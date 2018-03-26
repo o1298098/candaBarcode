@@ -23,7 +23,6 @@ namespace candaBarcode
 	{
        private ZXingScannerView zxing;
        private ZXingOverlay overlay;
-       private List<Listdata> list = new List<Listdata>();
        private ListView listview;
        private Label label;
         public class Info
@@ -32,10 +31,8 @@ namespace candaBarcode
            
         }
 
-        public CustomScanPage(List<Listdata> listdata,out List<Listdata> listdata2):base()
-		{
-            this.list = listdata;
-            listdata2 =list;
+        public CustomScanPage():base()
+		{           
             listview = new ListView
             {
                 HorizontalOptions = LayoutOptions.Center,
@@ -60,7 +57,7 @@ namespace candaBarcode
                 Options= scanningOptions
              };
             zxing.OnScanResult += (result) =>
-                Device.BeginInvokeOnMainThread(async () => {
+                Device.BeginInvokeOnMainThread(() => {
 
                     // Stop analysis until we navigate away so we don't keep reading barcodes
                     //zxing.IsAnalyzing = false;
@@ -144,11 +141,11 @@ namespace candaBarcode
                 string result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService2", Parameters);
                 if (result2 == "1")
                 {
-                    list.Add(new Listdata { Index = list.Count + 1, Num = result.Text, State = "已同步" });
+                    App.list.Add(new Listdata { Index = App.list.Count + 1, Num = result.Text, State = "已同步" });
                     label.Text = result.Text+"扫描成功";
                 }
                 else if (result2 == "2")
-                { label.Text = result.Text + "重复扫描"; list.Add(new Listdata { Index = list.Count + 1, Num = result.Text, State = "重复" }); }
+                { label.Text = result.Text + "重复扫描"; App.list.Add(new Listdata { Index = App.list.Count + 1, Num = result.Text, State = "重复" }); }
                 else
                 {
                     label.Text = "无此记录";

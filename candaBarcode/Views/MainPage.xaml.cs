@@ -1,6 +1,7 @@
 ﻿using candaBarcode.apiHelper;
 using candaBarcode.Forms;
 using candaBarcode.Model;
+using candaBarcode.Views;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,6 @@ namespace candaBarcode
 	{
 
         private ListView listView;
-        private List<Listdata> list, list2;
         public MainPage()
 		{
             InitializeComponent();
@@ -39,46 +39,34 @@ namespace candaBarcode
                 AutomationId = "scan",
                 WidthRequest=100,
                 HeightRequest=60
-            };
-            Button buttonrefresh = new Button
-            {
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
-                Text = "刷新",
-                FontSize = 20,
-                AutomationId = "refresh",
-                WidthRequest = 100,
-                HeightRequest = 60
-            };
+            };        
             listView = new ListView
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 AutomationId = "list"
             };
-            list = new List<Listdata>();
-            list2 = new List<Listdata>();
             var customCell = new DataTemplate(typeof(CustomCell));
             customCell.SetBinding(CustomCell.IndexProperty, "Index");
             customCell.SetBinding(CustomCell.NumProperty, "Num");
             customCell.SetBinding(CustomCell.StateProperty, "State");
             listView.ItemTemplate = customCell;
-            listView.ItemsSource = list;
+            listView.ItemsSource = App.list;
+            listView.ItemSelected +=async delegate 
+            {
+                Listdata selectdata= (Listdata)listView.SelectedItem;
+                InvokeHelper.Login();
+                string content = "{\"FormId\":\"ECC_PickDeliverySchedule\",\"FieldKeys\":\"FMaterialId.FName,FQty\",\"FilterString\":\"FLogisticNum='" + selectdata.Num + "'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                string result= InvokeHelper.ExecuteBillQuery(content);
+                await Navigation.PushAsync(new detailsPage(result));
+            };
             buttonScanCustomPage.Clicked += async delegate
             {
-                var customScanPage = new CustomScanPage(list,out list2);
+                var customScanPage = new CustomScanPage();
                 await Navigation.PushAsync(customScanPage);
             };
-            buttonrefresh.Clicked += delegate {list= listAdd(list,list2); listView.ItemsSource = list; };
-
-            var stack = new StackLayout();
-            relativeLayout.Children.Add(buttonrefresh, Constraint.Constant(0),
-                Constraint.RelativeToParent((parent) => {
-                    return parent.X+30;
-                }),
-                Constraint.RelativeToParent((parent) => {
-                    return parent.Y-230;
-                }));
+         
+            var stack = new StackLayout();           
             relativeLayout.Children.Add(buttonScanCustomPage, Constraint.Constant(0),
                 Constraint.RelativeToParent((parent) => {
                     return parent.X+30;
@@ -91,36 +79,6 @@ namespace candaBarcode
             stack.Children.Add(relativeLayout);        
             Content = stack;
         }
-        public List<Listdata> listAdd(List<Listdata> list, List<Listdata> list2)
-        {
-                List<Listdata> listdata = Clone<Listdata>(list2);
-
-                if (list2.Count > 0)
-                {
-                    for (int i = listdata.Count; i <= 0; i--)
-                    {
-                        list.Add(listdata[i]);
-                        list2.RemoveAt(i);
-                    }
-                }
-            return listdata;
-        }
-
-        public static List<T> Clone<T>(object List)
-        {
-            using (Stream objectStream = new MemoryStream())
-            {
-                IFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(objectStream, List);
-                objectStream.Seek(0, SeekOrigin.Begin);
-                return formatter.Deserialize(objectStream) as List<T>;
-            }
-        }
-        protected override bool OnBackButtonPressed()
-        {
-            list = listAdd(list, list2);
-            listView.ItemsSource = list;
-            return base.OnBackButtonPressed();
-        }
+       
     }
 }

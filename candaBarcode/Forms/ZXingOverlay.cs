@@ -9,7 +9,7 @@ namespace candaBarcode.Forms
 {
 	public class ZXingOverlay :Grid
 	{
-        Label topText;
+        //Label topText;
         Label botText;
         Button flash;
         public delegate void FlashButtonClickedDelegate(Button sender, EventArgs e);

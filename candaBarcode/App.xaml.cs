@@ -1,5 +1,7 @@
-﻿using System;
+﻿using candaBarcode.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -9,10 +11,11 @@ namespace candaBarcode
 {
 	public partial class App : Application
 	{
-		public App ()
+        public static ObservableCollection<Listdata> list { get; set; }
+        public App ()
 		{
 			InitializeComponent();
-
+            list = new ObservableCollection<Listdata>();
 			MainPage = new NavigationPage(new MainPage()); 
 		}
 

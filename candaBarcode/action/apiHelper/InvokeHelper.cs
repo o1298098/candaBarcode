@@ -46,6 +46,23 @@ namespace candaBarcode.apiHelper
             httpClient.Content = JsonConvert.SerializeObject(Parameters);
             return httpClient.SysncRequest();
         }
+        /// <summary>
+        /// 单据查询
+        /// </summary>
+        /// <param name="formId"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        public static string ExecuteBillQuery(string content)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.Url = string.Concat(CloudUrl, "Kingdee.BOS.WebApi.ServicesStub.DynamicFormService.ExecuteBillQuery.common.kdsvc");
+
+            List<object> Parameters = new List<object>();
+            //Json字串
+            Parameters.Add(content);
+            httpClient.Content = JsonConvert.SerializeObject(Parameters);
+            return httpClient.SysncRequest();
+        }
 
         /// <summary>
         /// 删除
