@@ -196,12 +196,12 @@ namespace candaBarcode.Droid
             try
             {
                 //string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
-                 var selectResult = from s in item 
-                                    where s.EMSNUM==str
-                                    select s.EMSNUM;
-                if (selectResult.Count()<=0)
-                {                    
-                    item.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
+                var selectResult = from s in item
+                                   where s.EMSNUM == str
+                                   select s.EMSNUM;
+                if (selectResult.Count() <= 0)
+                {
+                    item.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index+1 });
                     item2.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
                     index++;                   
                     nMgr.Notify(1, notify.Build());

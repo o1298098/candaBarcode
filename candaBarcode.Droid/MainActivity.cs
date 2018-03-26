@@ -115,14 +115,14 @@ namespace candaBarcode.Droid
             if (keyCode == Keycode.Back && e.Action == KeyEventActions.Down)
             {
                 if (!lastBackKeyDownTime.HasValue || System.DateTime.Now - lastBackKeyDownTime.Value > new System.TimeSpan(0, 0, 2))
-                {
-                    thread.Interrupt();
+                {                    
                     Toast.MakeText(this.ApplicationContext, "再按一次退出程序", ToastLength.Short).Show();
                     lastBackKeyDownTime = System.DateTime.Now;
                     
                 }
                 else
                 {
+                    thread.Interrupt();
                     mReader.signOut();
                     ModuleManager.NewInstance().SetScanStatus(false);
                     ModuleManager.NewInstance().SetUHFStatus(false);
