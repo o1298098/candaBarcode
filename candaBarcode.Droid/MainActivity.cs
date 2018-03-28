@@ -150,12 +150,12 @@ namespace candaBarcode.Droid
             {
                 if (items2.Count > 0)
                 {
-                    for (int i = items2.Count-1; i >= 0; i--)
+                    for (int i = items2.Count - 1; i >= 0; i--)
                     {
                         int j = items2[i].index;
                         try
                         {
-                          bool answer=  updateToSystem(items2[i].EMSNUM);
+                            bool answer = updateToSystem(items2[i].EMSNUM);
                             if (answer)
                             {
 
@@ -171,16 +171,17 @@ namespace candaBarcode.Droid
                                 break;
                             }
                         }
-                        catch
+                        catch (System.Exception ex)
                         {
-                            //    throw ex;
-                            Thread.Sleep(3000);
-                            break;                            
+                            ////throw ex;
+                            //break;                            
                         }
-                        
+
                     }
-                    
-                   
+                }
+                else
+                {
+                    Thread.Sleep(3000);
                 }
             }
         }

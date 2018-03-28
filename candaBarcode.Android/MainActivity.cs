@@ -9,8 +9,6 @@ using Java.IO;
 using Com.Scanner2d;
 using SerialPort;
 using Java.Lang;
-using Com.Rodinbell.Module;
-
 namespace candaBarcode.Droid
 {
     [Activity(Label = "candaBarcode", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -26,24 +24,24 @@ namespace candaBarcode.Droid
             base.OnCreate(bundle);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            try
-            {
-                SerialPortFinder serialPortFinder = new SerialPortFinder();
-                string[] entryValues = serialPortFinder.getAllDevicesPath();
-                string[] entries = serialPortFinder.getAllDevices();
-                SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
-                ModuleManager.NewInstance().SetUHFStatus(false);
-                ModuleManager.NewInstance().SetScanStatus(true);
-                //byte[] WAKE_UP = { 0x00 };
-                //byte[] HOST_MODE_SET = { 0x07, 0xC6, 0x04, 0x00, 0xFF, 0x8A, 0x08, 0xFD, 0x9E };
-                //byte[] START_DECODE = { 0x04, 0xE4, 0X04, 0x00, 0xFF, 0x14 };
-                mReader = new Readerbase(serialPort.InputStream,serialPort.OutputStream);   
+            //try
+            //{
+            //    SerialPortFinder serialPortFinder = new SerialPortFinder();
+            //    string[] entryValues = serialPortFinder.getAllDevicesPath();
+            //    string[] entries = serialPortFinder.getAllDevices();
+            //    SerialPort.SerialPort serialPort = new SerialPort.SerialPort(new File(entryValues[7]), 115200, 0);
+            //    ModuleManager.NewInstance().SetUHFStatus(false);
+            //    ModuleManager.NewInstance().SetScanStatus(true);
+            //    //byte[] WAKE_UP = { 0x00 };
+            //    //byte[] HOST_MODE_SET = { 0x07, 0xC6, 0x04, 0x00, 0xFF, 0x8A, 0x08, 0xFD, 0x9E };
+            //    //byte[] START_DECODE = { 0x04, 0xE4, 0X04, 0x00, 0xFF, 0x14 };
+            //    mReader = new Readerbase(serialPort.InputStream,serialPort.OutputStream);   
                
-            }
-            catch (Java.Lang.Exception ex)
-            {
-                Toast.MakeText(this.ApplicationContext, ex.ToString(), ToastLength.Long).Show();
-            }
+            //}
+            //catch (Java.Lang.Exception ex)
+            //{
+            //    Toast.MakeText(this.ApplicationContext, ex.ToString(), ToastLength.Long).Show();
+            //}
             LoadApplication(new App());
            
         }
@@ -62,9 +60,9 @@ namespace candaBarcode.Droid
                 }
                 else
                 {
-                    mReader.signOut();
-                    ModuleManager.NewInstance().SetScanStatus(false);
-                    ModuleManager.NewInstance().SetUHFStatus(false);
+                    //mReader.signOut();
+                    //ModuleManager.NewInstance().SetScanStatus(false);
+                    //ModuleManager.NewInstance().SetUHFStatus(false);
                     Finish();
                 }
                 return true;

@@ -49,7 +49,7 @@ namespace candaBarcode
                 FontSize=40
 
             };
-            ZXing.Mobile.MobileBarcodeScanningOptions scanningOptions = new ZXing.Mobile.MobileBarcodeScanningOptions { DelayBetweenContinuousScans=1000 };
+            ZXing.Mobile.MobileBarcodeScanningOptions scanningOptions = new ZXing.Mobile.MobileBarcodeScanningOptions { DelayBetweenContinuousScans=2000 };
              zxing = new ZXingScannerView
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -58,10 +58,7 @@ namespace candaBarcode
              };
             zxing.OnScanResult += (result) =>
                 Device.BeginInvokeOnMainThread(() => {
-
-                    // Stop analysis until we navigate away so we don't keep reading barcodes
                     //zxing.IsAnalyzing = false;
-                    // Show an alert
                     //await DisplayAlert("扫描条码", result.Text, "OK");
                   HandleScanResult(result);
                     // Navigate away

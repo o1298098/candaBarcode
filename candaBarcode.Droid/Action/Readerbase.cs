@@ -26,7 +26,6 @@ namespace candaBarcode.Droid
         private bool mShouldRunning = true;
         private ObservableCollection<model.EmsNum> item=new ObservableCollection<model.EmsNum>();
         private ObservableCollection<model.EmsNum> item2 = new ObservableCollection<model.EmsNum>();
-        private SQliteHelper sql;
         private NotificationManager nMgr;
         private Activity activity;
         Notification.Builder notify;
@@ -76,15 +75,15 @@ namespace candaBarcode.Droid
                         RunNew2DCodeCallBack(btAryReceiveData);
                     }
                 }
-                catch (IOException e)
+                catch (Java.IO.IOException e)
                 {
-                  
+                    e.PrintStackTrace();
                     return;
                 }
                 catch (Java.Lang.Exception e)
                 {
-                   
-                    return;
+                    throw e;
+                    //return;
                 }
 
             }
@@ -98,10 +97,9 @@ namespace candaBarcode.Droid
                 mInStream.Close();
                 mOutStream.Close();
             }
-            catch (IOException e)
+            catch (Java.IO.IOException e)
             {
-                // TODO Auto-generated catch block
-                //e.PrintStackTrace();
+                e.PrintStackTrace();
             }
         }
         private  void RunNew2DCodeCallBack(byte[] btAryReceiveData)
@@ -112,7 +110,7 @@ namespace candaBarcode.Droid
                 byte[] btAryBuffer = new byte[nCount + m_nLength];
                 Array.Copy(m_btAryBuffer, 0, btAryBuffer, 0, m_nLength);
                 Array.Copy(btAryReceiveData, 0, btAryBuffer, m_nLength,btAryReceiveData.Length);
-                Log.Debug("getData", Com.Util.StringTool.ByteArrayToString(btAryBuffer, 0, btAryBuffer.Length));
+                //Log.Debug("getData", Com.Util.StringTool.ByteArrayToString(btAryBuffer, 0, btAryBuffer.Length));
                 int nIndex = 0; 
                 int start = 0;
                 int end = 0;
@@ -140,7 +138,7 @@ namespace candaBarcode.Droid
                             byte[] cmd = new byte[nLoop + 1];
                             Array.Copy(btAryBuffer, 0, cmd, 0, cmd.Length);
                             nIndex = nLoop + 1;
-                            Log.Debug("NCK is here", Com.Util.StringTool.ByteArrayToString(cmd, 0, cmd.Length));
+                            //Log.Debug("NCK is here", Com.Util.StringTool.ByteArrayToString(cmd, 0, cmd.Length));
                         }
                         if (btAryBuffer[nLoop] == Command.Ack)
                         {
@@ -151,7 +149,7 @@ namespace candaBarcode.Droid
                                     byte[] cmd = new byte[nLoop + 2];
                                     Array.Copy(btAryBuffer, 0, cmd, 0, cmd.Length);
                                     nIndex = nLoop + 2;//this has 2E suffix
-                                    Log.Debug("ACK query is success", Com.Util.StringTool.ByteArrayToString(cmd, 0, cmd.Length));
+                                    //Log.Debug("ACK query is success", Com.Util.StringTool.ByteArrayToString(cmd, 0, cmd.Length));
                                     //analyData(new Com.Scanner2d.Bean.MessageReceiving(cmd));
                                 }
                                 if (btAryBuffer[nLoop + 1] == Command.CmdSuffix)
@@ -171,7 +169,7 @@ namespace candaBarcode.Droid
                     m_nLength = btAryBuffer.Length - nIndex;
                     Array.Clear(m_btAryBuffer, 0, 4096);
                     Array.Copy(btAryBuffer, nIndex, m_btAryBuffer, 0, btAryBuffer.Length - nIndex);
-                    Log.Debug("nIndex + m_nLength", m_nLength + ":::" + nIndex);
+                    //Log.Debug("nIndex + m_nLength", m_nLength + ":::" + nIndex);
                 }
               
             }
@@ -181,14 +179,14 @@ namespace candaBarcode.Droid
             }
         }
 
-    [Deprecated]
-    public  void reciveData(byte[] btAryReceiveData) { }
+    //[Deprecated]
+    //public  void reciveData(byte[] btAryReceiveData) { }
 
         /**
          * reciveBarCodeData
-         */
-        [Deprecated]
-        public void reciveBarCodeData(string str) { }
+        // */
+        //[Deprecated]
+        //public void reciveBarCodeData(string str) { }
        
         public void recive2DCodeData(string str)
         {
