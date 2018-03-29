@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="candaBarcode.Views.AfterSalesPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="label" Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+        <StackLayout Orientation="Horizontal" HeightRequest="50">            
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                <Label x:Name="FBillNo" Text="babababbabab"/>
+                <Label x:Name="Contact" Text="babababbabab"/>
+                <Label x:Name="ExpNumback" Text="babababbabab"/>
+                <Button x:Name="scanbtn" Image="scan.png" WidthRequest="50" HeightRequest="50" Opacity="0.1" BackgroundColor="White"></Button>
+            </StackLayout>
+           
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

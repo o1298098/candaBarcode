@@ -15,12 +15,13 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)action\apiHelper\HttpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)action\apiHelper\InvokeHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)action\Jsonhelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\InventoryData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Model\Listdata.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ScanListdata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\CustomScanPage.xaml.cs">
       <DependentUpon>CustomScanPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -64,9 +65,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)action\" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\detailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -101,5 +99,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Images\scan.png" />
   </ItemGroup>
 </Project>

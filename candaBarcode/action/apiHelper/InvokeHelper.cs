@@ -49,7 +49,6 @@ namespace candaBarcode.apiHelper
         /// <summary>
         /// 单据查询
         /// </summary>
-        /// <param name="formId"></param>
         /// <param name="content"></param>
         /// <returns></returns>
         public static string ExecuteBillQuery(string content)

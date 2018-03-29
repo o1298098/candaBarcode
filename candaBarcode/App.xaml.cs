@@ -12,12 +12,17 @@ namespace candaBarcode
 {
 	public partial class App : Application
 	{
-        public static ObservableCollection<Listdata> list { get; set; }
+        public static ObservableCollection<ScanListdata> list { get; set; }
+        public static ObservableCollection<string> teststring { get; set; }
         public App ()
 		{
 			InitializeComponent();
-            list = new ObservableCollection<Listdata>();
-			MainPage = new MasterDetailPage1(); 
+            list = new ObservableCollection<ScanListdata>();
+            teststring = new ObservableCollection<string>();
+            teststring.Add("bababbababa");
+            teststring.Add("bababbababa");
+            teststring.Add("bababbababa");
+            MainPage = new MasterDetailPage1(); 
 		}
 
 		protected override void OnStart ()

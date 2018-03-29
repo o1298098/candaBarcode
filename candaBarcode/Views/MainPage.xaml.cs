@@ -57,11 +57,8 @@ namespace candaBarcode.Views
             listView.ItemsSource = App.list;
             listView.ItemTapped +=async delegate 
             {
-                Listdata selectdata= (Listdata)listView.SelectedItem;
-                InvokeHelper.Login();
-                string content = "{\"FormId\":\"ECC_PickDeliverySchedule\",\"FieldKeys\":\"FMaterialId.FName,FQty\",\"FilterString\":\"FLogisticNum='" + selectdata.Num + "'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
-                string result= InvokeHelper.ExecuteBillQuery(content);
-                await Navigation.PushAsync(new detailsPage(result));
+                ScanListdata selectdata= (ScanListdata)listView.SelectedItem;
+                await Navigation.PushAsync(new detailsPage(selectdata.Num));
             };
             buttonScanCustomPage.Clicked += async delegate
             {

@@ -20,8 +20,8 @@
             <ListView x:Name="listview">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical">
+                        <ViewCell >
+                            <StackLayout Orientation="Vertical" Spacing="10" >
                                 <StackLayout Orientation="Horizontal" >
                                     <Label Text="{Binding FName}" TextColor="Black" WidthRequest="130" HeightRequest="50" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
                                     <Label Text="{Binding FNumber}" TextColor="Black" WidthRequest="75" HeightRequest="50" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>

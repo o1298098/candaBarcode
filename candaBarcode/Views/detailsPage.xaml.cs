@@ -1,4 +1,5 @@
-﻿using System;
+﻿using candaBarcode.action;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,8 @@ namespace candaBarcode.Views
 		public detailsPage (string str)
 		{
 			InitializeComponent ();
-            str = str.Substring(0,str.Length-1);
-            str = str.Substring(1, str.Length - 1);
-            string[] result = str.Split(new string[]{"],"},StringSplitOptions.None);
+            string content = "{\"FormId\":\"ECC_PickDeliverySchedule\",\"FieldKeys\":\"FMaterialId.FName,FQty\",\"FilterString\":\"FLogisticNum='" + str + "'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+            string[] result = Jsonhelper.JsonToString(content);
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < result.Length; i++)
             {

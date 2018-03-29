@@ -7,7 +7,7 @@ using System.Text;
 namespace candaBarcode.Model
 {
     [Serializable]
-    public class Listdata: INotifyPropertyChanged
+    public class ScanListdata : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public int Index { get; set; }

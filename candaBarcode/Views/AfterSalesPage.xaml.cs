@@ -1,4 +1,6 @@
-﻿using System;
+﻿using candaBarcode.action;
+using candaBarcode.apiHelper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +17,13 @@ namespace candaBarcode.Views
 		public AfterSalesPage()
 		{
 			InitializeComponent ();
-            string str = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback\",\"FilterString\":\"F_XAY_ExpNumback='700401598134'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+            scanbtn.Clicked+= async delegate {
+                var ScanPage = new CustomScanPage(1);
+                await Navigation.PushAsync(ScanPage);
+            };          
+            FBillNo.Text = App.teststring[0];
+            Contact.Text = App.teststring[1];
+            ExpNumback.Text = App.teststring[2];
 
         }
 	}

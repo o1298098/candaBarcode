@@ -15,6 +15,7 @@ using ZXing.Net.Mobile.Forms;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
 using candaBarcode.Model;
+using candaBarcode.action;
 
 namespace candaBarcode
 {
@@ -57,14 +58,24 @@ namespace candaBarcode
                 Options= scanningOptions,
              };
             zxing.OnScanResult += (result) =>
-                Device.BeginInvokeOnMainThread(() => {
+                Device.BeginInvokeOnMainThread(async () => {
 
                     // Stop analysis until we navigate away so we don't keep reading barcodes
                     //zxing.IsAnalyzing = false;
                     // Show an alert
                     //await DisplayAlert("扫描条码", result.Text, "OK");
                     if (Mode == 0) { HandleScanResult(result); }
-                    else if (Mode == 1) { zxing.IsAnalyzing = false; }
+                    else if (Mode == 1) {
+                        zxing.IsAnalyzing = false;
+                        string content = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback\",\"FilterString\":\"F_XAY_ExpNumback='700401598134'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                        string[] results = Jsonhelper.JsonToString(content);
+                        string txt = results[0].Replace("[", "");
+                        string[] array = txt.Split(',');
+                        App.teststring[0] = array[0];
+                        App.teststring[1] = array[1];
+                        App.teststring[2] = array[2];
+                        await Navigation.PopAsync();
+                    }
                     // Navigate away
                     //await Navigation.PopAsync();
                 });
@@ -139,11 +150,11 @@ namespace candaBarcode
                 string result2 = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService2", Parameters);
                 if (result2 == "1")
                 {
-                    App.list.Add(new Listdata { Index = App.list.Count + 1, Num = result.Text, State = "已同步" });
+                    App.list.Add(new ScanListdata { Index = App.list.Count + 1, Num = result.Text, State = "已同步" });
                     label.Text = result.Text+"扫描成功";
                 }
                 else if (result2 == "2")
-                { label.Text = result.Text + "重复扫描"; App.list.Add(new Listdata { Index = App.list.Count + 1, Num = result.Text, State = "重复" }); }
+                { label.Text = result.Text + "重复扫描"; App.list.Add(new ScanListdata { Index = App.list.Count + 1, Num = result.Text, State = "重复" }); }
                 else
                 {
                     label.Text = "无此记录";
