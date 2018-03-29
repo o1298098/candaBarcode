@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:candaBarcode"
-             x:Class="candaBarcode.MainPage">
+             xmlns:local="clr-namespace:candaBarcode.Views"
+             x:Class="candaBarcode.Views.MainPage"
+             Title="扫吧">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="labelStyle" TargetType="Label">

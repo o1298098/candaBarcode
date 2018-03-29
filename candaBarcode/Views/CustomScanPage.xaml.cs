@@ -31,7 +31,7 @@ namespace candaBarcode
            
         }
 
-        public CustomScanPage():base()
+        public CustomScanPage(int Mode):base()
 		{           
             listview = new ListView
             {
@@ -46,15 +46,15 @@ namespace candaBarcode
                 VerticalOptions = LayoutOptions.Center,
                 AutomationId = "label",
                 TextColor = Color.White,
-                FontSize=40
+                FontSize=30
 
             };
-            ZXing.Mobile.MobileBarcodeScanningOptions scanningOptions = new ZXing.Mobile.MobileBarcodeScanningOptions { DelayBetweenContinuousScans=1000 };
+            ZXing.Mobile.MobileBarcodeScanningOptions scanningOptions = new ZXing.Mobile.MobileBarcodeScanningOptions { DelayBetweenContinuousScans=2000,PossibleFormats=new List<ZXing.BarcodeFormat> {ZXing.BarcodeFormat.CODE_128,ZXing.BarcodeFormat.CODE_39,ZXing.BarcodeFormat.CODE_93,ZXing.BarcodeFormat.EAN_13,ZXing.BarcodeFormat.EAN_8 } };
              zxing = new ZXingScannerView
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.Start,
-                Options= scanningOptions
+                Options= scanningOptions,
              };
             zxing.OnScanResult += (result) =>
                 Device.BeginInvokeOnMainThread(() => {
@@ -63,7 +63,8 @@ namespace candaBarcode
                     //zxing.IsAnalyzing = false;
                     // Show an alert
                     //await DisplayAlert("扫描条码", result.Text, "OK");
-                    HandleScanResult(result);
+                    if (Mode == 0) { HandleScanResult(result); }
+                    else if (Mode == 1) { zxing.IsAnalyzing = false; }
                     // Navigate away
                     //await Navigation.PopAsync();
                 });
@@ -104,12 +105,9 @@ namespace candaBarcode
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
-            grid.Children.Add(zxing,0,0);           
-            overlay.Children.Add(label, 0, 2);
-            grid.Children.Add(overlay);
-
-
-            // The root page of your application
+            grid.Children.Add(zxing);           
+            overlay.Children.Add(label, 0, 0);
+            grid.Children.Add(overlay);            
             Content = grid;
         }
 

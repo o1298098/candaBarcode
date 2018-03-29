@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="candaBarcode.Views.InventoryPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Horizontal" MinimumHeightRequest="60">
+                <Label Text="物料名称" TextColor="Black" WidthRequest="130" FontSize="16" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                <Label Text="物料编码" TextColor="Black" WidthRequest="75" FontSize="16" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+                <Label Text="数量" TextColor="Black" WidthRequest="75"  FontSize="16" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+                <Picker Title="仓库" TextColor="Black" HorizontalOptions="FillAndExpand" x:Name="picker" VerticalOptions="CenterAndExpand">
+                    <Picker.Items>
+                        <x:String>销售仓</x:String>
+                        <x:String>售后仓</x:String>
+                        <x:String>中转仓</x:String>
+                    </Picker.Items>
+                </Picker>
+              
+            </StackLayout>
+            <ListView x:Name="listview">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal" >
+                                    <Label Text="{Binding FName}" TextColor="Black" WidthRequest="130" HeightRequest="50" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+                                    <Label Text="{Binding FNumber}" TextColor="Black" WidthRequest="75" HeightRequest="50" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+                                    <Label Text="{Binding FBaseQTY}" TextColor="Black" WidthRequest="75" HeightRequest="50" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+                                    <Label Text="{Binding Stock}" TextColor="Black" HorizontalOptions="FillAndExpand" HeightRequest="50" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 
-namespace candaBarcode
+namespace candaBarcode.Views
 {
 	public partial class MainPage : ContentPage
 	{
@@ -23,22 +23,25 @@ namespace candaBarcode
         private ListView listView;
         public MainPage()
 		{
-            InitializeComponent();
+            InitializeComponent();            
             List<string> s = new List<string>();
             RelativeLayout relativeLayout = new RelativeLayout {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HeightRequest = 70,
             };
-            Button buttonScanCustomPage =new Button
+            Button buttonScanCustomPage = new Button
             {
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions=LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
                 Text = "扫描",
-                FontSize=20,
+                FontSize = 20,
                 AutomationId = "scan",
-                WidthRequest=100,
-                HeightRequest=60
+                WidthRequest = 70,
+                HeightRequest = 70,
+                Style =new Style(typeof(Button)) {
+                    Setters = { new Setter {Property=Button.CornerRadiusProperty,Value=35} }
+                }
             };        
             listView = new ListView
             {
@@ -52,7 +55,7 @@ namespace candaBarcode
             customCell.SetBinding(CustomCell.StateProperty, "State");
             listView.ItemTemplate = customCell;
             listView.ItemsSource = App.list;
-            listView.ItemSelected +=async delegate 
+            listView.ItemTapped +=async delegate 
             {
                 Listdata selectdata= (Listdata)listView.SelectedItem;
                 InvokeHelper.Login();
@@ -62,7 +65,7 @@ namespace candaBarcode
             };
             buttonScanCustomPage.Clicked += async delegate
             {
-                var customScanPage = new CustomScanPage();
+                var customScanPage = new CustomScanPage(0);
                 await Navigation.PushAsync(customScanPage);
             };
          

@@ -15,14 +15,16 @@ namespace candaBarcode.Views
 		public detailsPage (string str)
 		{
 			InitializeComponent ();
-            str=str.Replace("]", "");
-            str= str.Replace("[", "");
-            string[] er= str.Split(',');
+            str = str.Substring(0,str.Length-1);
+            str = str.Substring(1, str.Length - 1);
+            string[] result = str.Split(new string[]{"],"},StringSplitOptions.None);
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < er.Length; i++)
+            for (int i = 0; i < result.Length; i++)
             {
-                if (i % 2 == 0) { stringBuilder.Append(er[i] + "   "); }
-                else { stringBuilder.Append(er[i]+"\r\n"); }
+                string txt= result[i].Replace("[", "");
+                string[] array = txt.Split(',');
+                stringBuilder.Append(array[0] + "   ");
+                stringBuilder.Append(array[1].Split('.')[0]+"\r\n");
                 
             }
             label.Text = stringBuilder.ToString();

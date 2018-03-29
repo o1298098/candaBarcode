@@ -97,7 +97,7 @@ namespace candaBarcode.Forms
             };
             //MyStackLayout.Children.Add(botText);
             MyStackLayout.Children.Add(flash);
-            Children.Add(MyStackLayout, 0, 0);
+            Children.Add(MyStackLayout, 0, 2);
             //SetColumnSpan(MyStackLayout, 5);
             //this.ColumnSpacing = 0;
             this.RowSpacing = 0;

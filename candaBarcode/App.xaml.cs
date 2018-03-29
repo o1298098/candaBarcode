@@ -1,4 +1,5 @@
 ﻿using candaBarcode.Model;
+using candaBarcode.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +17,7 @@ namespace candaBarcode
 		{
 			InitializeComponent();
             list = new ObservableCollection<Listdata>();
-			MainPage = new NavigationPage(new MainPage()); 
+			MainPage = new MasterDetailPage1(); 
 		}
 
 		protected override void OnStart ()
