@@ -16,15 +16,19 @@ namespace candaBarcode.Views
 	{
 		public AfterSalesPage()
 		{
-			InitializeComponent ();
+			InitializeComponent ();            
             scanbtn.Clicked+= async delegate {
                 var ScanPage = new CustomScanPage(1);
                 await Navigation.PushAsync(ScanPage);
-            };          
-            FBillNo.Text = App.teststring[0];
-            Contact.Text = App.teststring[1];
-            ExpNumback.Text = App.teststring[2];
-
+            };  
         }
-	}
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            FBillNo.Text = App.teststring.FBillNo;
+            Contact.Text = App.teststring.Contact;
+            ExpNumback.Text = App.teststring.ExpNumback;
+            FID.Text = App.teststring.FID;
+        }
+    }
 }

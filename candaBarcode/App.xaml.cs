@@ -13,15 +13,12 @@ namespace candaBarcode
 	public partial class App : Application
 	{
         public static ObservableCollection<ScanListdata> list { get; set; }
-        public static ObservableCollection<string> teststring { get; set; }
+        public static AfterSalesData teststring { get; set; }
         public App ()
 		{
 			InitializeComponent();
             list = new ObservableCollection<ScanListdata>();
-            teststring = new ObservableCollection<string>();
-            teststring.Add("bababbababa");
-            teststring.Add("bababbababa");
-            teststring.Add("bababbababa");
+            teststring = new AfterSalesData {FBillNo="babababa",Contact="bababba",ExpNumback="bababbab",FID="sdfsdfsdf" };
             MainPage = new MasterDetailPage1(); 
 		}
 

@@ -83,10 +83,10 @@ namespace candaBarcode.Forms
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
                 //HeightRequest = 3,
-                Text = "按钮",
+                Image= "flashlightoff.png",
                 TextColor = Color.White,
                 BackgroundColor = Color.Black,
-                Opacity = 0.7,
+                Opacity = 0.2,
                 AutomationId = "zxingDefaultOverlay_FlashButton",
             };
             flash.SetBinding(Button.IsVisibleProperty, new Binding(nameof(ShowFlashButton)));

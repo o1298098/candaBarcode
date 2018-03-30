@@ -20,6 +20,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\InventoryData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ScanListdata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\CustomScanPage.xaml.cs">
@@ -55,6 +56,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\MasterDetailPage1MenuItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\OptionPage.xaml.cs">
+      <DependentUpon>OptionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -102,5 +107,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Images\scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\OptionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

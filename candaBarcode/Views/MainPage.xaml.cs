@@ -25,15 +25,16 @@ namespace candaBarcode.Views
 		{
             InitializeComponent();            
             List<string> s = new List<string>();
-            RelativeLayout relativeLayout = new RelativeLayout {
+            StackLayout relativeLayout = new StackLayout {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HeightRequest = 70,
             };
             Button buttonScanCustomPage = new Button
             {
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
+                Margin = new Thickness(0, 0, 10, 10),
                 Text = "扫描",
                 FontSize = 20,
                 AutomationId = "scan",
@@ -67,14 +68,7 @@ namespace candaBarcode.Views
             };
          
             var stack = new StackLayout();           
-            relativeLayout.Children.Add(buttonScanCustomPage, Constraint.Constant(0),
-                Constraint.RelativeToParent((parent) => {
-                    return parent.X+30;
-                }),
-                Constraint.RelativeToParent((parent) => {
-                    return parent.Y+120;
-                })
-               );
+            relativeLayout.Children.Add(buttonScanCustomPage);
             stack.Children.Add(listView);
             stack.Children.Add(relativeLayout);        
             Content = stack;

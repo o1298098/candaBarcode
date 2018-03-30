@@ -2,16 +2,44 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="candaBarcode.Views.AfterSalesPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="scanbtn" Icon="scan.png"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-
-        <StackLayout Orientation="Horizontal" HeightRequest="50">            
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                <Label x:Name="FBillNo" Text="babababbabab"/>
-                <Label x:Name="Contact" Text="babababbabab"/>
-                <Label x:Name="ExpNumback" Text="babababbabab"/>
-                <Button x:Name="scanbtn" Image="scan.png" WidthRequest="50" HeightRequest="50" Opacity="0.1" BackgroundColor="White"></Button>
+        <StackLayout Orientation="Vertical"  HeightRequest="50">            
+            <StackLayout Orientation="Horizontal">               
+                <TableView>                   
+                        <TableRoot>
+                        <TableSection Title="信息">
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal">
+                                    <Label Text="订单编号" VerticalTextAlignment="Center"></Label>
+                                        <Label x:Name="FBillNo" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        <Label Text="联系人" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                        <Label x:Name="Contact" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                           
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="退回单号" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                        <Label x:Name="ExpNumback" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        <Label Text="id" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                        <Label x:Name="FID" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>                           
+                        </TableSection>
+                    </TableRoot>
+                   
+                </TableView>
             </StackLayout>
-           
+            <ListView>
+                
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

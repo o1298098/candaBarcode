@@ -67,13 +67,14 @@ namespace candaBarcode
                     if (Mode == 0) { HandleScanResult(result); }
                     else if (Mode == 1) {
                         zxing.IsAnalyzing = false;
-                        string content = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback\",\"FilterString\":\"F_XAY_ExpNumback='700401598134'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                        string content = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback,FID\",\"FilterString\":\"F_XAY_ExpNumback='550582485510'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
                         string[] results = Jsonhelper.JsonToString(content);
                         string txt = results[0].Replace("[", "");
                         string[] array = txt.Split(',');
-                        App.teststring[0] = array[0];
-                        App.teststring[1] = array[1];
-                        App.teststring[2] = array[2];
+                        App.teststring.FBillNo = array[0];
+                        App.teststring.Contact = array[1];
+                        App.teststring.ExpNumback = array[2];
+                        App.teststring.FID = array[3].Replace("]", "");
                         await Navigation.PopAsync();
                     }
                     // Navigate away
@@ -82,10 +83,7 @@ namespace candaBarcode
             
             overlay = new ZXingOverlay
             {
-                //TopText = "请对准二维码",
-                BottomText = "阴暗天气建议打开闪光灯",
                 ShowFlashButton = true,
-                ButtonText = "开灯"
             };
             overlay.FlashButtonClicked += (sender, e) =>
             {
@@ -94,14 +92,14 @@ namespace candaBarcode
 
                     if (!zxing.IsTorchOn)
                     {
-                        sender.Text = "关灯";
+                        sender.Image = "flashlighton.png";
                         //CrossLampState = true;
                         zxing.IsTorchOn = true;
 
                     }
                     else
                     {
-                        sender.Text = "开灯";
+                        sender.Image = "flashlightoff.png";
                         zxing.IsTorchOn = false;
                     }
                 }
