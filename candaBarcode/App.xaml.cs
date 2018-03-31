@@ -14,11 +14,13 @@ namespace candaBarcode
 	{
         public static ObservableCollection<ScanListdata> list { get; set; }
         public static AfterSalesData teststring { get; set; }
+        public static ObservableCollection<AfterSalesData> aftersalesdata { get; set; }
         public App ()
 		{
 			InitializeComponent();
             list = new ObservableCollection<ScanListdata>();
             teststring = new AfterSalesData {FBillNo="babababa",Contact="bababba",ExpNumback="bababbab",FID="sdfsdfsdf" };
+            aftersalesdata = new ObservableCollection<AfterSalesData>();
             MainPage = new MasterDetailPage1(); 
 		}
 

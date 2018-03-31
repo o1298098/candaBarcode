@@ -75,6 +75,7 @@ namespace candaBarcode
                         App.teststring.Contact = array[1];
                         App.teststring.ExpNumback = array[2];
                         App.teststring.FID = array[3].Replace("]", "");
+                        App.aftersalesdata.Clear();
                         await Navigation.PopAsync();
                     }
                     // Navigate away

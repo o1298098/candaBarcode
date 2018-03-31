@@ -2,26 +2,36 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="candaBarcode.Views.AfterSalesPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="VerticalOptions"
+                        Value="CenterAndExpand" />
+
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="scanbtn" Icon="scan.png"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical"  HeightRequest="50">            
-            <StackLayout Orientation="Horizontal">               
-                <TableView>                   
-                        <TableRoot>
+        <ScrollView>
+            <StackLayout Orientation="Vertical"  BackgroundColor="#f5f5f5">
+                <TableView HeightRequest="150" VerticalOptions="Start" BackgroundColor="White">
+                    <TableRoot>
                         <TableSection Title="信息">
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout Orientation="Horizontal">
-                                    <Label Text="订单编号" VerticalTextAlignment="Center"></Label>
+                                        <Label Text="订单编号" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                         <Label x:Name="FBillNo" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                         <Label Text="联系人" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                         <Label x:Name="Contact" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>
-                           
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout Orientation="Horizontal">
@@ -31,15 +41,34 @@
                                         <Label x:Name="FID" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                     </StackLayout>
                                 </StackLayout>
-                            </ViewCell>                           
+                            </ViewCell>
                         </TableSection>
                     </TableRoot>
-                   
+
                 </TableView>
-            </StackLayout>
-            <ListView>
-                
-            </ListView>
-        </StackLayout>
+                <StackLayout Orientation="Vertical"  BackgroundColor="White" Margin="0,5,0,0" Padding="0,0,0,5">
+                    <StackLayout Orientation="Horizontal" HeightRequest="45" BackgroundColor="White">
+                        <Button x:Name="RowAdd" Image="adds.png" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>
+                        <Button x:Name="RowDel" Image="deleteo.png" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>                        
+                    </StackLayout>
+                    <ListView x:Name="listview" HeightRequest="200" VerticalOptions="StartAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal">                                       
+                                        <Label Text="{Binding FBillNo}" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding Contact}" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding ExpNumback}" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        <Image ></Image>
+                                        <Button Image="edit.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" HorizontalOptions="End"  BackgroundColor="White" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+                <Button x:Name="SaveBtn" Text="保存" HorizontalOptions="Center" WidthRequest="100" HeightRequest="50" ></Button>
+            </StackLayout>           
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

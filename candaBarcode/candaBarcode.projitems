@@ -23,6 +23,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\InventoryData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ScanListdata.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AfterSalesDetailsPage.xaml.cs">
+      <DependentUpon>AfterSalesDetailsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\CustomScanPage.xaml.cs">
       <DependentUpon>CustomScanPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -110,6 +114,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\OptionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AfterSalesDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

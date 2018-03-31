@@ -40,8 +40,9 @@ namespace candaBarcode.Views
                 AutomationId = "scan",
                 WidthRequest = 70,
                 HeightRequest = 70,
-                Style =new Style(typeof(Button)) {
-                    Setters = { new Setter {Property=Button.CornerRadiusProperty,Value=35} }
+                Style = new Style(typeof(Button))
+                {
+                    Setters = { new Setter { Property = Button.CornerRadiusProperty, Value = 35 } }
                 }
             };        
             listView = new ListView
