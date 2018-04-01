@@ -20,7 +20,11 @@ namespace candaBarcode.Views
         public AfterSalesPage()
 		{
 			InitializeComponent ();
-            listview.ItemsSource = App.aftersalesdata;         
+            listview.ItemsSource = App.aftersalesdata;
+            //Button edit= listview.FindByName<Button>("Editbtn");
+            //edit.Clicked += async delegate {
+            //    await DisplayAlert("df","sdf","asd");
+            //};
             scanbtn.Clicked+= async delegate {
                 var ScanPage = new CustomScanPage(1);
                 await Navigation.PushAsync(ScanPage);
@@ -28,10 +32,10 @@ namespace candaBarcode.Views
             RowDel.Clicked += RowDel_Clicked;
             RowAdd.Clicked += async delegate
             {
-                var detailpage = new AfterSalesDetailsPage();
+                var detailpage = new AfterSalesDetailsPage(-1);
                 detailpage.Title = "收件明细";
                 await Navigation.PushAsync(detailpage);
-            };
+            }; 
          }
        
         private void RowDel_Clicked(object sender, EventArgs e)
@@ -40,13 +44,24 @@ namespace candaBarcode.Views
             App.aftersalesdata.Remove(select);
         }
 
-        protected override void OnAppearing()
+        protected override void OnAppearing() 
         {
             base.OnAppearing();
             FBillNo.Text = App.teststring.FBillNo;
             Contact.Text = App.teststring.Contact;
             ExpNumback.Text = App.teststring.ExpNumback;
             FID.Text = App.teststring.FID;
+        }
+
+        private async void MenuItem_ClickedAsync(object sender, EventArgs e)
+        {
+           
+            var mi = ((MenuItem)sender);
+            var selectdata= (AfterSalesData)mi.CommandParameter;
+            int index= App.aftersalesdata.IndexOf(selectdata);
+            var detailpage = new AfterSalesDetailsPage(index);
+            detailpage.Title = "收件明细";
+            await Navigation.PushAsync(detailpage);
         }
     }
 }

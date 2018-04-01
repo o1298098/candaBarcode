@@ -34,6 +34,11 @@ namespace candaBarcode.Views
                 }
             }
             listview.ItemsSource = listdata;
+            listview.IsPullToRefreshEnabled = true;
+            listview.Refreshing +=delegate {
+                listview.ItemsSource = listdata;
+                listview.IsRefreshing = false;
+            };
             picker.SelectedIndexChanged += (sender, args) =>
             {
                 var selecteditem = picker.SelectedItem;
@@ -42,7 +47,5 @@ namespace candaBarcode.Views
                 listview.ItemsSource = a;
             };
         }
-
-       
     }
 }

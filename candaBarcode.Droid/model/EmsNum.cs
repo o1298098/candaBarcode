@@ -16,6 +16,7 @@ namespace candaBarcode.Droid.model
    public class EmsNum : INotifyPropertyChanged
     {
         private string NUM;
+        private string _state;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public EmsNum() { }
@@ -35,8 +36,11 @@ namespace candaBarcode.Droid.model
         }
         public string state
         {
-            get;
-            set;
+            get { return _state; }
+            set {
+                _state = value;
+                OnPropertyChanged("state");
+            }
         }
         public int index
         {

@@ -1,4 +1,5 @@
-﻿using candaBarcode.Model;
+﻿using candaBarcode.Forms;
+using candaBarcode.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,33 @@ namespace candaBarcode.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AfterSalesDetailsPage : ContentPage
 	{
-		public AfterSalesDetailsPage ()
+		public AfterSalesDetailsPage (int index)
 		{
 			InitializeComponent ();
+            if (index != -1)
+            {
+                FBillNo.Text = App.aftersalesdata[index].FBillNo;
+                Contact.Text = App.aftersalesdata[index].Contact;
+                ExpNumback.Text= App.aftersalesdata[index].ExpNumback;
+            }
+            check.Checked = false;
+            check.Text = "lalalal";
             insertbtn.Clicked += async delegate {
-                App.aftersalesdata.Add(new AfterSalesData { FBillNo = "mam", Contact = "asd", ExpNumback = "asd" });
+                if (index == -1)
+                {
+                    App.aftersalesdata.Add(new AfterSalesData { FBillNo = FBillNo.Text, Contact = Contact.Text, ExpNumback = ExpNumback.Text });
+                }
+                else
+                {
+                    App.aftersalesdata[index].FBillNo = FBillNo.Text;
+                    App.aftersalesdata[index].Contact = Contact.Text;
+                    App.aftersalesdata[index].ExpNumback = ExpNumback.Text;
+                }
                 await Navigation.PopAsync();
             };
 
         }
+
+      
     }
 }

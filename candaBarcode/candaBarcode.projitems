@@ -20,7 +20,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Forms\CheckBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CheckBoxModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\InventoryData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ScanListdata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AfterSalesDetailsPage.xaml.cs">
@@ -123,5 +125,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\Page1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
