@@ -20,14 +20,15 @@ namespace candaBarcode.Views
         public AfterSalesPage()
 		{
 			InitializeComponent ();
-            listview.ItemsSource = App.aftersalesdata;
-            //Button edit= listview.FindByName<Button>("Editbtn");
-            //edit.Clicked += async delegate {
-            //    await DisplayAlert("df","sdf","asd");
-            //};
+            listview.ItemsSource = App.aftersalesdata;           
             scanbtn.Clicked+= async delegate {
                 var ScanPage = new CustomScanPage(1);
                 await Navigation.PushAsync(ScanPage);
+            };
+            searchbtn.Clicked += async delegate {
+                var SearchPage = new AfterSalesSearchPage();
+                SearchPage.Title = "搜索";
+                await Navigation.PushAsync(SearchPage);
             };
             RowDel.Clicked += RowDel_Clicked;
             RowAdd.Clicked += async delegate

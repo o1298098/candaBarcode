@@ -29,6 +29,10 @@
       <DependentUpon>AfterSalesDetailsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AfterSalesSearchPage.xaml.cs">
+      <DependentUpon>AfterSalesSearchPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\CustomScanPage.xaml.cs">
       <DependentUpon>CustomScanPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -127,8 +131,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Views\Page1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AfterSalesSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

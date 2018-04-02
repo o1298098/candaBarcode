@@ -171,8 +171,10 @@
     <PackageReference Include="Xam.Plugins.Vibrate">
       <Version>4.0.0.1-beta</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.296286-pre2" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1" />
+    <PackageReference Include="Xamarin.Forms">
+      <Version>2.5.1.392594-pre3</Version>
+    </PackageReference>
     <PackageReference Include="ZXing.Net.Mobile">
       <Version>2.4.0-beta1</Version>
     </PackageReference>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="candaBarcode.Views.AfterSalesSearchPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="8*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <SearchBar x:Name="searchbar" Placeholder="请输入收件单号" HorizontalOptions="FillAndExpand" VerticalOptions="Start" SearchButtonPressed="SearchBar_SearchButtonPressed" Grid.Row="0" Grid.Column="0"></SearchBar>
+            <ScrollView Grid.Row="1" Grid.Column="0" >
+                <ListView x:Name="listview">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding FBillNo}"></Label>
+                                <Label Text="{Binding Contact}"></Label>
+                                <Label Text="{Binding ExpNumback}"></Label>
+                                <Label Text="{Binding FID}"></Label>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>           
+        </Grid>
+             
+    </ContentPage.Content>
+</ContentPage>
