@@ -9,13 +9,15 @@ namespace candaBarcode.action
     {
         public static string[] JsonToString(string content)
         {
-            
+
+            string[] results = null ;
             InvokeHelper.Login();
             string result = InvokeHelper.ExecuteBillQuery(content);
+            if (result == "[]") return results;
             result = result.Substring(0, result.Length - 1);
             result = result.Substring(1, result.Length - 1);
             result = result.Replace("\"", "");
-            string[] results = result.Split(new string[] { "]," }, StringSplitOptions.None);
+            results = result.Split(new string[] { "]," }, StringSplitOptions.None);
             return results;
         }
     }
