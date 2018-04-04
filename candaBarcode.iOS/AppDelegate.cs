@@ -23,6 +23,7 @@ namespace candaBarcode.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            Xamarin.FormsBaiduMaps.Init("t8ouxEUZ07W6mCkUi8kVTOuAKMFo8aOK");
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

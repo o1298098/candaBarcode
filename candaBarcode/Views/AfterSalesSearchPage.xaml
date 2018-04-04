@@ -11,9 +11,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <SearchBar x:Name="searchbar" Placeholder="请输入收件单号" HorizontalOptions="FillAndExpand" VerticalOptions="Start" SearchButtonPressed="SearchBar_SearchButtonPressed" Grid.Row="0" Grid.Column="0"></SearchBar>
-            <ScrollView Grid.Row="1" Grid.Column="0" >                
-                    <ListView x:Name="listview">
+            <SearchBar x:Name="searchbar" Placeholder="请输入收件单号" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Grid.Row="0" Grid.Column="0"></SearchBar>
+            <ScrollView Grid.Row="1" Grid.Column="0" >
+                <ListView x:Name="listview" CachingStrategy="RecycleElement">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

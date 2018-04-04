@@ -10,6 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SalesListsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -21,6 +25,11 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CheckBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\MapLocationModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SalesListsPage.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SalesListsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CheckBoxModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\InventoryData.cs" />
@@ -116,6 +125,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Images\location.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CustomToolNamespace>
+      </CustomToolNamespace>
+    </EmbeddedResource>
     <Content Include="$(MSBuildThisFileDirectory)Images\scan.png" />
   </ItemGroup>
   <ItemGroup>
@@ -135,5 +149,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Page1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)SalesListsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\Page1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SalesListspage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
