@@ -21,8 +21,6 @@ namespace candaBarcode
             list = new ObservableCollection<ScanListdata>();
             teststring = new AfterSalesData {FBillNo="babababa",Contact="bababba",ExpNumback="bababbab",FID="sdfsdfsdf" };
             aftersalesdata = new ObservableCollection<AfterSalesData>();
-            var pins = new List<MapLocationModel>() { };
-            pins.Add(new MapLocationModel() { Name = "上海市浦东新区陆家嘴街道乳山二村", Longitude = 31.2317331909, Latitude = 121.5170146362 });
             MainPage = new MasterDetailPage1(); 
 		}
 

@@ -3,13 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Xamarin.Forms.BaiduMaps.Sample"
 		     xmlns:maps="clr-namespace:Xamarin.Forms.BaiduMaps;assembly=Xamarin.Forms.BaiduMaps"
-             x:Class="candaBarcode.Views.SalesListsPage"
+             x:Class="candaBarcode.Views.MapPage"
              Title="Detail">
   <StackLayout Padding="10">
         <maps:Map x:Name="map"/>
         <Button x:Name="btnTrack" Text="测量" WidthRequest="150"/>
         <Button x:Name="btnchat" Text="上传" WidthRequest="150"/>
         <Label x:Name="label" Text="当前坐标"></Label>
-      
     </StackLayout>
 </ContentPage>

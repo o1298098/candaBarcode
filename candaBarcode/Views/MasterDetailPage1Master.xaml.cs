@@ -35,9 +35,10 @@ namespace candaBarcode.Views
                 {
                     new MasterDetailPage1MenuItem { Id = 0, Title = "单号扫描",TargetType=typeof(MainPage)},
                     new MasterDetailPage1MenuItem { Id = 1, Title = "库存查询" ,TargetType=typeof(InventoryPage)},
-                    new MasterDetailPage1MenuItem { Id = 2, Title = "订单查询" ,TargetType=typeof(SalesListsPage)},
+                    new MasterDetailPage1MenuItem { Id = 2, Title = "订单查询" ,TargetType=typeof(MasterDetailPage1Detail)},
                     new MasterDetailPage1MenuItem { Id = 3, Title = "售后工单" ,TargetType=typeof(AfterSalesPage)},
                     new MasterDetailPage1MenuItem { Id = 4, Title = "选项",TargetType=typeof(OptionPage) },
+                    new MasterDetailPage1MenuItem { Id = 5, Title = "地图",TargetType=typeof(MapPage) },
                 });
             }
             

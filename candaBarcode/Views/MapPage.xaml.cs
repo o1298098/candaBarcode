@@ -13,12 +13,12 @@ using Xamarin.Forms.Xaml;
 namespace candaBarcode.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SalesListsPage : ContentPage
+    public partial class MapPage : ContentPage
     {
         private SignalrClient client { get; set; }
         private Coordinate userpoint { get; set; }
         private string Idiom { get; set; }
-        public SalesListsPage()
+        public MapPage()
         {
             InitializeComponent();
             Idiom = Plugin.DeviceInfo.CrossDeviceInfo.Current.Model;
@@ -113,9 +113,9 @@ namespace candaBarcode.Views
             //});
 
             // 坐标转换
-            IProjection proj = map.Projection;
-            var coord = proj.ToCoordinate(new Point(100, 100));
-            Debug.WriteLine(proj.ToScreen(coord));
+            //IProjection proj = map.Projection;
+            //var coord = proj.ToCoordinate(new Point(100, 100));
+            //Debug.WriteLine(proj.ToScreen(coord));
         }
 
         private static bool moved = false;
@@ -142,16 +142,16 @@ namespace candaBarcode.Views
         {
             btnTrack.Clicked += (_, e) =>
             {
-                if (map.ShowUserLocation)
-                {
-                    map.UserTrackingMode = UserTrackingMode.None;
-                    map.ShowUserLocation = false;
-                }
-                else
-                {
-                    map.UserTrackingMode = UserTrackingMode.Follow;
-                    map.ShowUserLocation = true;
-                }
+                //if (map.ShowUserLocation)
+                //{
+                //    map.UserTrackingMode = UserTrackingMode.None;
+                //    map.ShowUserLocation = false;
+                //}
+                //else
+                //{
+                //    map.UserTrackingMode = UserTrackingMode.Follow;
+                //    map.ShowUserLocation = true;
+                //}
                 ICalculateUtils calc = DependencyService.Get<ICalculateUtils>();
                 double distance = calc.CalculateDistance(map.Center, userpoint);
                 var km = distance / 1000;
@@ -160,7 +160,16 @@ namespace candaBarcode.Views
             };
          
             map.LongClicked += async (_, e) => {
-                AddPin(e.Coordinate,Idiom);
+                var terpins = map.Pins.Where(s => s.Title == Idiom);
+                if (terpins.Count() > 0)
+                {
+                    int index = map.Pins.IndexOf(terpins.ElementAt(0));
+                    map.Pins[index].Coordinate = e.Coordinate;
+                }
+                else
+                {
+                    AddPin(e.Coordinate, Idiom);
+                }                
                 await client.Send(Idiom, "nihao",e.Coordinate.Latitude.ToString(),e.Coordinate.Longitude.ToString());
             };
 
@@ -179,25 +188,26 @@ namespace candaBarcode.Views
                 Draggable = true,
                 Enabled3D = true,
                 Image = XImage.FromStream(
-                    typeof(SalesListsPage).GetTypeInfo().Assembly.GetManifestResourceStream("candaBarcode.Droid.Images.location.png")
+                    typeof(MapPage).GetTypeInfo().Assembly.GetManifestResourceStream("candaBarcode.Droid.Images.location.png")
                 )
             };
             map.Pins.Add(annotation);
 
-            annotation.Drag += (o, e) => {
+            annotation.Drag +=async (o, e) => {
                 Pin self = o as Pin;
-                self.Title = null;//self.Coordinate;
+                self.Title = Idiom;
                 int i = map.Pins.IndexOf(self);
-
-                if (map.Polylines.Count > 0 && i > -1)
-                {
-                    map.Polylines[0].Points[i] = self.Coordinate;
-                }
+                await client.Send(Idiom, "nihao", self.Coordinate.Latitude.ToString(), self.Coordinate.Longitude.ToString());
+                //if (map.Polylines.Count > 0 && i > -1)
+                //{
+                //    map.Polylines[0].Points[i] = self.Coordinate;
+                   
+                //}
             };
             annotation.Clicked += (_, e) => {
                 Debug.WriteLine("clicked");
                 ((Pin)_).Image = XImage.FromStream(
-                    typeof(SalesListsPage).GetTypeInfo().Assembly.GetManifestResourceStream("candaBarcode.Droid.Images.location.png")
+                    typeof(MapPage).GetTypeInfo().Assembly.GetManifestResourceStream("candaBarcode.Droid.Images.location.png")
                 );
                 userpoint = ((Pin)_).Coordinate;
             };
@@ -219,6 +229,10 @@ namespace candaBarcode.Views
             //{
             //    map.Polylines[0].Points.Add(annotation.Coordinate);
             //}
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
         }
     }
 }

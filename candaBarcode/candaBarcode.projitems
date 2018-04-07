@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SalesListsPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MapPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -27,9 +27,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CheckBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\MapLocationModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\SalesListsPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MapPage.xaml.cs">
       <SubType>Code</SubType>
-      <DependentUpon>SalesListsPage.xaml</DependentUpon>
+      <DependentUpon>MapPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CheckBoxModel.cs" />
@@ -161,7 +161,7 @@
     <Page Include="$(MSBuildThisFileDirectory)Views\Page1.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\SalesListspage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\MapPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
