@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)action\apiHelper\HttpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)action\apiHelper\InvokeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)action\Jsonhelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)action\SignalrClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>

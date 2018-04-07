@@ -21,6 +21,7 @@ namespace candaBarcode.Droid
             base.OnCreate(bundle);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
             Xamarin.FormsBaiduMaps.Init(null);
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
             global::Xamarin.Forms.Forms.Init(this, bundle);           
             LoadApplication(new App());
            

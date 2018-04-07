@@ -7,6 +7,9 @@
              Title="Detail">
   <StackLayout Padding="10">
         <maps:Map x:Name="map"/>
-        <Button x:Name="btnTrack" Text="Switch"/>
+        <Button x:Name="btnTrack" Text="测量" WidthRequest="150"/>
+        <Button x:Name="btnchat" Text="上传" WidthRequest="150"/>
+        <Label x:Name="label" Text="当前坐标"></Label>
+      
     </StackLayout>
 </ContentPage>

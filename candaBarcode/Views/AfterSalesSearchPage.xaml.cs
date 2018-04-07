@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -41,6 +42,7 @@ namespace candaBarcode.Views
         {
             BackgroundWorker backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork +=async delegate {
+                Thread.Sleep(1000);
                 listdata.Clear();
                 string content = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback,FID\",\"FilterString\":\"F_XAY_ExpNumback like '%" + searchbar.Text + "%'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
                 string[] results = Jsonhelper.JsonToString(content);
