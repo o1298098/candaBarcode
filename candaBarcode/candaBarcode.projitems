@@ -154,6 +154,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\AfterSalesTabbedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\MapPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

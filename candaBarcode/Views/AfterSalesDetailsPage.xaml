@@ -1,38 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="candaBarcode.Views.AfterSalesDetailsPage"
-             xmlns:local="clr-namespace:candaBarcode.Forms">
-    <ContentPage.Resources>
+            xmlns:local="clr-namespace:candaBarcode.Forms">
+    <TabbedPage.Resources>
         <ResourceDictionary>
-            
+            <!--<Style x:Key="EntryCellStyle" TargetType="EntryCell">
+            </Style>-->
         </ResourceDictionary>
-    </ContentPage.Resources>
-    <ContentPage.Content>
-        <StackLayout x:Name="layout">
-            <Picker Title="退回产品" x:Name="InstockMaterial">
-                <Picker.Items>
-                    <x:String>原汁机</x:String>
-                </Picker.Items></Picker>
-            <TableView Intent="Form"
-                   Margin="10, 0">
-                <TableRoot>
-                    <TableSection>
-                        <EntryCell Label="批次" Placeholder="请输入"/>
-                        <EntryCell Label="数量" Placeholder="请输入"/>
-                    </TableSection>
-                </TableRoot>
-            </TableView>            
-            <Entry x:Name="FBillNo"></Entry>
-            <Entry x:Name="Contact"></Entry>
-            <Entry x:Name="ExpNumback"></Entry>
-            <Button x:Name="insertbtn" Text="插入" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" WidthRequest="100"></Button>
-            <local:Checkbox x:Name="check"
+    </TabbedPage.Resources>
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Text="确定" x:Name="insertbtn"></ToolbarItem>
+    </TabbedPage.ToolbarItems>
+    <ContentPage Title="维修信息">
+        <ContentPage.Content>
+            <StackLayout x:Name="layout">
+                <TableView x:Name="table" Intent="Form"
+                   Margin="5, 0" RowHeight="40">
+                    <TableRoot>
+                        <TableSection Title="基本信息">
+                            <ViewCell>
+                            <Picker Title="退回产品" x:Name="InstockMaterial">
+                                <Picker.Items>
+                                    <x:String>原汁机</x:String>
+                                </Picker.Items>
+                            </Picker>
+                            </ViewCell>
+                            <EntryCell Label="批次" Placeholder="请输入" />
+                            <EntryCell Label="数量" Placeholder="请输入"/>
+                        </TableSection>
+                        <TableSection Title="售后内容" >
+                            <ViewCell>
+                                <Picker Title="故障类型">
+                                    <Picker.Items>
+                                        <x:String>原汁机</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </ViewCell>
+                            <EntryCell Label="故障原因" Placeholder="请输入" />
+                            <ViewCell>
+                                <Picker Title="处理方式">
+                                    <Picker.Items>
+                                        <x:String>原汁机</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </ViewCell>
+                            <EntryCell Label="维修内容" Placeholder="请输入"/>
+                        </TableSection>
+                    </TableRoot>
+                </TableView>
+                <!--<Entry x:Name="FBillNo"></Entry>
+                <Entry x:Name="Contact"></Entry>
+                <Entry x:Name="ExpNumback"></Entry>-->
+                <!--<local:Checkbox x:Name="check"
                             VerticalOptions="CenterAndExpand" 
                             HorizontalOptions="CenterAndExpand" 
                             Checked="{Binding IsChecked}" 
                             Text="{Binding TextCheckBox}" 
-                            Command="{Binding OnCheckedChanged}"></local:Checkbox>
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+                            Command="{Binding OnCheckedChanged}"></local:Checkbox>-->
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="入库信息" />
+</TabbedPage>
