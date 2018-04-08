@@ -26,7 +26,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CheckBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\MapLocationModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\MaterialModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MapPage.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MapPage.xaml</DependentUpon>
@@ -152,15 +154,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Page1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)SalesListsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\Page1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\MapPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -25,7 +25,8 @@ namespace candaBarcode.Views
             }
             check.Checked = false;
             check.Text = "lalalal";
-            insertbtn.Clicked += async delegate {
+            //InstockMaterial.Style = new Style(typeof(Picker)) { Setters = { new Setter {Property= } } };
+            insertbtn.Clicked += async delegate {               
                 if (index == -1)
                 {
                     App.aftersalesdata.Add(new AfterSalesData { FBillNo = FBillNo.Text, Contact = Contact.Text, ExpNumback = ExpNumback.Text });

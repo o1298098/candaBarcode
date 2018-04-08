@@ -24,7 +24,7 @@ namespace candaBarcode.Views
             Idiom = Plugin.DeviceInfo.CrossDeviceInfo.Current.Model;
             IMapManager mapManager = DependencyService.Get<IMapManager>();
             Debug.WriteLine(mapManager.CoordinateType);
-            mapManager.CoordinateType = CoordType.GCJ02;
+            mapManager.CoordinateType = CoordType.BD09LL;
             Debug.WriteLine(mapManager.CoordinateType);
             map.Loaded += MapLoaded;
             IOfflineMap offlineMap = DependencyService.Get<IOfflineMap>();
@@ -121,7 +121,7 @@ namespace candaBarcode.Views
         private static bool moved = false;
         public void InitLocationService()
         {
-            map.LocationService.LocationUpdated +=async (_, e) => {
+            map.LocationService.LocationUpdated +=async (_, e) => {                
                 //Debug.WriteLine("LocationUpdated: " + ex.Coordinate);
                 if (!moved)
                 {
@@ -130,7 +130,6 @@ namespace candaBarcode.Views
                     await client.Send(Idiom, "nihao", e.Coordinate.Latitude.ToString(), e.Coordinate.Longitude.ToString());
                 }
             };
-
             map.LocationService.Failed += (_, e) => {
                 Debug.WriteLine("Location failed: " + e.Message);
             };

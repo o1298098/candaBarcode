@@ -36,7 +36,7 @@ namespace candaBarcode.Views
                 var detailpage = new AfterSalesDetailsPage(-1);
                 detailpage.Title = "收件明细";
                 await Navigation.PushAsync(detailpage);
-            }; 
+            };
          }
        
         private void RowDel_Clicked(object sender, EventArgs e)
@@ -48,10 +48,10 @@ namespace candaBarcode.Views
         protected override void OnAppearing() 
         {
             base.OnAppearing();
-            FBillNo.Text = App.teststring.FBillNo;
-            Contact.Text = App.teststring.Contact;
-            ExpNumback.Text = App.teststring.ExpNumback;
-            FID.Text = App.teststring.FID;
+            FBillNo.Text = App.teststring.Model.FBillNo;
+            Contact.Text = App.teststring.Model.Contact;
+            ExpNumback.Text = App.teststring.Model.ExpNumback;
+            FID.Text = App.teststring.Model.FID;
         }
 
         private async void MenuItem_ClickedAsync(object sender, EventArgs e)

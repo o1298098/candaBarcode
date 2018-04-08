@@ -31,8 +31,8 @@ namespace candaBarcode.Views
             listview.IsRefreshing = true;
             BackgroundWorker backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += async delegate {
-               await Task.Run(() => {
-                   Thread.Sleep(1000);
+                Thread.Sleep(1000);
+                await Task.Run(() => {
                    string content = "{\"FormId\":\"STK_Inventory\",\"FieldKeys\":\"FMATERIALID.FName,FMATERIALID.FNumber,FBASEQTY,FSTOCKID.FName\",\"FilterString\":\"\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
                    string[] results = Jsonhelper.JsonToString(content);
                    for (int i = 0; i < results.Length; i++)

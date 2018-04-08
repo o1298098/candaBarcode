@@ -27,10 +27,10 @@ namespace candaBarcode.Views
             listview.ItemTapped += async delegate
             {
                 AfterSalesData data = listview.SelectedItem as AfterSalesData;
-                App.teststring.FBillNo = data.FBillNo;
-                App.teststring.Contact = data.Contact;
-                App.teststring.ExpNumback = data.ExpNumback;
-                App.teststring.FID = data.FID;
+                App.teststring.Model.FBillNo = data.FBillNo;
+                App.teststring.Model.Contact = data.Contact;
+                App.teststring.Model.ExpNumback = data.ExpNumback;
+                App.teststring.Model.FID = data.FID;
                 await Navigation.PopAsync();
             };
             listview.Refreshing += Listview_Refreshing;  

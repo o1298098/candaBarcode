@@ -3,8 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="candaBarcode.Views.AfterSalesDetailsPage"
              xmlns:local="clr-namespace:candaBarcode.Forms">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout x:Name="layout">
+            <Picker Title="退回产品" x:Name="InstockMaterial">
+                <Picker.Items>
+                    <x:String>原汁机</x:String>
+                </Picker.Items></Picker>
+            <TableView Intent="Form"
+                   Margin="10, 0">
+                <TableRoot>
+                    <TableSection>
+                        <EntryCell Label="批次" Placeholder="请输入"/>
+                        <EntryCell Label="数量" Placeholder="请输入"/>
+                    </TableSection>
+                </TableRoot>
+            </TableView>            
             <Entry x:Name="FBillNo"></Entry>
             <Entry x:Name="Contact"></Entry>
             <Entry x:Name="ExpNumback"></Entry>

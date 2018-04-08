@@ -113,7 +113,7 @@
       <Version>11.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.DeviceInfo">
-      <Version>3.1.0</Version>
+      <Version>3.1.0.57-beta</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugins.Vibrate">
       <Version>4.0.0.1-beta</Version>
