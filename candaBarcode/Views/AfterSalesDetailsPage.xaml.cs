@@ -38,7 +38,7 @@ namespace candaBarcode.Views
                 }
                 await Navigation.PopAsync();
             };
-
+            
         }
 
       

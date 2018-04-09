@@ -161,6 +161,9 @@
     <PackageReference Include="Xamarin.Forms.BaiduMaps">
       <Version>1.3.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Forms.Pages">
+      <Version>2.5.1.444934</Version>
+    </PackageReference>
     <PackageReference Include="ZXing.Net.Mobile">
       <Version>2.4.1</Version>
     </PackageReference>

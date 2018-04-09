@@ -7,7 +7,7 @@ namespace candaBarcode.Forms
 {
     public class CustomEntryCell : EntryCell
     {
-        public static readonly BindableProperty TextLineColorProperty = BindableProperty.Create("TextLineColor",typeof(Color),typeof(CustomEntryCell));
+        public static readonly BindableProperty TextLineColorProperty = BindableProperty.Create("TextLineColor",typeof(Color),typeof(CustomEntryCell),Color.AliceBlue);
 
         public Color TextLineColor
         {

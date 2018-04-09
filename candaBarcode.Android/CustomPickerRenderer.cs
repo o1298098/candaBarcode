@@ -24,16 +24,12 @@ namespace candaBarcode.Droid
         {
 
         }
-        //protected override EditText CreateNativeControl()
-        //{
-        //    CustomPicker picker =(CustomPicker)this.Element;
-        //    return new EditText(Context) { Focusable = false, Clickable = true, Tag = this ,TextSize=picker.TextSize,};
-        //}
-        protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)
+        protected override EditText CreateNativeControl()
         {
-            base.OnElementChanged(e);
             CustomPicker picker = (CustomPicker)this.Element;
             Control.SetTextSize(ComplexUnitType.Sp, picker.TextSize);
+            return new EditText(Context) { Focusable = false, Clickable = true, Tag = this, TextSize = picker.TextSize, };
         }
+       
     }
 }
