@@ -20,11 +20,11 @@
                     <TableRoot>
                         <TableSection Title="基本信息">
                             <ViewCell>
-                            <Picker Title="退回产品" x:Name="InstockMaterial">
+                            <local:CustomPicker Title="退回产品" x:Name="InstockMaterial">
                                 <Picker.Items>
                                     <x:String>原汁机</x:String>
                                 </Picker.Items>
-                            </Picker>
+                            </local:CustomPicker>
                             </ViewCell>
                             <EntryCell Label="批次" Placeholder="请输入" />
                             <EntryCell Label="数量" Placeholder="请输入"/>
@@ -37,7 +37,7 @@
                                     </Picker.Items>
                                 </Picker>
                             </ViewCell>
-                            <EntryCell Label="故障原因" Placeholder="请输入" />
+                            <EntryCell Label="故障原因" Placeholder="请输入"/>
                             <ViewCell>
                                 <Picker Title="处理方式">
                                     <Picker.Items>
