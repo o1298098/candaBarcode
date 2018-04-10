@@ -7,23 +7,22 @@ using System.Linq;
 using System.Text;
 
 using Xamarin.Forms;
-using static candaBarcode.Model.AfterSalesData2;
+using static candaBarcode.Model.AfterSalesData;
 
 namespace candaBarcode
 {
 	public partial class App : Application
 	{
         public static ObservableCollection<ScanListdata> list { get; set; }
-        public static AfterSalesData2 teststring { get; set; }
-        public static ObservableCollection<AfterSalesData> aftersalesdata { get; set; }
-        public static Detection detection { get; set; }
-        public static AfterSalesDetailModel AfterSalesDetailPagedata { get; set; }
+        public static AfterSalesData aftersalesdata { get; set; }
+        //public static ObservableCollection<AfterSalesData> aftersalesdata { get; set; }
+        public static AfterSalesDetectionModel detection { get; set; }
         public App ()
 		{
 			InitializeComponent();
             list = new ObservableCollection<ScanListdata>();
-            teststring = new AfterSalesData2();
-            aftersalesdata = new ObservableCollection<AfterSalesData>();
+            aftersalesdata = new AfterSalesData();
+            //aftersalesdata = new ObservableCollection<AfterSalesData>();
             MainPage = new MasterDetailPage1(); 
 		}
 

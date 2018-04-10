@@ -33,8 +33,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomEntryCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomPicker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesBillModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesDetailModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesDetectionModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\MapLocationModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\MaterialModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\SeletionModel.cs" />
@@ -45,7 +47,6 @@
       <SubType>Code</SubType>
       <DependentUpon>MapPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CheckBoxModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\InventoryData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ScanListdata.cs" />

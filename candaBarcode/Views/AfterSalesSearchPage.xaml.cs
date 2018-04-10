@@ -17,20 +17,21 @@ namespace candaBarcode.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AfterSalesSearchPage : ContentPage
 	{
-      private  ObservableCollection<AfterSalesData> listdata { get; set; }
+      private  ObservableCollection<AfterSalesBillModel> listdata { get; set; }
 
         public AfterSalesSearchPage ()
 		{
 			InitializeComponent ();
-            listdata = new ObservableCollection<AfterSalesData>();
+            listdata = new ObservableCollection<AfterSalesBillModel>();
             listview.ItemsSource = listdata;
             listview.ItemTapped += async delegate
             {
-                AfterSalesData data = listview.SelectedItem as AfterSalesData;
-                App.teststring.Model.FBillNo = data.FBillNo;
-                App.teststring.Model.Contact = data.Contact;
-                App.teststring.Model.ExpNumback = data.ExpNumback;
-                App.teststring.Model.FID = data.FID;
+                AfterSalesBillModel data = listview.SelectedItem as AfterSalesBillModel;
+                App.aftersalesdata.Model.FBillNo = data.FBillNo;
+                App.aftersalesdata.Model.Contact = data.Contact;
+                App.aftersalesdata.Model.ExpNumback = data.ExpNumback;
+                App.aftersalesdata.Model.FID = data.FID;
+                App.aftersalesdata.Model.FEntityDetection.Clear();
                 await Navigation.PopAsync();
             };
             listview.Refreshing += Listview_Refreshing;  
@@ -57,7 +58,7 @@ namespace candaBarcode.Views
                     {
                         string txt = results[i].Replace("[", "");
                         string[] array = txt.Split(',');
-                        listdata.Add(new AfterSalesData { FBillNo = array[0], Contact = array[1], ExpNumback = array[2], FID = array[3] });
+                        listdata.Add(new AfterSalesBillModel { FBillNo = array[0], Contact = array[1], ExpNumback = array[2], FID = Convert.ToInt64(array[3].Replace("]","")) });
                     }
                 });
             };

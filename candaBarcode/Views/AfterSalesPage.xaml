@@ -35,7 +35,7 @@
                             </ViewCell>
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal">
-                                    <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal" Margin="10,0,0,0">
                                         <Label Text="退回单号" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                         <Label x:Name="ExpNumback" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                         <Label Text="id" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
@@ -60,9 +60,9 @@
                                         <MenuItem Clicked="MenuItem_ClickedAsync"  CommandParameter="{Binding .}" Text="详情" />
                                     </ViewCell.ContextActions>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding FBillNo}" WidthRequest="150" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding Contact}" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding ExpNumback}" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding ProductName}" WidthRequest="150" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding F_XAY_DetQty}" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding F_QiH_FalutReason}" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                         <!--<Button x:Name="Editbtn" Image="edit.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" HorizontalOptions="EndAndExpand"  BackgroundColor="White" />-->
                                     </StackLayout>
                                 </ViewCell>
@@ -70,7 +70,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
-                <Button x:Name="SaveBtn" Text="保存" HorizontalOptions="Center" WidthRequest="100" HeightRequest="50" ></Button>
+                <Button x:Name="SaveBtn" Text="保存" HorizontalOptions="Center" WidthRequest="100" HeightRequest="50" VerticalOptions="End" Margin="0,0,20,0"></Button>
             </StackLayout>           
         </ScrollView>
     </ContentPage.Content>

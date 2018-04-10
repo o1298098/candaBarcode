@@ -31,25 +31,25 @@ namespace candaBarcode.Views
                 SeletionModel data = listview.SelectedItem as SeletionModel;
                 switch (mode) {
                     case 1:
-                        App.AfterSalesDetailPagedata.product = data.FName;
-                        App.detection.F_XAY_InstockMaterial = data.FID;
+                        App.detection.ProductName= data.FName;
+                        App.detection.F_XAY_InstockMaterial =Convert.ToInt64(data.FID);
                         break;
                     case 2:
-                        App.AfterSalesDetailPagedata.typet = data.FName;
+                        App.detection.typet = data.FName;
                         App.detection.F_QiH_Faulttypes = data.FID;
                         break;
                     case 3:
-                        App.AfterSalesDetailPagedata.typew = data.FName;
+                        App.detection.typew = data.FName;
                         App.detection.F_XAY_WAY = data.FID;
                         break;
                     case 4:
-                        App.AfterSalesDetailPagedata.instock = data.FName;
-                        App.detection.F_XAY_inStock = data.FID;
+                        App.detection.instock = data.FName;
+                        App.detection.F_XAY_inStock =Convert.ToInt64( data.FID);
                         App.detection.F_XAY_isOutStock = 1;
                         break;
                     case 5:
-                        App.AfterSalesDetailPagedata.outstock = data.FName;
-                        App.detection.F_XAY_OutStock = data.FID;
+                        App.detection.outstock = data.FName;
+                        App.detection.F_XAY_OutStock = Convert.ToInt64(data.FID);
                         App.detection.F_XAY_isOutStock = 1;
                         break;
                     default:return;

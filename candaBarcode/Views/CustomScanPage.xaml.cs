@@ -71,11 +71,11 @@ namespace candaBarcode
                         string[] results = Jsonhelper.JsonToString(content);
                         string txt = results[0].Replace("[", "");
                         string[] array = txt.Split(',');
-                        App.teststring.Model.FBillNo = array[0];
-                        App.teststring.Model.Contact = array[1];
-                        App.teststring.Model.ExpNumback = array[2];
-                        App.teststring.Model.FID = array[3].Replace("]", "");
-                        App.aftersalesdata.Clear();
+                        App.aftersalesdata.Model.FBillNo = array[0];
+                        App.aftersalesdata.Model.Contact = array[1];
+                        App.aftersalesdata.Model.ExpNumback = array[2];
+                        App.aftersalesdata.Model.FID =Convert.ToInt64(array[3].Replace("]", ""));
+                        App.aftersalesdata.Model.FEntityDetection.Clear();
                         await Navigation.PopAsync();
                     }
                     // Navigate away

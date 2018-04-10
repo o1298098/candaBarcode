@@ -5,7 +5,7 @@ using System.Text;
 
 namespace candaBarcode.Model
 {
-    public class AfterSalesDetailModel : INotifyPropertyChanged
+   public  class AfterSalesDetailModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private string _product;

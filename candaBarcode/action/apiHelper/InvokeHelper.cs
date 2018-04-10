@@ -21,7 +21,6 @@ namespace candaBarcode.apiHelper
             Parameters.Add("5972f88ff9373a");//帐套Id 测试5972f88ff9373a 正式59a12c8ba824d2
             Parameters.Add("kingdee");//用户名
             Parameters.Add("kd!123456");//密码
-
             Parameters.Add(2052);
             httpClient.Content = JsonConvert.SerializeObject(Parameters);
             return httpClient.SysncRequest();
