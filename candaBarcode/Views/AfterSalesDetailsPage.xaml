@@ -75,38 +75,52 @@
             <StackLayout  BackgroundColor="#f5f5f5">
                 <StackLayout Style="{StaticResource StackLayoutStyle}" >
                     <Label Text="退回产品" Style="{StaticResource LabelStyle}"></Label>
-                    <local:CustomEntry HorizontalOptions="FillAndExpand" IsPicker="True" x:Name="Marl" >
-                    </local:CustomEntry>
+                    <Button x:Name="selectproduct" BackgroundColor="White" HorizontalOptions="FillAndExpand"></Button>
+                    <!--<local:CustomEntry HorizontalOptions="FillAndExpand" IsPicker="True" x:Name="Marl" >
+                    </local:CustomEntry>-->
                     <Image Source="More.png" Style="{StaticResource imgMoreStyle}"></Image>
                 </StackLayout>
                 <StackLayout Style="{StaticResource StackLayoutStyle}">
                     <Label Text="批次" Style="{StaticResource LabelStyle}"></Label>
-                    <local:CustomEntry HorizontalOptions="FillAndExpand"></local:CustomEntry>
+                    <local:CustomEntry x:Name="PiCi" HorizontalOptions="FillAndExpand" IsNumber="True" ></local:CustomEntry>
                 </StackLayout>
                 <StackLayout Style="{StaticResource StackLayoutStyle}">
                     <Label Text="数量" Style="{StaticResource LabelStyle}"></Label>
-                    <local:CustomEntry HorizontalOptions="FillAndExpand"></local:CustomEntry>
+                    <local:CustomEntry x:Name="InStockNumber" HorizontalOptions="FillAndExpand" IsNumber="True"></local:CustomEntry>
                 </StackLayout>
                 <StackLayout Style="{StaticResource StackLayoutStyle}">
                     <Label Text="故障类型" Style="{StaticResource LabelStyle}"></Label>
-                    <local:CustomEntry HorizontalOptions="FillAndExpand" IsPicker="True"></local:CustomEntry>
+                    <Button x:Name="typetbtn" BackgroundColor="White" HorizontalOptions="FillAndExpand"></Button>
                     <Image Source="More.png" Style="{StaticResource imgMoreStyle}"></Image>
                 </StackLayout>
                 <StackLayout Style="{StaticResource StackLayoutStyle}">
                     <Label Text="故障原因" Style="{StaticResource LabelStyle}"></Label>
-                    <local:CustomEntry HorizontalOptions="FillAndExpand"></local:CustomEntry>
+                    <local:CustomEntry x:Name="Reasont" HorizontalOptions="FillAndExpand"></local:CustomEntry>
                 </StackLayout>
                 <StackLayout Style="{StaticResource StackLayoutStyle}">
                     <Label Text="处理方式" Style="{StaticResource LabelStyle}"></Label>
-                    <local:CustomEntry HorizontalOptions="FillAndExpand" IsPicker="True"></local:CustomEntry>
+                    <Button x:Name="typewbtn" BackgroundColor="White" HorizontalOptions="FillAndExpand"></Button>
                     <Image Source="More.png" Style="{StaticResource imgMoreStyle}"></Image>
                 </StackLayout>
                 <StackLayout Style="{StaticResource StackLayoutStyle}">
-                    <Label Text="维修内容" Style="{StaticResource LabelStyle}"></Label>
+                    <Label Text="维修内容" x:Name="Infow" Style="{StaticResource LabelStyle}"></Label>
                     <local:CustomEntry HorizontalOptions="FillAndExpand"></local:CustomEntry>
                 </StackLayout>
             </StackLayout>
         </ContentPage.Content>
     </ContentPage>
-    <ContentPage Title="入库信息" />
+    <ContentPage Title="出入库信息" >
+        <StackLayout BackgroundColor="#f5f5f5">
+            <StackLayout Style="{StaticResource StackLayoutStyle}" >
+                <Label Text="入库仓库" Style="{StaticResource LabelStyle}"></Label>
+                <Button x:Name="InStockbtn" BackgroundColor="White" HorizontalOptions="FillAndExpand"></Button>
+                <Image Source="More.png" Style="{StaticResource imgMoreStyle}"></Image>
+            </StackLayout>
+            <StackLayout Style="{StaticResource StackLayoutStyle}" >
+                <Label Text="出库仓库" Style="{StaticResource LabelStyle}"></Label>
+                <Button x:Name="OutStockbtn" BackgroundColor="White" HorizontalOptions="FillAndExpand"></Button>
+                <Image Source="More.png" Style="{StaticResource imgMoreStyle}"></Image>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage>
 </TabbedPage>

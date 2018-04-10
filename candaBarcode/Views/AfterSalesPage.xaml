@@ -25,7 +25,7 @@
                         <TableSection Title="信息" >
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal">
-                                    <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal" Margin="10,0,0,0">
                                         <Label Text="订单编号" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                         <Label x:Name="FBillNo" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                         <Label Text="联系人" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>

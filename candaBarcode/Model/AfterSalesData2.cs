@@ -88,11 +88,16 @@ namespace candaBarcode.Model
             /// </summary>  
             [JsonProperty("F_XAY_REPRODUCT")]
             public string F_XAY_REPRODUCT { get; set; }
+            [JsonProperty("F_XAY_INSTOCKMATERIAL")]
+            /// <summary>
+            /// 入库产品
+            /// </summary>
+            public string F_XAY_INSTOCKMATERIAL { get; set; }
             /// <summary>
             /// 入库产品
             /// </summary>
             [JsonProperty("F_XAY_InstockMaterial")]
-            public int F_XAY_InstockMaterial { get; set; }
+            public string F_XAY_InstockMaterial { get; set; }
             /// <summary>
             /// 批次
             /// </summary>
@@ -112,12 +117,12 @@ namespace candaBarcode.Model
             /// 退回仓库
             /// </summary>
             [JsonProperty("F_XAY_inStock")]
-            public int F_XAY_inStock { get; set; }
+            public string F_XAY_inStock { get; set; }
             /// <summary>
             /// 故障类型
             /// </summary>
             [JsonProperty("F_QiH_Faulttypes")]
-            public int F_QiH_Faulttypes { get; set; }
+            public string F_QiH_Faulttypes { get; set; }
             /// <summary>
             /// 故障原因
             /// </summary>
@@ -127,7 +132,7 @@ namespace candaBarcode.Model
             /// 处理方式
             /// </summary>
             [JsonProperty("F_XAY_WAY")]
-            public int F_XAY_WAY { get; set; }
+            public string F_XAY_WAY { get; set; }
             /// <summary>
             /// 维修内容
             /// </summary>
@@ -152,7 +157,7 @@ namespace candaBarcode.Model
             /// 出库仓库
             /// </summary>
             [JsonProperty("F_XAY_OutStock")]
-            public int F_XAY_OutStock { get; set; }
+            public string F_XAY_OutStock { get; set; }
             /// <summary>
             /// 是否出库
             /// </summary>

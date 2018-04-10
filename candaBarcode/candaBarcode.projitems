@@ -10,6 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AfterSalesSelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MapPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -30,8 +34,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomEntryCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\CustomPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesDetailModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\MapLocationModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\MaterialModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\SeletionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AfterSalesSelectionPage.xaml.cs">
+      <DependentUpon>AfterSalesSelectionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\MapPage.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MapPage.xaml</DependentUpon>

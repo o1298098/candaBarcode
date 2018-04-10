@@ -5,9 +5,10 @@ using Xamarin.Forms;
 
 namespace candaBarcode.Forms
 {
-    public class CustomEntry:Entry
+    public class CustomEntry : Entry
     {
         public static readonly BindableProperty IsPickerProperty = BindableProperty.Create("IsPicker", typeof(bool), typeof(CustomEntry), false);
+        public static readonly BindableProperty IsNumberProperty = BindableProperty.Create("IsNumber", typeof(bool), typeof(CustomEntry), false);
         public bool IsPicker
         {
             get
@@ -19,6 +20,17 @@ namespace candaBarcode.Forms
                 base.SetValue(IsPickerProperty, value);
             }
         }
-        
+        public bool IsNumber
+        {
+            get
+            {
+                return (bool)base.GetValue(IsNumberProperty);
+            }
+            set
+            {
+                base.SetValue(IsNumberProperty, value);
+            }
+        }
+        public event EventHandler<ClickedEventArgs> Clicked;
     }
 }

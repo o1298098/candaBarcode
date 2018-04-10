@@ -74,7 +74,5 @@ namespace candaBarcode.Views
         {
             listview.BeginRefresh();
         }
-
-       
     }
 }

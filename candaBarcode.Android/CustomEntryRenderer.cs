@@ -17,21 +17,24 @@ using Xamarin.Forms.Platform.Android;
 [assembly:ExportRenderer(typeof(CustomEntry),typeof(CustomEntryRenderer))]
 namespace candaBarcode.Droid
 {
-    public class CustomEntryRenderer : EntryRenderer
+    public class CustomEntryRenderer : EntryRenderer,TextView.IOnClickListener
     {
         public CustomEntryRenderer(Context context) : base(context)
         {
 
-        } 
-       
+        }
+
+        public void OnClick(Android.Views.View v)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);
             CustomEntry customEntry =(CustomEntry)this.Element;
             GradientDrawable gd = new GradientDrawable();
             gd.SetColor(Android.Graphics.Color.White);
-            //gd.SetCornerRadius(10);
-            //gd.SetStroke(2, Android.Graphics.Color.LightGray);
             Control.SetBackground(gd);
             if(customEntry.IsPicker)
             {
@@ -39,9 +42,16 @@ namespace candaBarcode.Droid
                 Control.Focusable = false;
                 Control.SetTextIsSelectable(false);
                 Control.ContextClickable = true;
-             
+                Control.SetCursorVisible(false);
             }
-            
+            if (customEntry.IsNumber)
+            {
+                var keyboard = customEntry.Keyboard;
+                keyboard = Keyboard.Numeric;
+                Control.InputType = Control.InputType | Android.Text.InputTypes.ClassNumber;
+            }           
+
+         
         }
     }
 }
