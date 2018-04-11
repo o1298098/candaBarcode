@@ -11,6 +11,11 @@
                         Value="CenterAndExpand" />
 
             </Style>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="TextColor" Value="Black"></Setter>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -18,42 +23,32 @@
         <ToolbarItem x:Name="scanbtn" Icon="scan.png"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Orientation="Vertical"  BackgroundColor="#f5f5f5">
-                <TableView HeightRequest="150" VerticalOptions="Start" BackgroundColor="White">
-                    <TableRoot>
-                        <TableSection Title="信息" >
-                            <ViewCell>
-                                <StackLayout Orientation="Horizontal">
-                                    <StackLayout Orientation="Horizontal" Margin="10,0,0,0">
-                                        <Label Text="订单编号" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
-                                        <Label x:Name="FBillNo" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                        <Label Text="联系人" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
-                                        <Label x:Name="Contact" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                    </StackLayout>
-                                </StackLayout>
-                            </ViewCell>
-                            <ViewCell>
-                                <StackLayout Orientation="Horizontal">
-                                    <StackLayout Orientation="Horizontal" Margin="10,0,0,0">
-                                        <Label Text="退回单号" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
-                                        <Label x:Name="ExpNumback" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                        <Label Text="id" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
-                                        <Label x:Name="FID" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                    </StackLayout>
-                                </StackLayout>
-                            </ViewCell>
-                        </TableSection>
-                    </TableRoot>
-
-                </TableView>
-                <StackLayout Orientation="Vertical"  BackgroundColor="White" Margin="0,5,0,0" Padding="0,0,0,5">
+        <StackLayout>
+            <StackLayout Orientation="Vertical"  BackgroundColor="#f5f5f5" VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" BackgroundColor="White" HeightRequest="60" Padding="15,0,0,0">
+                    <Label Text="订单编号" Style="{StaticResource LabelStyle}" ></Label>
+                    <Label x:Name="FBillNo" WidthRequest="120" Style="{StaticResource LabelStyle}" />
+                    <Label Text="联系人" WidthRequest="80" Style="{StaticResource LabelStyle}" ></Label>
+                    <Label x:Name="Contact" Style="{StaticResource LabelStyle}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"  BackgroundColor="White" HeightRequest="60" Margin="0,5,0,0" Padding="15,0,0,0">
+                    <Label Text="退回单号" Style="{StaticResource LabelStyle}" ></Label>
+                    <Label x:Name="ExpNumback" WidthRequest="120" Style="{StaticResource LabelStyle}" />
+                    <!--<Label Text="id" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                        <Label x:Name="FID" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>-->
+                </StackLayout>
+                <StackLayout Orientation="Vertical"  BackgroundColor="White" Margin="0,5,0,0" VerticalOptions="FillAndExpand">
                     <StackLayout Orientation="Horizontal" HeightRequest="45" BackgroundColor="White">
                         <Button x:Name="RowLoad" Image="Load.png" HorizontalOptions="EndAndExpand"  WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>
                         <Button x:Name="RowAdd" Image="adds.png" HorizontalOptions="End"  WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>
                         <Button x:Name="RowDel" Image="deleteo.png" HorizontalOptions="End" WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>                        
                     </StackLayout>
-                    <ListView x:Name="listview" HeightRequest="250" VerticalOptions="StartAndExpand">                       
+                    <StackLayout Orientation="Horizontal" HeightRequest="45" BackgroundColor="White">
+                        <Label Text="退回产品" WidthRequest="150" Style="{StaticResource LabelStyle}" />
+                        <Label Text="数量" WidthRequest="50" Style="{StaticResource LabelStyle}" />
+                        <Label Text="故障原因" HorizontalOptions="FillAndExpand" Style="{StaticResource LabelStyle}" />
+                    </StackLayout>
+                    <ListView x:Name="listview" VerticalOptions="StartAndExpand" MinimumHeightRequest="100" BackgroundColor="White">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -61,18 +56,20 @@
                                         <MenuItem Clicked="MenuItem_ClickedAsync"  CommandParameter="{Binding .}" Text="详情" />
                                     </ViewCell.ContextActions>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding F_XAY_Product}" WidthRequest="150" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding F_XAY_DetQty}" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding F_QiH_FalutReason}" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding F_XAY_Product}" WidthRequest="150" Style="{StaticResource LabelStyle}" />
+                                        <Label Text="{Binding F_XAY_DetQty}" WidthRequest="50" Style="{StaticResource LabelStyle}" />
+                                        <Label Text="{Binding F_QiH_FalutReason}" HorizontalOptions="FillAndExpand" Style="{StaticResource LabelStyle}" />
                                         <!--<Button x:Name="Editbtn" Image="edit.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" HorizontalOptions="EndAndExpand"  BackgroundColor="White" />-->
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+
                 </StackLayout>
-                <Button x:Name="SaveBtn" Text="保存" HorizontalOptions="Center" WidthRequest="100" HeightRequest="50" VerticalOptions="End" Margin="0,0,0,20"></Button>
+                
+                <Button x:Name="SaveBtn" Text="保存" HorizontalOptions="Center" WidthRequest="100" HeightRequest="50" VerticalOptions="End" Margin="0,0,0,5"></Button>
             </StackLayout>           
-        </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

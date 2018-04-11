@@ -2,6 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="candaBarcode.Views.AfterSalesSearchPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="TextColor" Value="Black"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -12,22 +21,28 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <SearchBar x:Name="searchbar" Placeholder="请输入收件单号" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Grid.Row="0" Grid.Column="0"></SearchBar>
-            <ScrollView Grid.Row="1" Grid.Column="0" >
-                <ListView x:Name="listview" CachingStrategy="RecycleElement">
+            <StackLayout Grid.Row="1" Grid.Column="0" >
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="订单编号" HorizontalOptions="FillAndExpand" Style="{StaticResource LabelStyle}" FontSize="Medium"></Label>
+                    <Label Text="联系人" WidthRequest="60" Style="{StaticResource LabelStyle}"  FontSize="Medium"></Label>
+                    <Label Text="退回单号" WidthRequest="140" Style="{StaticResource LabelStyle}"  FontSize="Medium"></Label>
+                    <!--<Label Text="{Binding FID}" WidthRequest="60"></Label>-->
+                </StackLayout>
+                <ListView x:Name="listview">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding FBillNo}" WidthRequest="120"></Label>
-                                        <Label Text="{Binding Contact}" WidthRequest="60"></Label>
-                                        <Label Text="{Binding ExpNumback}" WidthRequest="120"></Label>
-                                        <Label Text="{Binding FID}" WidthRequest="60"></Label>
+                                    <Label Text="{Binding FBillNo}" HorizontalOptions="FillAndExpand" Style="{StaticResource LabelStyle}" ></Label>
+                                    <Label Text="{Binding Contact}" WidthRequest="60" Style="{StaticResource LabelStyle}"></Label>
+                                    <Label Text="{Binding ExpNumback}" WidthRequest="140" Style="{StaticResource LabelStyle}"></Label>
+                                        <!--<Label Text="{Binding FID}" WidthRequest="60"></Label>-->
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>               
-            </ScrollView>           
+            </StackLayout>           
         </Grid>
              
     </ContentPage.Content>

@@ -42,14 +42,14 @@ namespace candaBarcode.Views
                 AfterSalesSelectionPage selectionPage = new AfterSalesSelectionPage(6);
                 await Navigation.PushAsync(selectionPage);
             };
-            listview.ItemTapped += async delegate 
-            {
-                var selectdata = (AfterSalesDetectionModel)listview.SelectedItem;
-                int index = App.aftersalesdata.Model.FEntityDetection.IndexOf(selectdata);
-                var detailpage = new AfterSalesDetailsPage(index);
-                detailpage.Title = "收件明细";
-                await Navigation.PushAsync(detailpage);
-            };
+            //listview.ItemSelected+= async delegate 
+            //{
+            //    var selectdata = (AfterSalesDetectionModel)listview.SelectedItem;
+            //    int index = App.aftersalesdata.Model.FEntityDetection.IndexOf(selectdata);
+            //    var detailpage = new AfterSalesDetailsPage(index);
+            //    detailpage.Title = "收件明细";
+            //    await Navigation.PushAsync(detailpage);
+            //};
             SaveBtn.Clicked += SaveBtn_Clicked;
          }
 
@@ -57,13 +57,26 @@ namespace candaBarcode.Views
         {
             if (App.aftersalesdata.Model.FEntityDetection.Count > 0 && App.aftersalesdata.Model.FID!=0)
             {
-                string s = JsonConvert.SerializeObject(App.aftersalesdata);
+                foreach (var a in App.aftersalesdata.Model.FEntityDetection)
+                {
+                    if (a.F_XAY_OutStock.FNumber == "s")
+                        a.F_XAY_OutStock.FNumber = "CK002";
+                    if (a.F_XAY_inStock.FNumber == "s")
+                        a.F_XAY_inStock.FNumber = "CK004";
+                }
+                    string s = JsonConvert.SerializeObject(App.aftersalesdata);
                string result= InvokeHelper.Save("XAY_ServiceApplication", s);
                 KingdeeJsonResultModel kingdeeJsonResult = JsonConvert.DeserializeObject<KingdeeJsonResultModel>(result);
 
                 if (kingdeeJsonResult.Result.ResponseStatus.IsSuccess == "true")
                 {
+                   
                     App.aftersalesdata = new AfterSalesData();
+                    FBillNo.Text = App.aftersalesdata.Model.FBillNo;
+                    Contact.Text = App.aftersalesdata.Model.Contact;
+                    ExpNumback.Text = App.aftersalesdata.Model.ExpNumback;
+                    //FID.Text = App.aftersalesdata.Model.FID.ToString();
+                    listview.ItemsSource = App.aftersalesdata.Model.FEntityDetection;
                     await DisplayAlert("提示", "保存成功", "ok");
                 }
                 else
@@ -89,7 +102,7 @@ namespace candaBarcode.Views
             FBillNo.Text = App.aftersalesdata.Model.FBillNo;
             Contact.Text = App.aftersalesdata.Model.Contact;
             ExpNumback.Text = App.aftersalesdata.Model.ExpNumback;
-            FID.Text = App.aftersalesdata.Model.FID.ToString();
+            //FID.Text = App.aftersalesdata.Model.FID.ToString();
         }
 
         private async void MenuItem_ClickedAsync(object sender, EventArgs e)

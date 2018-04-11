@@ -18,12 +18,12 @@ namespace candaBarcode.Model
         /// 退回内件
         /// </summary>  
         [JsonProperty("F_XAY_REPRODUCT")]
-        public basenum F_XAY_REPRODUCT { get; set; }
+        public basefid F_XAY_REPRODUCT { get; set; }
         /// <summary>
         /// 入库产品
         /// </summary>
         [JsonProperty("F_XAY_InstockMaterial")]
-        public baseid F_XAY_InstockMaterial { get; set; }
+        public basemid F_XAY_InstockMaterial { get; set; }
         /// <summary>
         /// 批次
         /// </summary>
@@ -68,17 +68,17 @@ namespace candaBarcode.Model
         /// 寄回内件
         /// </summary>
         [JsonProperty("F_XAY_MaterialName")]
-        public basenum F_XAY_MaterialName { get; set; }
+        public basefid F_XAY_MaterialName { get; set; }
         /// <summary>
         /// 出库打印
         /// </summary>
         [JsonProperty("F_XAY_OutMaterial")]
-        public baseid F_XAY_OutMaterial { get; set; }
+        public basemid F_XAY_OutMaterial { get; set; }
         /// <summary>
         /// 出库数量
         /// </summary>
         [JsonProperty("F_XAY_Qty")]
-        public long F_XAY_Qty { get; set; }
+        public string F_XAY_Qty { get; set; }
         /// <summary>
         /// 出库仓库
         /// </summary>
@@ -151,16 +151,23 @@ namespace candaBarcode.Model
         public class basenum
         {
             /// <summary>
-            /// 故障类型编码
+            /// 编码
             /// </summary>
             public string FNumber { set; get; }
         }
-        public class baseid
+        public class basemid
         {
             /// <summary>
-            /// 故障类型编码
+            /// 物料ID
             /// </summary>
             public string FMaterialID { set; get; }
+        }
+        public class basefid
+        {
+            /// <summary>
+            /// 标准ID
+            /// </summary>
+            public string FID { set; get; }
         }
 
 
@@ -174,10 +181,10 @@ namespace candaBarcode.Model
             F_XAY_inStock = new basenum() { FNumber = "s" };
             F_XAY_WAY = new basenum() { FNumber = "s" };
             F_XAY_OutStock = new basenum() { FNumber = "s" };
-            F_XAY_REPRODUCT = new basenum() { FNumber = "" };
-            F_XAY_InstockMaterial = new baseid() { FMaterialID = "0" };
-            F_XAY_MaterialName = new basenum() { FNumber = "s" };
-            F_XAY_OutMaterial = new baseid() { FMaterialID = "0" };
+            F_XAY_REPRODUCT = new basefid() { FID = "0" };
+            F_XAY_InstockMaterial = new basemid() { FMaterialID = "0" };
+            F_XAY_MaterialName = new basefid() { FID = "0" };
+            F_XAY_OutMaterial = new basemid() { FMaterialID = "0" };
             F_XAY_Product = "";
         }
     }

@@ -10,9 +10,9 @@ namespace candaBarcode.Model
    
    public class AfterSalesBillModel: INotifyPropertyChanged
     {
-         private static string _FBillNo;
-    private static string _Contact;
-    private static string _ExpNumback;
+        private string _FBillNo;
+        private string _Contact;
+        private string _ExpNumback;
     /// <summary>
     /// 单据编号
     /// </summary>
@@ -23,7 +23,7 @@ namespace candaBarcode.Model
             set
             {
                 _FBillNo = value;
-                OnPropertyChanged("FBillNo");
+              OnPropertyChanged("FBillNo");
             }
         }
         /// <summary>
@@ -36,7 +36,7 @@ namespace candaBarcode.Model
             set
             {
                 _Contact = value;
-                OnPropertyChanged("Contact");
+               OnPropertyChanged("Contact");
             }
         }
         /// <summary>
@@ -49,7 +49,7 @@ namespace candaBarcode.Model
             set
             {
                 _ExpNumback = value;
-                OnPropertyChanged("ExpNumback");
+               OnPropertyChanged("ExpNumback");
             }
         }
         /// <summary>
@@ -68,5 +68,6 @@ namespace candaBarcode.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+       
     }
 }

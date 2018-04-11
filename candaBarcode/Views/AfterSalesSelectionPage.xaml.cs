@@ -32,8 +32,8 @@ namespace candaBarcode.Views
                 switch (mode) {
                     case 1:
                         App.detection.F_XAY_Product= data.FName;
-                        App.detection.F_XAY_REPRODUCT.FNumber =data.FNumber;
-                        App.detection.F_XAY_MaterialName.FNumber = data.FNumber;
+                        App.detection.F_XAY_REPRODUCT.FID =data.FNumber;
+                        App.detection.F_XAY_MaterialName.FID = data.FNumber;
                         App.detection.F_XAY_InstockMaterial.FMaterialID= data.FID;
                         App.detection.F_XAY_OutMaterial.FMaterialID= data.FID;
                         break;
@@ -57,7 +57,7 @@ namespace candaBarcode.Views
                         break;
                     case 6:
                         App.aftersalesdata.Model.FEntityDetection.Clear();
-                       string content = "{\"FormId\":\"3d2267aea48748a8af1350d27b5b5ebb\",\"FieldKeys\":\"FNumber,FName\",\"FilterString\":\"F_XAY_Material="+ data.FID + "\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";//配件
+                       string content = "{\"FormId\":\"3d2267aea48748a8af1350d27b5b5ebb\",\"FieldKeys\":\"FNumber,FName,FID\",\"FilterString\":\"F_XAY_Material=" + data.FID + " and FDOCUMENTSTATUS='C'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";//配件
                        string[] results = Jsonhelper.JsonToString(content);
                         if (results == null)
                         {
@@ -69,15 +69,16 @@ namespace candaBarcode.Views
                             string txt = results[i].Replace("[", "");
                             string[] array = txt.Split(',');
                             string FNumber = array[0];
-                            string FName = array[1].Replace("]", "");
+                            string FName = array[1];
+                            string FID = array[2].Replace("]", "");
                             App.aftersalesdata.Model.FEntityDetection.Add(
                                 new AfterSalesDetectionModel
                                 {
                                     F_XAY_Product = FName,
-                                    F_XAY_REPRODUCT = new AfterSalesDetectionModel.basenum() { FNumber = FNumber },
-                                    F_XAY_MaterialName = new AfterSalesDetectionModel.basenum() { FNumber = FNumber },
-                                    F_XAY_InstockMaterial = new AfterSalesDetectionModel.baseid() { FMaterialID = data.FID },
-                                    F_XAY_OutMaterial = new AfterSalesDetectionModel.baseid() { FMaterialID = data.FID },
+                                    F_XAY_REPRODUCT = new AfterSalesDetectionModel.basefid() { FID = array[2].Replace("]", "") },
+                                    F_XAY_MaterialName = new AfterSalesDetectionModel.basefid() { FID = array[2].Replace("]", "") },
+                                    F_XAY_InstockMaterial = new AfterSalesDetectionModel.basemid() { FMaterialID = data.FID },
+                                    F_XAY_OutMaterial = new AfterSalesDetectionModel.basemid() { FMaterialID = data.FID },
                                     F_XAY_DetQty="1"
                                 }
                                     );
@@ -103,7 +104,7 @@ namespace candaBarcode.Views
                 listdata.Clear();
                 switch (Mode) {
                     case 1:
-                        content = "{\"FormId\":\"3d2267aea48748a8af1350d27b5b5ebb\",\"FieldKeys\":\"FNumber,FName,F_XAY_Material\",\"FilterString\":\"\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";//配件
+                        content = "{\"FormId\":\"3d2267aea48748a8af1350d27b5b5ebb\",\"FieldKeys\":\"FID,FName,F_XAY_Material\",\"FilterString\":\"FDOCUMENTSTATUS='C'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";//配件
                         break;
                     case 2:
                         content = "{\"FormId\":\"BOS_ASSISTANTDATA_DETAIL\",\"FieldKeys\":\"FNumber,FDATAVALUE,FEntryID\",\"FilterString\":\" FID='582ab4c60d889f'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";//故障类型

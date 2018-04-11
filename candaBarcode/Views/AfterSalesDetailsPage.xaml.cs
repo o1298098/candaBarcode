@@ -44,7 +44,7 @@ namespace candaBarcode.Views
             };
             selectproduct.Clicked += async delegate { await GoToSelect(1); };
             PiCi.TextChanged += delegate { App.detection.F_XAY_Flot = PiCi.Text; };
-            InStockNumber.TextChanged += delegate { App.detection.F_XAY_DetQty =InStockNumber.Text; };
+            InStockNumber.TextChanged += delegate { App.detection.F_XAY_DetQty =InStockNumber.Text;App.detection.F_XAY_Qty = InStockNumber.Text; };
             typetbtn.Clicked += async delegate { await GoToSelect(2); };
             Reasont.TextChanged += delegate { App.detection.F_QiH_FalutReason = Reasont.Text; };
             typewbtn.Clicked += async delegate { await GoToSelect(3); };

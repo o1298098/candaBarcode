@@ -58,7 +58,10 @@ namespace candaBarcode.Views
                     {
                         string txt = results[i].Replace("[", "");
                         string[] array = txt.Split(',');
-                        listdata.Add(new AfterSalesBillModel { FBillNo = array[0], Contact = array[1], ExpNumback = array[2], FID = Convert.ToInt64(array[3].Replace("]","")) });
+                        string FBillNo = array[0];
+                        string Contact = array[1];
+                        string ExpNumback = array[2];
+                        listdata.Add(new AfterSalesBillModel { FBillNo = FBillNo, Contact = Contact, ExpNumback = ExpNumback, FID = Convert.ToInt64(array[3].Replace("]","")) });
                     }
                 });
             };
