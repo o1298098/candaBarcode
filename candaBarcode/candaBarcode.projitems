@@ -37,6 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesDetailModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\AfterSalesDetectionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\KingdeeJsonResultModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\MapLocationModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\MaterialModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\SeletionModel.cs" />

@@ -34,7 +34,7 @@ namespace candaBarcode.Model
 
         public AfterSalesData()
         {
-            NeedUpDateFields = new string[] { "FEntityDetection" };
+            NeedUpDateFields = new string[] { "FEntityDetection", "F_XAY_Product", "F_XAY_REPRODUCT", "F_XAY_Flot", "F_XAY_DetQty", "F_XAY_isInStock", "F_XAY_inStock","F_QiH_Faulttypes", "F_QiH_FalutReason", "F_XAY_WAY", "F_XAY_ServiceInf", "F_XAY_MaterialName","F_XAY_Qty","F_XAY_OutStock","F_XAY_isOutStock"};
             Model = new AfterSalesBillModel();
             Model.FEntityDetection = new ObservableCollection<AfterSalesDetectionModel>();
         }

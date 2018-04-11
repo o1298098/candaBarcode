@@ -49,10 +49,11 @@
                 </TableView>
                 <StackLayout Orientation="Vertical"  BackgroundColor="White" Margin="0,5,0,0" Padding="0,0,0,5">
                     <StackLayout Orientation="Horizontal" HeightRequest="45" BackgroundColor="White">
-                        <Button x:Name="RowAdd" Image="adds.png" HorizontalOptions="EndAndExpand"  WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>
+                        <Button x:Name="RowLoad" Image="Load.png" HorizontalOptions="EndAndExpand"  WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>
+                        <Button x:Name="RowAdd" Image="adds.png" HorizontalOptions="End"  WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>
                         <Button x:Name="RowDel" Image="deleteo.png" HorizontalOptions="End" WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>                        
                     </StackLayout>
-                    <ListView x:Name="listview" HeightRequest="200" VerticalOptions="StartAndExpand">
+                    <ListView x:Name="listview" HeightRequest="250" VerticalOptions="StartAndExpand">                       
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -60,7 +61,7 @@
                                         <MenuItem Clicked="MenuItem_ClickedAsync"  CommandParameter="{Binding .}" Text="详情" />
                                     </ViewCell.ContextActions>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding ProductName}" WidthRequest="150" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding F_XAY_Product}" WidthRequest="150" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                         <Label Text="{Binding F_XAY_DetQty}" WidthRequest="120" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                         <Label Text="{Binding F_QiH_FalutReason}" WidthRequest="80" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                         <!--<Button x:Name="Editbtn" Image="edit.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" HorizontalOptions="EndAndExpand"  BackgroundColor="White" />-->
@@ -70,7 +71,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
-                <Button x:Name="SaveBtn" Text="保存" HorizontalOptions="Center" WidthRequest="100" HeightRequest="50" VerticalOptions="End" Margin="0,0,20,0"></Button>
+                <Button x:Name="SaveBtn" Text="保存" HorizontalOptions="Center" WidthRequest="100" HeightRequest="50" VerticalOptions="End" Margin="0,0,0,20"></Button>
             </StackLayout>           
         </ScrollView>
     </ContentPage.Content>

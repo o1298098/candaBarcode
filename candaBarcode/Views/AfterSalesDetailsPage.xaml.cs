@@ -27,7 +27,14 @@ namespace candaBarcode.Views
             insertbtn.Clicked += async delegate {               
                 if (index == -1)
                 {
-                    App.aftersalesdata.Model.FEntityDetection.Add(App.detection);
+                    if (App.detection.F_XAY_InstockMaterial.FMaterialID != "0")
+                    { App.aftersalesdata.Model.FEntityDetection.Add(App.detection); }
+                    else
+                    {
+                        await DisplayAlert("提示","请输入库产品","OK");
+                        return;
+                    }
+                   
                 }
                 else
                 {
@@ -57,7 +64,7 @@ namespace candaBarcode.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            selectproduct.Text = App.detection.ProductName;
+            selectproduct.Text = App.detection.F_XAY_Product;
             PiCi.Text = App.detection.F_XAY_Flot;
             InStockNumber.Text = App.detection.F_XAY_DetQty;
             typetbtn.Text = App.detection.typet;

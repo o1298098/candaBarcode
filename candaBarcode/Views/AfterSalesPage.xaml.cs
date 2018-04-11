@@ -38,6 +38,18 @@ namespace candaBarcode.Views
                 detailpage.Title = "收件明细";
                 await Navigation.PushAsync(detailpage);
             };
+            RowLoad.Clicked +=async delegate{
+                AfterSalesSelectionPage selectionPage = new AfterSalesSelectionPage(6);
+                await Navigation.PushAsync(selectionPage);
+            };
+            listview.ItemTapped += async delegate 
+            {
+                var selectdata = (AfterSalesDetectionModel)listview.SelectedItem;
+                int index = App.aftersalesdata.Model.FEntityDetection.IndexOf(selectdata);
+                var detailpage = new AfterSalesDetailsPage(index);
+                detailpage.Title = "收件明细";
+                await Navigation.PushAsync(detailpage);
+            };
             SaveBtn.Clicked += SaveBtn_Clicked;
          }
 
@@ -46,8 +58,18 @@ namespace candaBarcode.Views
             if (App.aftersalesdata.Model.FEntityDetection.Count > 0 && App.aftersalesdata.Model.FID!=0)
             {
                 string s = JsonConvert.SerializeObject(App.aftersalesdata);
-                InvokeHelper.Save("XAY_ServiceApplication", s);
-                await DisplayAlert("提示", "OKKKKKKK", "ok");
+               string result= InvokeHelper.Save("XAY_ServiceApplication", s);
+                KingdeeJsonResultModel kingdeeJsonResult = JsonConvert.DeserializeObject<KingdeeJsonResultModel>(result);
+
+                if (kingdeeJsonResult.Result.ResponseStatus.IsSuccess == "true")
+                {
+                    App.aftersalesdata = new AfterSalesData();
+                    await DisplayAlert("提示", "保存成功", "ok");
+                }
+                else
+                {
+                    await DisplayAlert("提示", "保存失败", "ok");
+                }
             }
             else
             {

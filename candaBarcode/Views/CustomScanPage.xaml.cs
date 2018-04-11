@@ -67,15 +67,23 @@ namespace candaBarcode
                     if (Mode == 0) { HandleScanResult(result); }
                     else if (Mode == 1) {
                         zxing.IsAnalyzing = false;
-                        string content = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback,FID\",\"FilterString\":\"F_XAY_ExpNumback='550582485510'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                        string content = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback,FID\",\"FilterString\":\"F_XAY_ExpNumback='"+ result + "'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
                         string[] results = Jsonhelper.JsonToString(content);
-                        string txt = results[0].Replace("[", "");
-                        string[] array = txt.Split(',');
-                        App.aftersalesdata.Model.FBillNo = array[0];
-                        App.aftersalesdata.Model.Contact = array[1];
-                        App.aftersalesdata.Model.ExpNumback = array[2];
-                        App.aftersalesdata.Model.FID =Convert.ToInt64(array[3].Replace("]", ""));
-                        App.aftersalesdata.Model.FEntityDetection.Clear();
+                        if (results == null)
+                        {
+                            await DisplayAlert("提示", "系统无此单号", "OK");
+                        }
+                        else
+                        {
+                            string txt = results[0].Replace("[", "");
+                            string[] array = txt.Split(',');
+                            App.aftersalesdata.Model.FBillNo = array[0];
+                            App.aftersalesdata.Model.Contact = array[1];
+                            App.aftersalesdata.Model.ExpNumback = array[2];
+                            App.aftersalesdata.Model.FID = Convert.ToInt64(array[3].Replace("]", ""));
+                            App.aftersalesdata.Model.FEntityDetection.Clear();
+                        }
+                        
                         await Navigation.PopAsync();
                     }
                     // Navigate away

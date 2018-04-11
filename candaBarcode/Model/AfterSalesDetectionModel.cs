@@ -18,12 +18,12 @@ namespace candaBarcode.Model
         /// 退回内件
         /// </summary>  
         [JsonProperty("F_XAY_REPRODUCT")]
-        public string F_XAY_REPRODUCT { get; set; }
+        public basenum F_XAY_REPRODUCT { get; set; }
         /// <summary>
         /// 入库产品
         /// </summary>
         [JsonProperty("F_XAY_InstockMaterial")]
-        public long F_XAY_InstockMaterial { get; set; }
+        public baseid F_XAY_InstockMaterial { get; set; }
         /// <summary>
         /// 批次
         /// </summary>
@@ -43,12 +43,12 @@ namespace candaBarcode.Model
         /// 退回仓库
         /// </summary>
         [JsonProperty("F_XAY_inStock")]
-        public long F_XAY_inStock { get; set; }
+        public basenum F_XAY_inStock { get; set; }
         /// <summary>
         /// 故障类型
         /// </summary>
         [JsonProperty("F_QiH_Faulttypes")]
-        public string F_QiH_Faulttypes { get; set; }
+        public basenum F_QiH_Faulttypes { get; set; }
         /// <summary>
         /// 故障原因
         /// </summary>
@@ -58,7 +58,7 @@ namespace candaBarcode.Model
         /// 处理方式
         /// </summary>
         [JsonProperty("F_XAY_WAY")]
-        public string F_XAY_WAY { get; set; }
+        public basenum F_XAY_WAY { get; set; }
         /// <summary>
         /// 维修内容
         /// </summary>
@@ -68,12 +68,12 @@ namespace candaBarcode.Model
         /// 寄回内件
         /// </summary>
         [JsonProperty("F_XAY_MaterialName")]
-        public int F_XAY_MaterialName { get; set; }
+        public basenum F_XAY_MaterialName { get; set; }
         /// <summary>
         /// 出库打印
         /// </summary>
         [JsonProperty("F_XAY_OutMaterial")]
-        public int F_XAY_OutMaterial { get; set; }
+        public baseid F_XAY_OutMaterial { get; set; }
         /// <summary>
         /// 出库数量
         /// </summary>
@@ -83,19 +83,19 @@ namespace candaBarcode.Model
         /// 出库仓库
         /// </summary>
         [JsonProperty("F_XAY_OutStock")]
-        public long F_XAY_OutStock { get; set; }
+        public basenum F_XAY_OutStock { get; set; }
         /// <summary>
         /// 是否出库
         /// </summary>
         [JsonProperty("F_XAY_isOutStock")]
         public long F_XAY_isOutStock { get; set; }
-        public string ProductName
+        public string F_XAY_Product
         {
             get { return _product; }
             set
             {
                 _product = value;
-                OnPropertyChanged("ProductName");
+                OnPropertyChanged("F_XAY_Product");
             }
         }
        
@@ -132,7 +132,7 @@ namespace candaBarcode.Model
             get { return _instock; }
             set
             {
-                _instock = value;
+                _instock = value; 
                 OnPropertyChanged("instock");
             }
         }
@@ -148,13 +148,37 @@ namespace candaBarcode.Model
                 OnPropertyChanged("outstock");
             }
         }
+        public class basenum
+        {
+            /// <summary>
+            /// 故障类型编码
+            /// </summary>
+            public string FNumber { set; get; }
+        }
+        public class baseid
+        {
+            /// <summary>
+            /// 故障类型编码
+            /// </summary>
+            public string FMaterialID { set; get; }
+        }
 
-       
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+       public AfterSalesDetectionModel() {
+            F_QiH_Faulttypes = new basenum() {FNumber="s" };
+            F_XAY_inStock = new basenum() { FNumber = "s" };
+            F_XAY_WAY = new basenum() { FNumber = "s" };
+            F_XAY_OutStock = new basenum() { FNumber = "s" };
+            F_XAY_REPRODUCT = new basenum() { FNumber = "" };
+            F_XAY_InstockMaterial = new baseid() { FMaterialID = "0" };
+            F_XAY_MaterialName = new basenum() { FNumber = "s" };
+            F_XAY_OutMaterial = new baseid() { FMaterialID = "0" };
+            F_XAY_Product = "";
         }
     }
 }
