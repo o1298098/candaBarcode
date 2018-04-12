@@ -51,8 +51,15 @@ namespace candaBarcode.Views
             Infow.TextChanged += delegate { App.detection.F_XAY_ServiceInf = Infow.Text;};
             InStockbtn.Clicked += async delegate { await GoToSelect(4); };
             OutStockbtn.Clicked += async delegate { await GoToSelect(5); };
-
-
+            RowDel.Clicked += async delegate
+            {
+                if (index != -1)
+                {
+                    App.aftersalesdata.Model.FEntityDetection.RemoveAt(index);
+                    await Navigation.PopAsync();
+                }
+                
+            };
         }
 
       

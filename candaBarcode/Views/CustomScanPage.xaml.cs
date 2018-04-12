@@ -67,7 +67,7 @@ namespace candaBarcode
                     if (Mode == 0) { HandleScanResult(result); }
                     else if (Mode == 1) {
                         zxing.IsAnalyzing = false;
-                        string content = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback,FID\",\"FilterString\":\"F_XAY_ExpNumback='"+ result + "'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                        string content = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback,FID\",\"FilterString\":\"F_XAY_ExpNumback='"+ result + "'and  FDocumentStatus='B'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
                         string[] results = Jsonhelper.JsonToString(content);
                         if (results == null)
                         {

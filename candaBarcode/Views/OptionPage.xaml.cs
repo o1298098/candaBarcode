@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using candaBarcode.action;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,28 +16,20 @@ namespace candaBarcode.Views
 		public OptionPage ()
 		{
 			InitializeComponent ();
+            SqliteDataAccess access = new SqliteDataAccess();
+            var optiondatas=access.SelectAll();
+            
             TableView tableView = new TableView
             {
                 Intent = TableIntent.Form,
-                Root = new TableRoot
-                {
-                    new TableSection
-                    {
-                        new SwitchCell
-                        {
-                            Text = "选项:"
-                        },
-                         new SwitchCell
-                        {
-                            Text = "选项2:"
-                        },
-                          new SwitchCell
-                        {
-                            Text = "选项3:"
-                        }
-                    }
-                }
+                Root = new TableRoot()
             };
+            TableSection section  = new TableSection();
+            foreach (var data  in optiondatas)
+            {
+                section.Add(new SwitchCell { Text = data.Key, On =data.Value=="0"?false:true});
+            }
+            tableView.Root.Add(section);
             switch (Device.RuntimePlatform)
             {
                 case "iOS":

@@ -9,6 +9,10 @@
     <Import_RootNamespace>candaBarcode</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AfterSalesPage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AfterSalesSelectionPage.xaml">
       <SubType>Designer</SubType>
@@ -25,6 +29,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)action\apiHelper\InvokeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)action\Jsonhelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)action\SignalrClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)action\SqliteDataAccess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\IDatabaseConnection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\OptionTableModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AfterSalesPage2.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>AfterSalesPage2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>

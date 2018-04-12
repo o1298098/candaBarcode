@@ -45,7 +45,7 @@ namespace candaBarcode.Views
             backgroundWorker.DoWork +=async delegate {
                 Thread.Sleep(1000);
                 listdata.Clear();
-                string content = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback,FID\",\"FilterString\":\"F_XAY_ExpNumback like '%" + searchbar.Text + "%'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
+                string content = "{\"FormId\":\"XAY_ServiceApplication\",\"FieldKeys\":\"FBillNo,F_QiH_Contact,F_XAY_ExpNumback,FID\",\"FilterString\":\"F_XAY_ExpNumback like '%" + searchbar.Text + "%' and FDocumentStatus='B'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";
                 string[] results = Jsonhelper.JsonToString(content);
 
                 if (results == null)

@@ -57,7 +57,7 @@ namespace candaBarcode.Views
                         break;
                     case 6:
                         App.aftersalesdata.Model.FEntityDetection.Clear();
-                       string content = "{\"FormId\":\"3d2267aea48748a8af1350d27b5b5ebb\",\"FieldKeys\":\"FNumber,FName,FID\",\"FilterString\":\"F_XAY_Material=" + data.FID + " and FDOCUMENTSTATUS='C'\",\"OrderString\":\"\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";//配件
+                       string content = "{\"FormId\":\"3d2267aea48748a8af1350d27b5b5ebb\",\"FieldKeys\":\"FNumber,FName,FID,F_XAY_Material\",\"FilterString\":\"F_XAY_Correlation=" + data.FID + " and FDOCUMENTSTATUS='C'\",\"OrderString\":\"FName\",\"TopRowCount\":\"0\",\"StartRow\":\"0\",\"Limit\":\"0\"}";//配件
                        string[] results = Jsonhelper.JsonToString(content);
                         if (results == null)
                         {
@@ -68,17 +68,16 @@ namespace candaBarcode.Views
                         {
                             string txt = results[i].Replace("[", "");
                             string[] array = txt.Split(',');
-                            string FNumber = array[0];
                             string FName = array[1];
-                            string FID = array[2].Replace("]", "");
+                            string FID = array[3].Replace("]", "");
                             App.aftersalesdata.Model.FEntityDetection.Add(
                                 new AfterSalesDetectionModel
                                 {
                                     F_XAY_Product = FName,
-                                    F_XAY_REPRODUCT = new AfterSalesDetectionModel.basefid() { FID = array[2].Replace("]", "") },
-                                    F_XAY_MaterialName = new AfterSalesDetectionModel.basefid() { FID = array[2].Replace("]", "") },
-                                    F_XAY_InstockMaterial = new AfterSalesDetectionModel.basemid() { FMaterialID = data.FID },
-                                    F_XAY_OutMaterial = new AfterSalesDetectionModel.basemid() { FMaterialID = data.FID },
+                                    F_XAY_REPRODUCT = new AfterSalesDetectionModel.basefid() { FID = array[2] },
+                                    F_XAY_MaterialName = new AfterSalesDetectionModel.basefid() { FID = array[2] },
+                                    F_XAY_InstockMaterial = new AfterSalesDetectionModel.basemid() { FMaterialID = FID },
+                                    F_XAY_OutMaterial = new AfterSalesDetectionModel.basemid() { FMaterialID = FID },
                                     F_XAY_DetQty="1"
                                 }
                                     );

@@ -15,10 +15,10 @@ using Xamarin.Forms.Xaml;
 namespace candaBarcode.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AfterSalesPage : ContentPage
+	public partial class AfterSalesPage2 : ContentPage
 	{
        
-        public AfterSalesPage()
+        public AfterSalesPage2()
 		{
 			InitializeComponent ();
             listview.ItemsSource = App.aftersalesdata.Model.FEntityDetection;           
@@ -31,7 +31,7 @@ namespace candaBarcode.Views
                 SearchPage.Title = "搜索";
                 await Navigation.PushAsync(SearchPage);
             };
-            RowDel.Clicked += RowDel_Clicked;
+            //RowDel.Clicked += RowDel_Clicked;
             RowAdd.Clicked += async delegate
             {
                 var detailpage = new AfterSalesDetailsPage(-1);
@@ -42,14 +42,14 @@ namespace candaBarcode.Views
                 AfterSalesSelectionPage selectionPage = new AfterSalesSelectionPage(6);
                 await Navigation.PushAsync(selectionPage);
             };
-            //listview.ItemSelected+= async delegate 
-            //{
-            //    var selectdata = (AfterSalesDetectionModel)listview.SelectedItem;
-            //    int index = App.aftersalesdata.Model.FEntityDetection.IndexOf(selectdata);
-            //    var detailpage = new AfterSalesDetailsPage(index);
-            //    detailpage.Title = "收件明细";
-            //    await Navigation.PushAsync(detailpage);
-            //};
+            listview.ItemTapped += async delegate
+             {
+                 var selectdata = (AfterSalesDetectionModel)listview.SelectedItem;
+                 int index = App.aftersalesdata.Model.FEntityDetection.IndexOf(selectdata);
+                 var detailpage = new AfterSalesDetailsPage(index);
+                 detailpage.Title = "收件明细";
+                 await Navigation.PushAsync(detailpage);
+             };
             SaveBtn.Clicked += SaveBtn_Clicked;
          }
 

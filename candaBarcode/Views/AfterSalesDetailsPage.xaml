@@ -33,52 +33,7 @@
         <ToolbarItem Text="确定" x:Name="insertbtn"></ToolbarItem>
     </TabbedPage.ToolbarItems>
     <ContentPage Title="维修信息">
-        <ContentPage.Content>
-           <!-- <StackLayout x:Name="layout">
-                <TableView x:Name="table" Intent="Settings"
-                   Margin="5, 0" RowHeight="40">
-                    <TableRoot>
-                        <TableSection Title="基本信息">
-                            <ViewCell>
-                            <local:CustomPicker Title="退回产品" x:Name="InstockMaterial">
-                                <Picker.Items>
-                                    <x:String>原汁机</x:String>
-                                </Picker.Items>
-                            </local:CustomPicker>
-                            </ViewCell>
-                            <local:CustomEntryCell Label="批次" Placeholder="请输入" />
-                            <EntryCell Label="数量" Placeholder="请输入"/>
-                        </TableSection>
-                        <TableSection Title="售后内容" >
-                            <ViewCell>
-                                <Picker Title="故障类型">
-                                    <Picker.Items>
-                                        <x:String>原汁机</x:String>
-                                    </Picker.Items>
-                                </Picker>
-                            </ViewCell>
-                            <EntryCell Label="故障原因" Placeholder="请输入"/>
-                            <ViewCell>
-                                <Picker Title="处理方式">
-                                    <Picker.Items>
-                                        <x:String>原汁机</x:String>
-                                    </Picker.Items>
-                                </Picker>
-                            </ViewCell>
-                            <EntryCell Label="维修内容" Placeholder="请输入"/>
-                        </TableSection>
-                    </TableRoot>
-                </TableView>
-                <Entry x:Name="FBillNo"></Entry>
-                <Entry x:Name="Contact"></Entry>
-                <Entry x:Name="ExpNumback"></Entry>
-               <local:Checkbox x:Name="check"
-                            VerticalOptions="CenterAndExpand" 
-                            HorizontalOptions="CenterAndExpand" 
-                            Checked="{Binding IsChecked}" 
-                            Text="{Binding TextCheckBox}" 
-                            Command="{Binding OnCheckedChanged}"></local:Checkbox>
-            </StackLayout>-->
+        <ContentPage.Content>         
             <StackLayout  BackgroundColor="#f5f5f5">
                 <StackLayout Style="{StaticResource StackLayoutStyle}" >
                     <Label Text="退回产品" Style="{StaticResource LabelStyle}"></Label>
@@ -112,6 +67,9 @@
                 <StackLayout Style="{StaticResource StackLayoutStyle}">
                     <Label Text="维修内容" Style="{StaticResource LabelStyle}"></Label>
                     <local:CustomEntry  x:Name="Infow"  Style="{StaticResource CustomEntryStyle}"></local:CustomEntry>
+                </StackLayout>
+                <StackLayout Style="{StaticResource StackLayoutStyle}">
+                    <Button x:Name="RowDel" Image="deleteo.png" HorizontalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>
                 </StackLayout>
             </StackLayout>
         </ContentPage.Content>

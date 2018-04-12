@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="candaBarcode.Views.AfterSalesPage2">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="VerticalOptions"
+                        Value="CenterAndExpand" />
+
+            </Style>
+            <Style x:Key="HeaderLabelStyle" TargetType="Label">
+                <Setter Property="VerticalTextAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+            </Style>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="VerticalTextAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="FontSize" Value="12"></Setter>
+            </Style>
+            <Style x:Key="ValueStyle" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="TextColor" Value="Black"></Setter>
+                <Setter Property="FontSize" Value="12"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="searchbtn" Icon="search.png"/>
+        <ToolbarItem x:Name="scanbtn" Icon="scan.png"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ListView x:Name="listview" VerticalOptions="FillAndExpand"  BackgroundColor="#f5f5f5" HasUnevenRows="True">
+                <ListView.Header>
+                    <StackLayout>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="White" HeightRequest="60" Padding="15,0,0,0">
+                        <Label Text="订单编号" Style="{StaticResource HeaderLabelStyle}" ></Label>
+                        <Label x:Name="FBillNo" WidthRequest="120" Style="{StaticResource HeaderLabelStyle}" />
+                        <Label Text="联系人" WidthRequest="80" Style="{StaticResource HeaderLabelStyle}" ></Label>
+                        <Label x:Name="Contact" Style="{StaticResource HeaderLabelStyle}" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="White"  HeightRequest="60" Margin="0,5,0,0" Padding="15,0,0,0">
+                        <Label Text="退回单号" Style="{StaticResource HeaderLabelStyle}" ></Label>
+                        <Label x:Name="ExpNumback" WidthRequest="120" Style="{StaticResource HeaderLabelStyle}" />
+                        </StackLayout>
+                    <StackLayout Orientation="Vertical"  BackgroundColor="White" Margin="0,5,0,0" VerticalOptions="FillAndExpand">
+                        <StackLayout Orientation="Horizontal" HeightRequest="50" BackgroundColor="White" Padding="0,5,0,5">
+                            <Button x:Name="RowLoad" Image="Load.png" HorizontalOptions="EndAndExpand"  WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>
+                            <Button x:Name="RowAdd" Image="adds.png" HorizontalOptions="End"  WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>
+                           <Button x:Name="SaveBtn" Image="save.png" HorizontalOptions="End" WidthRequest="40" HeightRequest="40" BackgroundColor="White"></Button>
+                        </StackLayout>
+                    </StackLayout>
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem Clicked="MenuItem_ClickedAsync"  CommandParameter="{Binding .}" Text="详情" />
+                                    </ViewCell.ContextActions>
+                        <Grid BackgroundColor="White" HeightRequest="100" RowSpacing="0" ColumnSpacing="1" Padding="10,0,0,0" Margin="0,10,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5*"/>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="4*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                            <Label Text="{Binding F_XAY_Product}" Grid.Row="0" Grid.ColumnSpan="3" FontSize="16" VerticalTextAlignment="Center" Margin="0,5,0,0" TextColor="Black"/>
+                            <Label Text="数量" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}"></Label>
+                            <Label Text="{Binding F_XAY_DetQty}" Grid.Row="2" Grid.Column="0" Style="{StaticResource ValueStyle}" />
+                                    <Label Text="故障原因" Grid.Row="1" Grid.Column="1" Style="{StaticResource LabelStyle}"></Label>
+                            <Label Text="{Binding F_QiH_FalutReason}" Grid.Row="2" Grid.Column="1" Style="{StaticResource ValueStyle}" />
+                                    <Label Text="处理方式" Grid.Row="1" Grid.Column="2" Style="{StaticResource LabelStyle}"></Label>
+                            <Label Text="{Binding typew}" Grid.Row="2" Grid.Column="2" Style="{StaticResource ValueStyle}" />
+                                </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                </ListView>
+    </ContentPage.Content>
+</ContentPage>
