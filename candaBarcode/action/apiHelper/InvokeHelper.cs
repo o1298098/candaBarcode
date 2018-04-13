@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using candaBarcode.action;
+using candaBarcode.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,9 +18,12 @@ namespace candaBarcode.apiHelper
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Url = string.Concat(CloudUrl, "Kingdee.BOS.WebApi.ServicesStub.AuthService.ValidateUser.common.kdsvc");
-
             List<object> Parameters = new List<object>();
-            Parameters.Add("59a12c8ba824d2");//帐套Id 测试5972f88ff9373a 正式59a12c8ba824d2
+            SqliteDataAccess access = new SqliteDataAccess();
+            IEnumerable<OptionTableModel> link= access.Select("DataSource");
+            string datasource=string.Empty;
+            foreach (var s in link) { datasource = s.Value; }
+            Parameters.Add(datasource);//帐套Id 测试5972f88ff9373a 正式59a12c8ba824d2
             Parameters.Add("kingdee");//用户名
             Parameters.Add("kd!123456");//密码
             Parameters.Add(2052);

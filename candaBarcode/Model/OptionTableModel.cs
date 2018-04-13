@@ -11,6 +11,8 @@ namespace candaBarcode.Model
     public class OptionTableModel : INotifyPropertyChanged
     {
         private int _id;
+        private string _type;
+        private string _title;
         private string _key;
         private string _value;
         [PrimaryKey, AutoIncrement]
@@ -21,6 +23,21 @@ namespace candaBarcode.Model
                 _id = value;
                 OnPropertyChanged("Id");
 
+            }
+        }
+        public string Type
+        {
+            get { return _type; }
+            set {
+                _type = value;
+                OnPropertyChanged("Type");
+            }
+        }
+        public string Titel {
+            get { return _title; }
+            set {
+                _title = value;
+                OnPropertyChanged("Titel");
             }
         }
         public string Key

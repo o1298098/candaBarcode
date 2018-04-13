@@ -9,7 +9,7 @@
               HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}">
       <ListView.Header>
-        <Grid BackgroundColor="#03A9F4">
+        <Grid BackgroundColor="#03A9F4" >
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
@@ -21,6 +21,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>
+          <!--<Image Source="" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3"></Image>-->
           <Label
               Grid.Column="1"
               Grid.Row="2"
@@ -41,5 +42,8 @@
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="MenuItemsSettingbtn" BackgroundColor="#fafafa" Image="setting.png" WidthRequest="50" HeightRequest="50" Margin="10,0,0,0" ></Button>
+        </StackLayout>
   </StackLayout>
 </ContentPage>

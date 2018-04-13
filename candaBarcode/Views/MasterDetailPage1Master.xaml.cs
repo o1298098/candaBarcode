@@ -16,6 +16,7 @@ namespace candaBarcode.Views
     public partial class MasterDetailPage1Master : ContentPage
     {
         public ListView ListView;
+        public Button SettingBtn;
 
         public MasterDetailPage1Master()
         {
@@ -23,6 +24,7 @@ namespace candaBarcode.Views
 
             BindingContext = new MasterDetailPage1MasterViewModel();
             ListView = MenuItemsListView;
+            SettingBtn = MenuItemsSettingbtn;
         }
 
         class MasterDetailPage1MasterViewModel : INotifyPropertyChanged
@@ -37,8 +39,7 @@ namespace candaBarcode.Views
                     new MasterDetailPage1MenuItem { Id = 1, Title = "库存查询" ,TargetType=typeof(InventoryPage)},
                     new MasterDetailPage1MenuItem { Id = 2, Title = "订单查询" ,TargetType=typeof(MasterDetailPage1Detail)},
                     new MasterDetailPage1MenuItem { Id = 3, Title = "售后工单" ,TargetType=typeof(AfterSalesPage2)},
-                    new MasterDetailPage1MenuItem { Id = 4, Title = "选项",TargetType=typeof(OptionPage) },
-                    new MasterDetailPage1MenuItem { Id = 5, Title = "地图",TargetType=typeof(MapPage) },
+                    new MasterDetailPage1MenuItem { Id = 4, Title = "地图",TargetType=typeof(MapPage) },
                 });
             }
             
@@ -53,5 +54,7 @@ namespace candaBarcode.Views
             }
             #endregion
         }
+
+       
     }
 }

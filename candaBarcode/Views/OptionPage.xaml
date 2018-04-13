@@ -4,6 +4,7 @@
              x:Class="candaBarcode.Views.OptionPage">
     <ContentPage.Content>
         <StackLayout>
+            <Switch></Switch>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

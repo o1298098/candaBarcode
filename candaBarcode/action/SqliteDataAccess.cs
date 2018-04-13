@@ -27,16 +27,17 @@ namespace candaBarcode.action
         }
         public void AddNewOptionTable()
         {
-            this.collection.Add(new OptionTableModel { Key = "frist", Value = "0" });
-            this.collection.Add(new OptionTableModel { Key = "second", Value = "1" });
+            this.collection.Add(new OptionTableModel {Type="StartUp", Titel = "默认打开界面", Key="售后工单" ,Value = "AfterSalesPage2" });
+            this.collection.Add(new OptionTableModel { Type="DataSource" ,Titel="数据账套选择",Key="测试账套",Value= "5972f88ff9373a" });
+            SaveAllOption();
         }
-        public IEnumerable<OptionTableModel> Select(string Key)
+        public IEnumerable<OptionTableModel> Select(string key)
         {
             // Use locks to avoid database collitions
             lock (collisionLock)
             {
                 var query = from cust in DB.Table<OptionTableModel>()
-                            where cust.Key == Key
+                            where cust.Type == key
                             select cust;
                 return query.AsEnumerable();
             }
