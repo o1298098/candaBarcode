@@ -22,7 +22,7 @@ namespace candaBarcode.Droid
         private Stream mOutStream = null;
         private System.Byte[] m_btAryBuffer=new byte[4096];
         private int m_nLength = 0;
-        private int index = 0;
+        private int index;
         private bool mShouldRunning = true;
         private ObservableCollection<model.EmsNum> item=new ObservableCollection<model.EmsNum>();
         private ObservableCollection<model.EmsNum> item2 = new ObservableCollection<model.EmsNum>();
@@ -30,10 +30,11 @@ namespace candaBarcode.Droid
         private Activity activity;
         Notification.Builder notify;
 
-        public  Readerbase(Stream instream, Stream outstream , out ObservableCollection<model.EmsNum> items, out ObservableCollection<model.EmsNum> items2, NotificationManager nMgr,Activity activity)
+        public  Readerbase(Stream instream, Stream outstream , ObservableCollection<model.EmsNum> items, ObservableCollection<model.EmsNum> items2, NotificationManager nMgr,Activity activity)
         {
-            items = item;
-            items2 = item2;
+            item = items;
+            item2 = items2;
+            index = items.Count-1;
             this.nMgr = nMgr;
             this.activity = activity;
             this.mInStream = instream;
@@ -199,7 +200,7 @@ namespace candaBarcode.Droid
                                    select s.EMSNUM;
                 if (selectResult.Count() <= 0)
                 {
-                    item.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index+1 });
+                    item.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
                     item2.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
                     index++;                   
                     nMgr.Notify(1, notify.Build());

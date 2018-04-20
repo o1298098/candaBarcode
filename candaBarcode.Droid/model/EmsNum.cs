@@ -10,14 +10,22 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using SQLite;
 
 namespace candaBarcode.Droid.model
 {
-   public class EmsNum : INotifyPropertyChanged
+    [Table("InfoTable")]
+    public class EmsNum : INotifyPropertyChanged
     {
+
         private string NUM;
+        private string _state;
+        private string _datetime;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public EmsNum() { }
         public EmsNum(string value)
         {
@@ -35,8 +43,19 @@ namespace candaBarcode.Droid.model
         }
         public string state
         {
-            get;
-            set;
+            get { return _state; }
+            set {
+                _state = value;
+                OnPropertyChanged("state");
+            }
+        }
+        public string datetime
+        {
+            get { return _datetime; }
+            set {
+                _datetime = value;
+                OnPropertyChanged("datetime");
+            }
         }
         public int index
         {

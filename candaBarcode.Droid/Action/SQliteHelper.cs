@@ -33,7 +33,7 @@ namespace candaBarcode.Droid.Action
             {
                 sqliteConn.CreateTable<InfoTable>();                
             }
-            InfoTable info = new InfoTable() { EmsNum = num, state = state, DateTime = System.DateTime.Now.ToShortDateString() };
+            InfoTable info = new InfoTable() { EmsNum = num, state = state, dateTime = System.DateTime.Now.ToShortDateString() };
             sqliteConn.Insert(info);
         }
         public List<InfoTable> selectAsync(string num,string date)
@@ -49,7 +49,7 @@ namespace candaBarcode.Droid.Action
                 sqliteConn.CreateTable<InfoTable>();
             }
             var Infos = sqliteConn.Table<InfoTable>();
-            var Info = Infos.Where(p => p.EmsNum.Contains(num)||p.DateTime==date);
+            var Info = Infos.Where(p => p.EmsNum.Contains(num)||p.dateTime==date);
             List<InfoTable> list = Info.ToList();
             return list;
         }

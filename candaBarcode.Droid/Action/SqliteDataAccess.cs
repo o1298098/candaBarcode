@@ -5,63 +5,67 @@ using SQLite;
 using System.Collections.ObjectModel;
 using System.Linq;
 using candaBarcode.Droid.model;
+using System.IO;
 
-namespace candaBarcode.action
+namespace candaBarcode.Droid
 {
     public class SqliteDataAccess
     {
         private SQLiteConnection DB;
         private static object collisionLock = new object();
-        public ObservableCollection<InfoTable> collection { get; set; }
+        public ObservableCollection<EmsNum> collection { get; set; }
         public SqliteDataAccess()
         {
-            DB.CreateTable<InfoTable>();
-            this.collection = new ObservableCollection<InfoTable>();
-            if (!DB.Table<InfoTable>().Any())
-            {
-                AddNewOptionTable();
-            }
+            var dbname = "MyAppDb.db3";
+            var path = Path.Combine(System.Environment.
+                GetFolderPath(System.Environment.
+                SpecialFolder.Personal), dbname);
+            DB = new SQLiteConnection(path);
+            DB.CreateTable<EmsNum>();
+            this.collection = new ObservableCollection<EmsNum>();
+            //if (!DB.Table<InfoTable>().Any())
+            //{
+            //    AddNewOptionTable();
+            //}
         }
-        public void AddNewOptionTable()
-        {
-            this.collection.Add(new InfoTable {  });
-            SaveAllOption();
-        }
-        public IEnumerable<InfoTable> Select(string key)
-        {
-            // Use locks to avoid database collitions
-            lock (collisionLock)
-            {
-                var query = from cust in DB.Table<InfoTable>()
-                            where cust.EmsNum == key
-                            select cust;
-                return query.AsEnumerable();
-            }
-        }
-        public IEnumerable<InfoTable> SelectAll()
+        //public void AddNewOptionTable()
+        //{
+        //    this.collection.Add(new InfoTable {  });
+        //    SaveAllOption();
+        //}
+        public List<EmsNum> Select(string num, string date)
         {
             // Use locks to avoid database collitions
             lock (collisionLock)
             {
-                var query = from cust in DB.Table<InfoTable>()
-                            select cust;
-                return query.AsEnumerable();
+                var table = DB.Table<EmsNum>();
+                var list = table.Where(cust => cust.EMSNUM.Contains(num) || cust.datetime == date);
+                return list.ToList();
+            }
+        }
+        public ObservableCollection<EmsNum> SelectAll()
+        {
+            // Use locks to avoid database collitions
+            lock (collisionLock)
+            {
+                var table = DB.Table<EmsNum>();
+                return new ObservableCollection<EmsNum>(table.AsEnumerable());
             }
         }
 
-        public int SaveOption(InfoTable optionTable)
+        public int SaveOption(EmsNum Table)
         {
             lock (collisionLock)
             {
-                if (optionTable.Id != 0)
+                if (Table.Id != 0)
                 {
-                    DB.Update(optionTable);
-                    return optionTable.Id;
+                    DB.Update(Table);
+                    return Table.Id;
                 }
                 else
                 {
-                    DB.Insert(optionTable);
-                    return optionTable.Id;
+                    DB.Insert(Table);
+                    return Table.Id;
                 }
             }
         }

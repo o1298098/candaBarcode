@@ -12,6 +12,8 @@ using Android.Content;
 using candaBarcode.Droid.Action;
 using System.Threading.Tasks;
 using Com.Nativec.Tools;
+using System;
+using System.Linq;
 
 namespace candaBarcode.Droid
 {
@@ -21,11 +23,11 @@ namespace candaBarcode.Droid
         
         private Readerbase mReader;
         System.DateTime? lastBackKeyDownTime;
-        ObservableCollection<model.EmsNum> items = new ObservableCollection<model.EmsNum>();
-        ObservableCollection<model.EmsNum> items2 = new ObservableCollection<model.EmsNum>();
+        static ObservableCollection<model.EmsNum>  items ;
+        static ObservableCollection<model.EmsNum> items2;
+        SqliteDataAccess dataAccess;
         ListAdapter listAdapter;
         Thread thread;
-        SQliteHelper sql;
          private NotificationManager nMgr;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,7 +39,7 @@ namespace candaBarcode.Droid
             ActionBar.Hide();
             Toolbar toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             toolbar.InflateMenu(Resource.Menu.menu);
-            toolbar.MenuItemClick += (s, e) => //菜单项单击事件  
+            toolbar.MenuItemClick += (s, e) => 
             {
                 switch (e.Item.ItemId)
                 {
@@ -50,30 +52,33 @@ namespace candaBarcode.Droid
                         break;
                 }
             };
-            nMgr = (NotificationManager)GetSystemService(NotificationService);
-            //list.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, items);          
+            dataAccess = new SqliteDataAccess();
+            items = dataAccess.SelectAll();
+            nMgr = (NotificationManager)GetSystemService(NotificationService);     
             try
             {
-                SerialPortFinder serialPortFinder = new SerialPortFinder();
-                string[] entryValues = serialPortFinder.GetAllDevicesPath();
-                string[] entries = serialPortFinder.GetAllDevices();
-                Com.Nativec.Tools.SerialPort serialPort = new Com.Nativec.Tools.SerialPort(new File(entryValues[7]), 115200, 0);
-                ModuleManager.NewInstance().SetUHFStatus(false);
-                ModuleManager.NewInstance().SetScanStatus(true);
-                mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, out items, out items2, nMgr,this);
+                //SerialPortFinder serialPortFinder = new SerialPortFinder();
+                //string[] entryValues = serialPortFinder.GetAllDevicesPath();
+                //string[] entries = serialPortFinder.GetAllDevices();
+                //Com.Nativec.Tools.SerialPort serialPort = new Com.Nativec.Tools.SerialPort(new File(entryValues[7]), 115200, 0);
+                //ModuleManager.NewInstance().SetUHFStatus(false);
+                //ModuleManager.NewInstance().SetScanStatus(true);
+                //mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, items, items2, nMgr,this);
                 listAdapter = new ListAdapter(this, items);
                 list.Adapter = listAdapter;
                 thread = new Thread(update);
                 thread.Start();
                 Button refreshbtn = FindViewById<Button>(Resource.Id.refresh);
-                //int index = 0;
+                int index = 0;
                 refreshbtn.Click += delegate
                  {
-                     //items.Add(new model.EmsNum { EMSNUM = "2589" + index, state = "未同步", index = index });
-                     //items2.Add(new model.EmsNum { EMSNUM = "2589" + index, state = "未同步", index = index });
+                     dataAccess.SaveOption(new model.EmsNum { datetime=DateTime.Now.ToLongDateString(),EMSNUM= "20752640558", state="未同步" });
+                     items.Add(new model.EmsNum { EMSNUM = "20752640558" + index, state = "未同步", index = index });
+                     items2.Add(new model.EmsNum { EMSNUM = "20752640558" + index, state = "未同步", index = index });
                      //SQliteHelper sql = new SQliteHelper();
                      //sql.insertAsync("2589" + index, "未同步");
-                     //index++;Button lsvButton = FindViewById<Button>(Resource.Id.lsvButton);                          
+                     index++;
+                     //Button lsvButton = FindViewById<Button>(Resource.Id.lsvButton);                          
                      listAdapter.NotifyDataSetChanged();
                  };
                 Button submitbtn = FindViewById<Button>(Resource.Id.submit);
@@ -84,10 +89,10 @@ namespace candaBarcode.Droid
                     {
                         RunOnUiThread(() =>
                         {
-                            bool answer = updateToSystem(editText.Text);
-                            if (answer)
+                            string answer = updateToSystem(editText.Text);
+                            if (answer!="err")
                             {
-                                items.Add(new model.EmsNum() { EMSNUM = editText.Text, state = "已同步" });
+                                items.Add(new model.EmsNum() { EMSNUM = editText.Text, state = answer });
                                 listAdapter.NotifyDataSetChanged();
                                 editText.Text = "";
                                 Toast.MakeText(this.ApplicationContext, "提交成功", ToastLength.Long).Show();
@@ -148,22 +153,18 @@ namespace candaBarcode.Droid
         {
             while (true)
             {
-                if (items2.Count > 0)
+                int count = items.Select(x => x.state != "已同步").Count();
+                if (count > 0)
                 {
-                    for (int i = items2.Count - 1; i >= 0; i--)
+                    for (int i=0;i<items.Count;i++)
                     {
-                        int j = items2[i].index;
                         try
                         {
-                            bool answer = updateToSystem(items2[i].EMSNUM);
-                            if (answer)
+                            string answer = updateToSystem(items[i].EMSNUM);
+                            if (answer!="err")
                             {
-
-                                items[j].state = "已同步";
-                                //sql = new SQliteHelper();
-                                //await sql.updateAsync(items[j].EMSNUM);
-                                items2.RemoveAt(i);
-                                Thread.Sleep(20);
+                                items[i].state = answer;
+                                dataAccess.SaveOption(items[i]);                                
                             }
                             else
                             {
@@ -186,7 +187,7 @@ namespace candaBarcode.Droid
             }
         }
 
-        private bool updateToSystem(string str)
+        private string updateToSystem(string str)
         {
             try
             {
@@ -195,18 +196,27 @@ namespace candaBarcode.Droid
                     List<object> Parameters = new List<object>();
                     Parameters.Add(str);
                     string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService2", Parameters);
-                    if (result == "err")
+                    if (result == "0")
                     {
-                        return false;
+                        return "无记录";
                     }
-                    else
+                    else if (result == "1")
                     {
-                        return true;
+                        return "已同步";
+                    }
+                    else if (result == "2")
+                    {
+                        return "重复";
+                    }
+                    else if(result == "err")
+                    {
+                        return "err";
                     }
                 }
-                return false;
+                return "err";
+
             }
-            catch { return false; }
+            catch { return "err"; }
         }
     }
 }

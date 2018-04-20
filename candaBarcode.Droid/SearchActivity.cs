@@ -16,13 +16,13 @@ namespace candaBarcode.Droid
     [Activity(Label = "扫描记录")]
     public class SearchActivity : Activity
     {
-       List<model.InfoTable> items;
+       List<model.EmsNum> items;
        SearchAdapter listAdapter;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.SeachListView);
-            items = new List<model.InfoTable>();
+            items = new List<model.EmsNum>();
             ListView list = FindViewById<ListView>(Resource.Id.SearchlistView);
             listAdapter = new SearchAdapter(this, items);
             list.Adapter = listAdapter;
@@ -30,8 +30,15 @@ namespace candaBarcode.Droid
             EditText num = FindViewById<EditText>(Resource.Id.numtxt);
             EditText date = FindViewById<EditText>(Resource.Id.datetxt);
             searchbtn.Click += delegate {
-                SQliteHelper sql = new SQliteHelper();
-               items= sql.selectAsync(num.Text, date.Text);
+                SqliteDataAccess dataAccess = new SqliteDataAccess();
+                if (string.IsNullOrWhiteSpace(num.Text) && string.IsNullOrWhiteSpace(date.Text))
+                {
+                    items = dataAccess.SelectAll();
+                }
+                else
+                {
+                    items = dataAccess.Select(num.Text,date.Text);
+                }
                 RunOnUiThread(() => { list.Adapter = new SearchAdapter(this, items); });
                
             };

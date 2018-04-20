@@ -21,7 +21,7 @@ namespace candaBarcode.Droid.model
         public int Id { get; set; }
         public string EmsNum { get; set; }
         public string state { get; set; }
-        public string DateTime { get; set; }
+        public string dateTime { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
