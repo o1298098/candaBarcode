@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using candaBarcode.Droid.model;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace candaBarcode.Droid
 {
@@ -86,6 +87,24 @@ namespace candaBarcode.Droid
                 }
 
             }
+        }
+        public int delete(string num)
+        {
+            TableQuery<EmsNum> Infos = DB.Table<EmsNum>(); ;
+            List<EmsNum> list = Infos.ToList();
+            int deleteid = -1;
+            foreach (var q in list)
+            {
+                if (q.EMSNUM == num)
+                {
+                    lock (collisionLock)
+                    {
+                        deleteid = q.Id;
+                        DB.Delete<EmsNum>(q.Id);
+                    }
+                }
+            }
+            return deleteid;
         }
     }
 }

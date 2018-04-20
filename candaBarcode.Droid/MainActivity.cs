@@ -69,15 +69,15 @@ namespace candaBarcode.Droid
                 thread = new Thread(update);
                 thread.Start();
                 Button refreshbtn = FindViewById<Button>(Resource.Id.refresh);
-                int index = 0;
+                //int index = 0;
                 refreshbtn.Click += delegate
                  {
-                     dataAccess.SaveOption(new model.EmsNum { datetime=DateTime.Now.ToLongDateString(),EMSNUM= "20752640558", state="未同步" });
-                     items.Add(new model.EmsNum { EMSNUM = "20752640558" + index, state = "未同步", index = index });
-                     items2.Add(new model.EmsNum { EMSNUM = "20752640558" + index, state = "未同步", index = index });
+                     //dataAccess.SaveOption(new model.EmsNum { datetime=DateTime.Now.ToLongDateString(),EMSNUM= "20752640558", state="未同步" });
+                     //items.Add(new model.EmsNum { EMSNUM = "20752640558" + index, state = "未同步", index = index });
+                     //items2.Add(new model.EmsNum { EMSNUM = "20752640558" + index, state = "未同步", index = index });
                      //SQliteHelper sql = new SQliteHelper();
                      //sql.insertAsync("2589" + index, "未同步");
-                     index++;
+                     //index++;
                      //Button lsvButton = FindViewById<Button>(Resource.Id.lsvButton);                          
                      listAdapter.NotifyDataSetChanged();
                  };
@@ -164,7 +164,7 @@ namespace candaBarcode.Droid
                             if (answer!="err")
                             {
                                 items[i].state = answer;
-                                dataAccess.SaveOption(items[i]);                                
+                                dataAccess.delete(items[i].EMSNUM);                                
                             }
                             else
                             {
@@ -175,7 +175,7 @@ namespace candaBarcode.Droid
                         catch (System.Exception ex)
                         {
                             ////throw ex;
-                            //break;                            
+                            break;
                         }
 
                     }

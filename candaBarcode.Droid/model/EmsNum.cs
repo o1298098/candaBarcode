@@ -57,11 +57,6 @@ namespace candaBarcode.Droid.model
                 OnPropertyChanged("datetime");
             }
         }
-        public int index
-        {
-            get;
-            set;
-        }
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

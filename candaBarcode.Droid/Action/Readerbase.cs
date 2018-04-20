@@ -22,18 +22,16 @@ namespace candaBarcode.Droid
         private Stream mOutStream = null;
         private System.Byte[] m_btAryBuffer=new byte[4096];
         private int m_nLength = 0;
-        private int index;
         private bool mShouldRunning = true;
         private ObservableCollection<model.EmsNum> item=new ObservableCollection<model.EmsNum>();
-        private ObservableCollection<model.EmsNum> item2 = new ObservableCollection<model.EmsNum>();
         private NotificationManager nMgr;
         private Activity activity;
+        private int index;
         Notification.Builder notify;
 
-        public  Readerbase(Stream instream, Stream outstream , ObservableCollection<model.EmsNum> items, ObservableCollection<model.EmsNum> items2, NotificationManager nMgr,Activity activity)
+        public  Readerbase(Stream instream, Stream outstream , ObservableCollection<model.EmsNum> items, NotificationManager nMgr,Activity activity)
         {
             item = items;
-            item2 = items2;
             index = items.Count-1;
             this.nMgr = nMgr;
             this.activity = activity;
@@ -125,8 +123,7 @@ namespace candaBarcode.Droid
                             if (btAryBuffer[i] == (byte)'$')
                             {
                                 end = i;
-                                recive2DCodeData(Encoding.Default.GetString(Com.Util.StringTool.SubBytes(btAryBuffer, start, end)));                                
-                                //calculate the scan speed;
+                                recive2DCodeData(Encoding.Default.GetString(Com.Util.StringTool.SubBytes(btAryBuffer, start, end)));        
                                 //CalculateSpeed.mTotalTime += System.currentTimeMillis() - CalculateSpeed.mStartTime;
                                 nIndex = i + 1;
                             }
@@ -149,7 +146,7 @@ namespace candaBarcode.Droid
                                 {
                                     byte[] cmd = new byte[nLoop + 2];
                                     Array.Copy(btAryBuffer, 0, cmd, 0, cmd.Length);
-                                    nIndex = nLoop + 2;//this has 2E suffix
+                                    nIndex = nLoop + 2;
                                     //Log.Debug("ACK query is success", Com.Util.StringTool.ByteArrayToString(cmd, 0, cmd.Length));
                                     //analyData(new Com.Scanner2d.Bean.MessageReceiving(cmd));
                                 }
@@ -157,7 +154,7 @@ namespace candaBarcode.Droid
                                 {
                                     byte[] cmd = new byte[nLoop + 2];
                                     Array.Copy(btAryBuffer, 0, cmd, 0, cmd.Length);
-                                    nIndex = nLoop + 2;//this has 2E suffix
+                                    nIndex = nLoop + 2;
                                     //analyData(new Com.Scanner2d.Bean.MessageReceiving(cmd));
                                 }
                             }
@@ -179,34 +176,22 @@ namespace candaBarcode.Droid
 
             }
         }
-
-    //[Deprecated]
-    //public  void reciveData(byte[] btAryReceiveData) { }
-
-        /**
-         * reciveBarCodeData
-        // */
-        //[Deprecated]
-        //public void reciveBarCodeData(string str) { }
-       
+  
         public void recive2DCodeData(string str)
         {
            
             try
             {
-                //string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService", Parameters);
                 var selectResult = from s in item
                                    where s.EMSNUM == str
                                    select s.EMSNUM;
                 if (selectResult.Count() <= 0)
                 {
-                    item.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
-                    item2.Add(new model.EmsNum { EMSNUM = str, state = "未同步", index = index });
-                    index++;                   
+                    model.EmsNum emsNum = new model.EmsNum { EMSNUM = str, state = "未同步" };
+                    item.Add(emsNum);
+                    SqliteDataAccess sql = new SqliteDataAccess();
+                    sql.SaveOption(emsNum);
                     nMgr.Notify(1, notify.Build());
-
-                    //sql = new SQliteHelper();
-                    //sql.insertAsync(str,"未同步");
                 }
                 Log.Debug("OK", str);
             }
@@ -217,8 +202,6 @@ namespace candaBarcode.Droid
             }
          
         }
-       
-        //public  void analyData(Com.Scanner2d.Bean.MessageReceiving messageReceiving);
     }
    
 }
