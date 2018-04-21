@@ -88,7 +88,7 @@ namespace candaBarcode.Droid
 
             }
         }
-        public int delete(string num)
+        public int Delete(string num)
         {
             TableQuery<EmsNum> Infos = DB.Table<EmsNum>(); ;
             List<EmsNum> list = Infos.ToList();
@@ -105,6 +105,17 @@ namespace candaBarcode.Droid
                 }
             }
             return deleteid;
+        }
+        public void DeleteAll()
+        {
+            lock (collisionLock)
+            {
+                DB.DropTable<EmsNum>();
+                DB.CreateTable<EmsNum>();
+            }
+            this.collection = null;
+            this.collection = new ObservableCollection<EmsNum>
+              (DB.Table<EmsNum>());
         }
     }
 }

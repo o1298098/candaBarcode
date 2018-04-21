@@ -5,7 +5,7 @@
   <item android:id="@+id/menu_history"
      android:title="历史记录"/>
   <item android:id="@+id/menu_about"
-     android:title="关于"/>
+     android:title="清除本地数据"/>
   />
 </menu>
 

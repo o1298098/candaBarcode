@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -16,7 +17,7 @@ namespace candaBarcode.Droid
     [Activity(Label = "扫描记录")]
     public class SearchActivity : Activity
     {
-       List<model.EmsNum> items;
+        List<model.EmsNum> items;
        SearchAdapter listAdapter;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,7 +34,7 @@ namespace candaBarcode.Droid
                 SqliteDataAccess dataAccess = new SqliteDataAccess();
                 if (string.IsNullOrWhiteSpace(num.Text) && string.IsNullOrWhiteSpace(date.Text))
                 {
-                    items = dataAccess.SelectAll();
+                    items = dataAccess.SelectAll().ToList();
                 }
                 else
                 {

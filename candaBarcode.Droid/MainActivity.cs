@@ -48,7 +48,7 @@ namespace candaBarcode.Droid
                         StartActivity(intent);
                         break;
                     case Resource.Id.menu_about:
-                        Toast.MakeText(this, "关于都看，好人才", ToastLength.Short).Show();
+                        dataAccess.DeleteAll();
                         break;
                 }
             };
@@ -57,13 +57,13 @@ namespace candaBarcode.Droid
             nMgr = (NotificationManager)GetSystemService(NotificationService);     
             try
             {
-                //SerialPortFinder serialPortFinder = new SerialPortFinder();
-                //string[] entryValues = serialPortFinder.GetAllDevicesPath();
-                //string[] entries = serialPortFinder.GetAllDevices();
-                //Com.Nativec.Tools.SerialPort serialPort = new Com.Nativec.Tools.SerialPort(new File(entryValues[7]), 115200, 0);
-                //ModuleManager.NewInstance().SetUHFStatus(false);
-                //ModuleManager.NewInstance().SetScanStatus(true);
-                //mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, items, items2, nMgr,this);
+                SerialPortFinder serialPortFinder = new SerialPortFinder();
+                string[] entryValues = serialPortFinder.GetAllDevicesPath();
+                string[] entries = serialPortFinder.GetAllDevices();
+                Com.Nativec.Tools.SerialPort serialPort = new Com.Nativec.Tools.SerialPort(new File(entryValues[7]), 115200, 0);
+                ModuleManager.NewInstance().SetUHFStatus(false);
+                ModuleManager.NewInstance().SetScanStatus(true);
+                mReader = new Readerbase(serialPort.InputStream, serialPort.OutputStream, items, nMgr, this);
                 listAdapter = new ListAdapter(this, items);
                 list.Adapter = listAdapter;
                 thread = new Thread(update);
@@ -89,10 +89,10 @@ namespace candaBarcode.Droid
                     {
                         RunOnUiThread(() =>
                         {
-                            string answer = updateToSystem(editText.Text);
+                            string answer = updateToSystem(editText.Text,DateTime.Now.ToLongDateString());
                             if (answer!="err")
                             {
-                                items.Add(new model.EmsNum() { EMSNUM = editText.Text, state = answer });
+                                items.Add(new model.EmsNum() { EMSNUM = editText.Text, state = answer,index=items.Count+1 });
                                 listAdapter.NotifyDataSetChanged();
                                 editText.Text = "";
                                 Toast.MakeText(this.ApplicationContext, "提交成功", ToastLength.Long).Show();
@@ -160,11 +160,14 @@ namespace candaBarcode.Droid
                     {
                         try
                         {
-                            string answer = updateToSystem(items[i].EMSNUM);
+                            string answer = updateToSystem(items[i].EMSNUM,items[i].datetime);
                             if (answer!="err")
                             {
                                 items[i].state = answer;
-                                dataAccess.delete(items[i].EMSNUM);                                
+                                if (answer != "无记录")
+                                {
+                                    dataAccess.Delete(items[i].EMSNUM);
+                                }                                                            
                             }
                             else
                             {
@@ -187,7 +190,7 @@ namespace candaBarcode.Droid
             }
         }
 
-        private string updateToSystem(string str)
+        private string updateToSystem(string str,string date)
         {
             try
             {
@@ -195,6 +198,7 @@ namespace candaBarcode.Droid
                 {
                     List<object> Parameters = new List<object>();
                     Parameters.Add(str);
+                    Parameters.Add(date);
                     string result = InvokeHelper.AbstractWebApiBusinessService("Kingdee.BOS.WebAPI.ServiceExtend.ServicesStub.CustomBusinessService.ExecuteService2", Parameters);
                     if (result == "0")
                     {

@@ -32,7 +32,7 @@ namespace candaBarcode.Droid
         public  Readerbase(Stream instream, Stream outstream , ObservableCollection<model.EmsNum> items, NotificationManager nMgr,Activity activity)
         {
             item = items;
-            index = items.Count-1;
+            index = items.Count+1;
             this.nMgr = nMgr;
             this.activity = activity;
             this.mInStream = instream;
@@ -185,10 +185,11 @@ namespace candaBarcode.Droid
                 var selectResult = from s in item
                                    where s.EMSNUM == str
                                    select s.EMSNUM;
-                if (selectResult.Count() <= 0)
+                if (selectResult.Count() <= 0&& !str.Contains("http"))
                 {
-                    model.EmsNum emsNum = new model.EmsNum { EMSNUM = str, state = "未同步" };
+                    model.EmsNum emsNum = new model.EmsNum { EMSNUM = str, state = "未同步",index=index };
                     item.Add(emsNum);
+                    index++;
                     SqliteDataAccess sql = new SqliteDataAccess();
                     sql.SaveOption(emsNum);
                     nMgr.Notify(1, notify.Build());

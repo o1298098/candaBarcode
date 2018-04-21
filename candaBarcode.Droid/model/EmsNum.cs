@@ -21,6 +21,7 @@ namespace candaBarcode.Droid.model
         private string NUM;
         private string _state;
         private string _datetime;
+        private int _index;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -55,6 +56,14 @@ namespace candaBarcode.Droid.model
             set {
                 _datetime = value;
                 OnPropertyChanged("datetime");
+            }
+        }
+        public int index {
+            get
+            { return _index; }
+            set {
+                _index = value;
+                OnPropertyChanged("index");
             }
         }
         protected void OnPropertyChanged(string propertyName)

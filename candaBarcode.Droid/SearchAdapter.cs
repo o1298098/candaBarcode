@@ -15,13 +15,13 @@ using candaBarcode.Droid.model;
 
 namespace candaBarcode.Droid
 {
-    public class SearchAdapter : BaseAdapter<InfoTable>
+    public class SearchAdapter : BaseAdapter<EmsNum>
     {
-        List<InfoTable> Items;
+        List<EmsNum> Items;
         Activity context;
 
 
-        public SearchAdapter(Activity context, List<InfoTable> items) : base()
+        public SearchAdapter(Activity context, List<EmsNum> items) : base()
         {
             this.context = context;
             this.Items = items;
@@ -32,7 +32,7 @@ namespace candaBarcode.Droid
         {
             return position;
         }
-        public override InfoTable this[int position]
+        public override EmsNum this[int position]
         {
             get { return Items[position]; }
         }
@@ -44,7 +44,7 @@ namespace candaBarcode.Droid
         //{
         //    base.NotifyDataSetChanged();
         //}
-        public void refresh(List<InfoTable> list)
+        public void refresh(List<EmsNum> list)
         {
             Items = list;
             NotifyDataSetChanged();
@@ -56,9 +56,9 @@ namespace candaBarcode.Droid
             
             if (view == null)
                 view = context.LayoutInflater.Inflate(Resource.Layout.SearchAdapter, null);
-            view.FindViewById<TextView>(Resource.Id.EMSNUM).Text=Items[position].EmsNum;
+            view.FindViewById<TextView>(Resource.Id.EMSNUM).Text=Items[position].EMSNUM;
             view.FindViewById<TextView>(Resource.Id.state).Text = Items[position].state;
-            view.FindViewById<TextView>(Resource.Id.ScanDate).Text = Items[position].dateTime;
+            view.FindViewById<TextView>(Resource.Id.ScanDate).Text = Items[position].datetime;
             //if (holder == null)
             //{
             //    holder = new ListAdapterViewHolder();
