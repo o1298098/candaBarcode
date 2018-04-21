@@ -136,9 +136,9 @@ namespace candaBarcode.Droid
                 return true;
             }
 
-            if (keyCode.ToString()=="F4")
+            if (keyCode.ToString() == "F4")
             {
-               
+
                 RunOnUiThread(() =>
                 {
                     Thread.Sleep(150);
@@ -153,19 +153,21 @@ namespace candaBarcode.Droid
         {
             while (true)
             {
-                int count = items.Select(x => x.state != "已同步").Count();
+                int count = items.Select(x => x.state == "未同步").Count();
                 if (count > 0)
                 {
                     for (int i=0;i<items.Count;i++)
                     {
                         try
                         {
+                            if (items[i].state=="未同步") {                              
                             string answer = updateToSystem(items[i].EMSNUM,items[i].datetime);
                             if (answer!="err")
                             {
                                 items[i].state = answer;
-                                if (answer != "无记录")
-                                {
+                                  
+                                    if (answer != "无记录")
+                                    {
                                     dataAccess.Delete(items[i].EMSNUM);
                                 }                                                            
                             }
@@ -173,6 +175,7 @@ namespace candaBarcode.Droid
                             {
                                 Thread.Sleep(3000);
                                 break;
+                            }
                             }
                         }
                         catch (System.Exception ex)
